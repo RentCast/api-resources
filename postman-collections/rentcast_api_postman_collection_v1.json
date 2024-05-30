@@ -1,0 +1,2131 @@
+{
+  "info": {
+    "_postman_id": "4b4532c7-3e0f-4a51-a019-438a3d68b4c3",
+    "name": "RentCast API Endpoints",
+    "description": "This collection contains all endpoints for retrieving property records, property valuations, real estate listings, and market data using the RentCast property data API.\n\n## Getting Started\n\nWe use API keys to authenticate all requests to our API and to track your API usage and billing.\n\nIf you haven't done so already, follow this guide to create a RentCast account, activate your API subscription, and generate an API key:\n\n[https://developers.rentcast.io/reference/getting-started-guide](https://developers.rentcast.io/reference/getting-started-guide)\n\n#### Adding Your API Key to PostMan\n\nOnce you've generated an API key, you have two options for adding it to PostMan:\n\n1. **Using collection variables (default)**: open the [Variables](https://www.postman.com/rentcast/workspace/rentcast-api/collection/34259606-4b4532c7-3e0f-4a51-a019-438a3d68b4c3?tab=variables) tab of this collection and enter your API key as the current value of the `api_key` variable\n2. **Using environment variables**: alternatively, you can use the [Development](https://www.postman.com/rentcast/workspace/rentcast-api/environment/34259606-dd8c731a-feea-4625-b546-8e769699b389) or [Production](https://www.postman.com/rentcast/workspace/rentcast-api/environment/34259606-334cc5c3-472a-41a6-90be-86bb2882a03a) environments to manage your API keys with the `api_key` environment variable. When using this option, select an environment at the top right, and modify the [Authorization](https://www.postman.com/rentcast/workspace/rentcast-api/collection/34259606-4b4532c7-3e0f-4a51-a019-438a3d68b4c3?tab=authorization) header value in this collection to use the environment `api_key` variable\n    \n\nOnce you've added your API key to PostMan using one of the two options above, all API requests will automatically send it to our server in the `X-Api-Key` header.\n\n## Available Data Sets\n\nThe following is a list of data sets that we provide for retrieving property data:\n\n- [Property data](https://www.postman.com/rentcast/workspace/rentcast-api/folder/34259606-7a95fcca-5c07-49d8-9d33-3d2013e4e49b): retrieve property attributes, features, property tax data, and property owner information for residential and commercial properties in the US\n- [Property valuation](https://www.postman.com/rentcast/workspace/rentcast-api/folder/34259606-5930b665-c298-402a-a11c-2c91723a5671): retrieve property value and rent estimates (AVM) for residential and commercial properties in the US, as well as sales and rental comparables\n- [Property listings](https://www.postman.com/rentcast/workspace/rentcast-api/folder/34259606-0d104a49-535a-44f5-bf66-f75ab8c8b030): retrieve active and historical sale and rental listings in the US\n- [Market data](https://www.postman.com/rentcast/workspace/rentcast-api/folder/34259606-a31b6303-8148-4eee-ab13-f8a79f08a0dd): retrieve aggregate rental listing data, averages, listing statistics, and historical rent trends for US zip codes\n    \n\n## Guides and More Information\n\nYou can view detailed guides on using our API, learn more about our data sources and coverage, and view a full reference of our available endpoints on our API developer portal:\n\n[https://developers.rentcast.io/reference/introduction](https://developers.rentcast.io/reference/introduction)\n\nThis includes tips on how to structure your [search queries](https://developers.rentcast.io/reference/search-queries), how to retrieve data in bulk using [pagination](https://developers.rentcast.io/reference/pagination), the [types of properties](https://developers.rentcast.io/reference/property-types) we support, as well as our [rate limits](https://developers.rentcast.io/reference/rate-limits) and [response codes](https://developers.rentcast.io/reference/response-codes).\n\n## Help and Support\n\nOur dedicated support team is available 7 days a week to answer your questions and provide help with your integration via live chat or email.\n\nYou can contact us by launching the live chat at the bottom right of our [developer portal](https://developers.rentcast.io), or by sending an email to [support@rentcast.io](https://mailto:support@rentcast.io).",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "34259606",
+    "_collection_link": "https://www.postman.com/rentcast/workspace/rentcast-api/collection/34259606-4b4532c7-3e0f-4a51-a019-438a3d68b4c3?action=share&source=collection_link&creator=34259606"
+  },
+  "item": [
+    {
+      "name": "Property Data",
+      "item": [
+        {
+          "name": "Property Records",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "https://api.rentcast.io/v1/properties?address=5500 Grand Lake Dr, San Antonio, TX, 78244",
+              "protocol": "https",
+              "host": [
+                "api",
+                "rentcast",
+                "io"
+              ],
+              "path": [
+                "v1",
+                "properties"
+              ],
+              "query": [
+                {
+                  "key": "address",
+                  "value": "5500 Grand Lake Dr, San Antonio, TX, 78244",
+                  "description": "(String) The **full address** of the property, in the format of `Street, City, State, Zip`. Used to retrieve data for a specific property, or together with the `radius` parameter to search for properties in a specific area"
+                },
+                {
+                  "key": "city",
+                  "value": "",
+                  "description": "(String) The name of the city, used to search for properties in a specific city. This parameter is case-sensitive",
+                  "disabled": true
+                },
+                {
+                  "key": "state",
+                  "value": "",
+                  "description": "(String) The 2-character state abbreviation, used to search for properties in a specific state. This parameter is case-sensitive",
+                  "disabled": true
+                },
+                {
+                  "key": "zipCode",
+                  "value": "",
+                  "description": "(String) The 5-digit zip code, used to search for properties in a specific zip code",
+                  "disabled": true
+                },
+                {
+                  "key": "latitude",
+                  "value": "",
+                  "description": "(Float) The latitude of the search area. Use the `latitude`/`longitude` and `radius` parameters to search for properties in a specific area",
+                  "disabled": true
+                },
+                {
+                  "key": "longitude",
+                  "value": "",
+                  "description": "(Float) The longitude of the search area. Use the `latitude`/`longitude` and `radius` parameters to search for properties in a specific area",
+                  "disabled": true
+                },
+                {
+                  "key": "radius",
+                  "value": "",
+                  "description": "(Float) The radius of the search area in miles, with a maximum of 100. Use in combination with the `latitude`/`longitude` or `address` parameters to search for properties in a specific area",
+                  "disabled": true
+                },
+                {
+                  "key": "propertyType",
+                  "value": "",
+                  "description": "(String) The type of the property, used to search for properties matching this criteria. See [explanation of property types](https://developers.rentcast.io/reference/property-types)",
+                  "disabled": true
+                },
+                {
+                  "key": "bedrooms",
+                  "value": "",
+                  "description": "(Float) The number of bedrooms, used to search for properties matching this criteria. Use `0` to indicate a studio layout",
+                  "disabled": true
+                },
+                {
+                  "key": "bathrooms",
+                  "value": "",
+                  "description": "(Float) The number of bathrooms, used to search for properties matching this criteria. Supports fractions to indicate partial bathrooms",
+                  "disabled": true
+                },
+                {
+                  "key": "limit",
+                  "value": "",
+                  "description": "(Integer) The maximum number of property records to return, between 1 and 500. Defaults to 50 if not provided. [Learn more](https://developers.rentcast.io/reference/pagination) about pagination",
+                  "disabled": true
+                },
+                {
+                  "key": "offset",
+                  "value": "",
+                  "description": "(Integer) The index of the first property record to return, used to paginate through large lists of results. Defaults to 0 if not provided. [Learn more](https://developers.rentcast.io/reference/pagination) about pagination",
+                  "disabled": true
+                }
+              ]
+            },
+            "description": "Search for property records in a geographical area, or by a specific address.\n\nView the full documentation for this endpoint on our API developer portal:\n\n[https://developers.rentcast.io/reference/property-records](https://developers.rentcast.io/reference/property-records)"
+          },
+          "response": [
+            {
+              "name": "Get Property Records by Search Criteria",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "https://api.rentcast.io/v1/properties?city=Austin&state=TX&limit=5",
+                  "protocol": "https",
+                  "host": [
+                    "api",
+                    "rentcast",
+                    "io"
+                  ],
+                  "path": [
+                    "v1",
+                    "properties"
+                  ],
+                  "query": [
+                    {
+                      "key": "address",
+                      "value": "",
+                      "description": "(String) The **full address** of the property, in the format of `Street, City, State, Zip`. Used to retrieve data for a specific property, or together with the `radius` parameter to search for properties in a specific area",
+                      "disabled": true
+                    },
+                    {
+                      "key": "city",
+                      "value": "Austin",
+                      "description": "(String) The name of the city, used to search for properties in a specific city. This parameter is case-sensitive"
+                    },
+                    {
+                      "key": "state",
+                      "value": "TX",
+                      "description": "(String) The 2-character state abbreviation, used to search for properties in a specific state. This parameter is case-sensitive"
+                    },
+                    {
+                      "key": "zipCode",
+                      "value": "",
+                      "description": "(String) The 5-digit zip code, used to search for properties in a specific zip code",
+                      "disabled": true
+                    },
+                    {
+                      "key": "latitude",
+                      "value": "",
+                      "description": "(Float) The latitude of the search area. Use the `latitude`/`longitude` and `radius` parameters to search for properties in a specific area",
+                      "disabled": true
+                    },
+                    {
+                      "key": "longitude",
+                      "value": "",
+                      "description": "(Float) The longitude of the search area. Use the `latitude`/`longitude` and `radius` parameters to search for properties in a specific area",
+                      "disabled": true
+                    },
+                    {
+                      "key": "radius",
+                      "value": "",
+                      "description": "(Float) The radius of the search area in miles, with a maximum of 100. Use in combination with the `latitude`/`longitude` or `address` parameters to search for properties in a specific area",
+                      "disabled": true
+                    },
+                    {
+                      "key": "propertyType",
+                      "value": "",
+                      "description": "(String) The type of the property, used to search for properties matching this criteria. See [explanation of property types](https://developers.rentcast.io/reference/property-types)",
+                      "disabled": true
+                    },
+                    {
+                      "key": "bedrooms",
+                      "value": "",
+                      "description": "(Float) The number of bedrooms, used to search for properties matching this criteria. Use `0` to indicate a studio layout",
+                      "disabled": true
+                    },
+                    {
+                      "key": "bathrooms",
+                      "value": "",
+                      "description": "(Float) The number of bathrooms, used to search for properties matching this criteria. Supports fractions to indicate partial bathrooms",
+                      "disabled": true
+                    },
+                    {
+                      "key": "limit",
+                      "value": "5",
+                      "description": "(Integer) The maximum number of property records to return, between 1 and 500. Defaults to 50 if not provided. [Learn more](https://developers.rentcast.io/reference/pagination) about pagination"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "",
+                      "description": "(Integer) The index of the first property record to return, used to paginate through large lists of results. Defaults to 0 if not provided. [Learn more](https://developers.rentcast.io/reference/pagination) about pagination",
+                      "disabled": true
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json",
+                  "name": "Content-Type",
+                  "description": "",
+                  "type": "text"
+                }
+              ],
+              "cookie": [],
+              "body": "[\n    {\n        \"id\": \"15216-Hawk-St,-Austin,-TX-78734\",\n        \"formattedAddress\": \"15216 Hawk St, Austin, TX 78734\",\n        \"addressLine1\": \"15216 Hawk St\",\n        \"addressLine2\": null,\n        \"city\": \"Austin\",\n        \"state\": \"TX\",\n        \"zipCode\": \"78734\",\n        \"county\": \"Travis\",\n        \"latitude\": 30.347739,\n        \"longitude\": -97.961054,\n        \"propertyType\": \"Single Family\",\n        \"bathrooms\": 2,\n        \"squareFootage\": 2606,\n        \"lotSize\": 12070,\n        \"yearBuilt\": 2005,\n        \"assessorID\": \"0133700106\",\n        \"legalDescription\": \"LOT 86 CARDINAL HILLS UNIT 6\",\n        \"subdivision\": \"CARDINAL HILLS UNIT 6\",\n        \"lastSaleDate\": \"2017-08-31T00:00:00.000Z\",\n        \"features\": {\n            \"cooling\": true,\n            \"coolingType\": \"Commercial\",\n            \"fireplace\": true,\n            \"floorCount\": 1,\n            \"foundationType\": \"Slab / Mat / Raft\",\n            \"garage\": true,\n            \"garageSpaces\": 2,\n            \"garageType\": \"Attached\",\n            \"heating\": true,\n            \"heatingType\": \"Central\",\n            \"roofType\": \"Composition Shingle\",\n            \"unitCount\": 1\n        },\n        \"taxAssessments\": {\n            \"2018\": {\n                \"value\": 417069,\n                \"land\": 80000,\n                \"improvements\": 337069\n            },\n            \"2022\": {\n                \"value\": 816420,\n                \"land\": 80000,\n                \"improvements\": 736420\n            },\n            \"2023\": {\n                \"value\": 807654,\n                \"land\": 80000,\n                \"improvements\": 727654\n            }\n        },\n        \"propertyTaxes\": {\n            \"2017\": {\n                \"total\": 10542\n            },\n            \"2022\": {\n                \"total\": 8394\n            }\n        },\n        \"owner\": {\n            \"names\": [\n                \"Cannon Kilde\",\n                \"SHANNA KILDE\"\n            ],\n            \"mailingAddress\": {\n                \"id\": \"15216-Hawk-St,-Lakeway,-TX-78734\",\n                \"formattedAddress\": \"15216 Hawk St, Lakeway, TX 78734\",\n                \"addressLine1\": \"15216 Hawk St\",\n                \"addressLine2\": null,\n                \"city\": \"Lakeway\",\n                \"state\": \"TX\",\n                \"zipCode\": \"78734\"\n            }\n        },\n        \"ownerOccupied\": true\n    },\n    {\n        \"id\": \"15400-Cree-Cir,-Austin,-TX-78734\",\n        \"formattedAddress\": \"15400 Cree Cir, Austin, TX 78734\",\n        \"addressLine1\": \"15400 Cree Cir\",\n        \"addressLine2\": null,\n        \"city\": \"Austin\",\n        \"state\": \"TX\",\n        \"zipCode\": \"78734\",\n        \"county\": \"Travis\",\n        \"latitude\": 30.4118,\n        \"longitude\": -97.919835,\n        \"propertyType\": \"Single Family\",\n        \"bathrooms\": 2,\n        \"squareFootage\": 2657,\n        \"lotSize\": 24751,\n        \"yearBuilt\": 2001,\n        \"assessorID\": \"0158550227\",\n        \"legalDescription\": \"LOT 24&25 BLK 1M TRAVIS LANDING NO 2 PHS 5\",\n        \"subdivision\": \"TRAVIS LANDING NO 2 PHS 5\",\n        \"lastSaleDate\": \"2006-12-18T00:00:00.000Z\",\n        \"features\": {\n            \"cooling\": true,\n            \"coolingType\": \"Commercial\",\n            \"fireplace\": true,\n            \"floorCount\": 2,\n            \"foundationType\": \"Slab / Mat / Raft\",\n            \"garage\": true,\n            \"garageSpaces\": 2,\n            \"garageType\": \"Attached\",\n            \"heating\": true,\n            \"heatingType\": \"Central\",\n            \"roofType\": \"Composition Shingle\",\n            \"unitCount\": 1\n        },\n        \"taxAssessments\": {\n            \"2018\": {\n                \"value\": 329187,\n                \"land\": 89250,\n                \"improvements\": 304145\n            },\n            \"2020\": {\n                \"value\": 376328,\n                \"land\": 89250,\n                \"improvements\": 287078\n            },\n            \"2022\": {\n                \"value\": 757818,\n                \"land\": 210000,\n                \"improvements\": 547818\n            },\n            \"2023\": {\n                \"value\": 791303,\n                \"land\": 210000,\n                \"improvements\": 581303\n            }\n        },\n        \"propertyTaxes\": {\n            \"2017\": {\n                \"total\": 4619\n            },\n            \"2019\": {\n                \"total\": 5473\n            },\n            \"2022\": {\n                \"total\": 6067\n            }\n        },\n        \"owner\": {\n            \"names\": [\n                \"PAWEL PODNIESINSKI\",\n                \"SYLVIA PODNIESINSKI\"\n            ],\n            \"mailingAddress\": {\n                \"id\": \"15400-Cree-Cir,-Austin,-TX-78734\",\n                \"addressLine1\": \"15400 Cree Cir\",\n                \"addressLine2\": null,\n                \"city\": \"Austin\",\n                \"state\": \"TX\",\n                \"zipCode\": \"78734\"\n            }\n        },\n        \"ownerOccupied\": true\n    },\n    {\n        \"id\": \"16115-Lake-Travis-Dr,-Austin,-TX-78734\",\n        \"formattedAddress\": \"16115 Lake Travis Dr, Austin, TX 78734\",\n        \"addressLine1\": \"16115 Lake Travis Dr\",\n        \"addressLine2\": null,\n        \"city\": \"Austin\",\n        \"state\": \"TX\",\n        \"zipCode\": \"78734\",\n        \"county\": \"Travis\",\n        \"latitude\": 30.426059,\n        \"longitude\": -97.92361,\n        \"propertyType\": \"Single Family\",\n        \"bathrooms\": 2,\n        \"squareFootage\": 2736,\n        \"lotSize\": 121837,\n        \"yearBuilt\": 1963,\n        \"assessorID\": \"0164580816\",\n        \"legalDescription\": \"LOT 11 BLK 1 HUDSON BEND COLONY NO 2 LOT 10 BLK 1 HUDSON BEND COLONY NO 2 AMENDED PLAT OF LOTS 9 & 10\",\n        \"subdivision\": \"HUDSON BEND COLONY NO 2\",\n        \"lastSaleDate\": \"2011-03-17T00:00:00.000Z\",\n        \"features\": {\n            \"cooling\": true,\n            \"coolingType\": \"Commercial\",\n            \"fireplace\": true,\n            \"floorCount\": 1,\n            \"foundationType\": \"Slab / Mat / Raft\",\n            \"garage\": true,\n            \"garageSpaces\": 6,\n            \"garageType\": \"Mixed\",\n            \"heating\": true,\n            \"heatingType\": \"Central\",\n            \"roofType\": \"Metal\",\n            \"unitCount\": 1\n        },\n        \"taxAssessments\": {\n            \"2018\": {\n                \"value\": 963318,\n                \"land\": 742500,\n                \"improvements\": 233358\n            },\n            \"2020\": {\n                \"value\": 975800,\n                \"land\": 742500,\n                \"improvements\": 233300\n            },\n            \"2022\": {\n                \"value\": 1555531,\n                \"land\": 742500,\n                \"improvements\": 813031\n            }\n        },\n        \"propertyTaxes\": {\n            \"2017\": {\n                \"total\": 13378\n            },\n            \"2019\": {\n                \"total\": 14467\n            },\n            \"2022\": {\n                \"total\": 15451\n            }\n        },\n        \"owner\": {\n            \"names\": [\n                \"CATHERINE H WEYAND\",\n                \"LOUIS O WEYAND\"\n            ],\n            \"mailingAddress\": {\n                \"id\": \"16115-Lake-Travis-Dr,-Austin,-TX-78734\",\n                \"addressLine1\": \"16115 Lake Travis Dr\",\n                \"addressLine2\": null,\n                \"city\": \"Austin\",\n                \"state\": \"TX\",\n                \"zipCode\": \"78734\"\n            }\n        },\n        \"ownerOccupied\": true\n    },\n    {\n        \"id\": \"2005-Big-Horn-Dr,-Austin,-TX-78734\",\n        \"formattedAddress\": \"2005 Big Horn Dr, Austin, TX 78734\",\n        \"addressLine1\": \"2005 Big Horn Dr\",\n        \"addressLine2\": null,\n        \"city\": \"Austin\",\n        \"state\": \"TX\",\n        \"zipCode\": \"78734\",\n        \"county\": \"Travis\",\n        \"latitude\": 30.370161,\n        \"longitude\": -97.915205,\n        \"propertyType\": \"Single Family\",\n        \"bathrooms\": 2,\n        \"squareFootage\": 1852,\n        \"lotSize\": 16535,\n        \"yearBuilt\": 1992,\n        \"assessorID\": \"0143550506\",\n        \"legalDescription\": \"LOT 684 BLK A APACHE SHORES SEC 4\",\n        \"subdivision\": \"APACHE SHORES SEC 4\",\n        \"lastSaleDate\": \"1991-09-12T00:00:00.000Z\",\n        \"features\": {\n            \"cooling\": true,\n            \"coolingType\": \"Commercial\",\n            \"fireplace\": true,\n            \"floorCount\": 2,\n            \"foundationType\": \"Slab / Mat / Raft\",\n            \"garage\": true,\n            \"garageSpaces\": 1,\n            \"garageType\": \"Attached\",\n            \"heating\": true,\n            \"heatingType\": \"Central\",\n            \"roofType\": \"Composition Shingle\",\n            \"unitCount\": 1\n        },\n        \"taxAssessments\": {\n            \"2018\": {\n                \"value\": 770002,\n                \"land\": 750000,\n                \"improvements\": 188599\n            },\n            \"2020\": {\n                \"value\": 931702,\n                \"land\": 750000,\n                \"improvements\": 186200\n            },\n            \"2022\": {\n                \"value\": 2402098,\n                \"land\": 750000,\n                \"improvements\": 1652098\n            },\n            \"2023\": {\n                \"value\": 2011659,\n                \"land\": 1650000,\n                \"improvements\": 361659\n            }\n        },\n        \"propertyTaxes\": {\n            \"2017\": {\n                \"total\": 10770\n            },\n            \"2019\": {\n                \"total\": 12583\n            },\n            \"2022\": {\n                \"total\": 14899\n            }\n        },\n        \"owner\": {\n            \"names\": [\n                \"Brian Muskopf\"\n            ],\n            \"mailingAddress\": {\n                \"id\": \"2005-Big-Horn-Dr,-Austin,-TX-78734\",\n                \"formattedAddress\": \"2005 Big Horn Dr, Austin, TX 78734\",\n                \"addressLine1\": \"2005 Big Horn Dr\",\n                \"addressLine2\": null,\n                \"city\": \"Austin\",\n                \"state\": \"TX\",\n                \"zipCode\": \"78734\"\n            }\n        },\n        \"ownerOccupied\": true\n    },\n    {\n        \"id\": \"13304-Pecan-Dr,-Austin,-TX-78734\",\n        \"formattedAddress\": \"13304 Pecan Dr, Austin, TX 78734\",\n        \"addressLine1\": \"13304 Pecan Dr\",\n        \"addressLine2\": null,\n        \"city\": \"Austin\",\n        \"state\": \"TX\",\n        \"zipCode\": \"78734\",\n        \"county\": \"Travis\",\n        \"latitude\": 30.355161,\n        \"longitude\": -97.921749,\n        \"propertyType\": \"Single Family\",\n        \"bathrooms\": 2,\n        \"squareFootage\": 2387,\n        \"lotSize\": 414256,\n        \"yearBuilt\": 1991,\n        \"assessorID\": \"01375503160000\",\n        \"legalDescription\": \"LOT 5 BLK 2 RIO VISTA ADDN & ABS 368 SUR 474 HARRISON W ACR 9.195 (TOTAL ACR: 9.5100)\",\n        \"subdivision\": \"RIO VISTA ADDN\",\n        \"lastSaleDate\": \"2011-05-31T00:00:00.000Z\",\n        \"features\": {\n            \"cooling\": true,\n            \"coolingType\": \"Central\",\n            \"fireplace\": true,\n            \"floorCount\": 1,\n            \"foundationType\": \"Slab\",\n            \"garage\": true,\n            \"garageSpaces\": 2,\n            \"garageType\": \"Detached Garage\",\n            \"heating\": true,\n            \"heatingType\": \"Central\",\n            \"roofType\": \"Metal\",\n            \"unitCount\": 1\n        },\n        \"taxAssessments\": {\n            \"2018\": {\n                \"value\": 489894,\n                \"land\": 285300,\n                \"improvements\": 204594\n            },\n            \"2020\": {\n                \"value\": 489894,\n                \"land\": 285300,\n                \"improvements\": 204594\n            }\n        },\n        \"propertyTaxes\": {\n            \"2017\": {\n                \"total\": 10443\n            },\n            \"2019\": {\n                \"total\": 9369\n            }\n        },\n        \"owner\": {\n            \"names\": [\n                \"MSMJM LAM LLC\"\n            ],\n            \"mailingAddress\": {\n                \"id\": \"1401-Foch-St,-Fort-Worth,-TX-76107\",\n                \"addressLine1\": \"1401 Foch St\",\n                \"addressLine2\": null,\n                \"city\": \"Fort Worth\",\n                \"state\": \"TX\",\n                \"zipCode\": \"76107\"\n            }\n        },\n        \"ownerOccupied\": false\n    }\n]"
+            },
+            {
+              "name": "Get Property Records by Address",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "https://api.rentcast.io/v1/properties?address=5500 Grand Lake Dr, San Antonio, TX, 78244",
+                  "protocol": "https",
+                  "host": [
+                    "api",
+                    "rentcast",
+                    "io"
+                  ],
+                  "path": [
+                    "v1",
+                    "properties"
+                  ],
+                  "query": [
+                    {
+                      "key": "address",
+                      "value": "5500 Grand Lake Dr, San Antonio, TX, 78244",
+                      "description": "(String) The **full address** of the property, in the format of `Street, City, State, Zip`. Used to retrieve data for a specific property, or together with the `radius` parameter to search for properties in a specific area"
+                    },
+                    {
+                      "key": "city",
+                      "value": "",
+                      "description": "(String) The name of the city, used to search for properties in a specific city. This parameter is case-sensitive",
+                      "disabled": true
+                    },
+                    {
+                      "key": "state",
+                      "value": "",
+                      "description": "(String) The 2-character state abbreviation, used to search for properties in a specific state. This parameter is case-sensitive",
+                      "disabled": true
+                    },
+                    {
+                      "key": "zipCode",
+                      "value": "",
+                      "description": "(String) The 5-digit zip code, used to search for properties in a specific zip code",
+                      "disabled": true
+                    },
+                    {
+                      "key": "latitude",
+                      "value": "",
+                      "description": "(Float) The latitude of the search area. Use the `latitude`/`longitude` and `radius` parameters to search for properties in a specific area",
+                      "disabled": true
+                    },
+                    {
+                      "key": "longitude",
+                      "value": "",
+                      "description": "(Float) The longitude of the search area. Use the `latitude`/`longitude` and `radius` parameters to search for properties in a specific area",
+                      "disabled": true
+                    },
+                    {
+                      "key": "radius",
+                      "value": "",
+                      "description": "(Float) The radius of the search area in miles, with a maximum of 100. Use in combination with the `latitude`/`longitude` or `address` parameters to search for properties in a specific area",
+                      "disabled": true
+                    },
+                    {
+                      "key": "propertyType",
+                      "value": "",
+                      "description": "(String) The type of the property, used to search for properties matching this criteria. See [explanation of property types](https://developers.rentcast.io/reference/property-types)",
+                      "disabled": true
+                    },
+                    {
+                      "key": "bedrooms",
+                      "value": "",
+                      "description": "(Float) The number of bedrooms, used to search for properties matching this criteria. Use `0` to indicate a studio layout",
+                      "disabled": true
+                    },
+                    {
+                      "key": "bathrooms",
+                      "value": "",
+                      "description": "(Float) The number of bathrooms, used to search for properties matching this criteria. Supports fractions to indicate partial bathrooms",
+                      "disabled": true
+                    },
+                    {
+                      "key": "limit",
+                      "value": "",
+                      "description": "(Integer) The maximum number of property records to return, between 1 and 500. Defaults to 50 if not provided. [Learn more](https://developers.rentcast.io/reference/pagination) about pagination",
+                      "disabled": true
+                    },
+                    {
+                      "key": "offset",
+                      "value": "",
+                      "description": "(Integer) The index of the first property record to return, used to paginate through large lists of results. Defaults to 0 if not provided. [Learn more](https://developers.rentcast.io/reference/pagination) about pagination",
+                      "disabled": true
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json",
+                  "name": "Content-Type",
+                  "description": "",
+                  "type": "text"
+                }
+              ],
+              "cookie": [],
+              "body": "[\n    {\n        \"id\": \"5500-Grand-Lake-Dr,-San-Antonio,-TX-78244\",\n        \"formattedAddress\": \"5500 Grand Lake Dr, San Antonio, TX 78244\",\n        \"addressLine1\": \"5500 Grand Lake Dr\",\n        \"addressLine2\": null,\n        \"city\": \"San Antonio\",\n        \"state\": \"TX\",\n        \"zipCode\": \"78244\",\n        \"county\": \"Bexar\",\n        \"latitude\": 29.475962,\n        \"longitude\": -98.351442,\n        \"propertyType\": \"Single Family\",\n        \"bedrooms\": 3,\n        \"bathrooms\": 2,\n        \"squareFootage\": 1878,\n        \"lotSize\": 8843,\n        \"yearBuilt\": 1973,\n        \"assessorID\": \"05076-103-0500\",\n        \"legalDescription\": \"CB 5076A BLK 3 LOT 50\",\n        \"subdivision\": \"CONV A/S CODE\",\n        \"zoning\": \"RH\",\n        \"lastSaleDate\": \"2017-10-19T00:00:00.000Z\",\n        \"lastSalePrice\": 185000,\n        \"features\": {\n            \"architectureType\": \"Contemporary\",\n            \"cooling\": true,\n            \"coolingType\": \"Central\",\n            \"exteriorType\": \"Wood\",\n            \"floorCount\": 1,\n            \"foundationType\": \"Slab / Mat / Raft\",\n            \"garage\": true,\n            \"garageType\": \"Garage\",\n            \"heating\": true,\n            \"heatingType\": \"Forced Air\",\n            \"pool\": true,\n            \"roofType\": \"Asphalt\",\n            \"roomCount\": 5,\n            \"unitCount\": 1\n        },\n        \"taxAssessments\": {\n            \"2019\": {\n                \"value\": 135430,\n                \"land\": 23450,\n                \"improvements\": 111980\n            },\n            \"2020\": {\n                \"value\": 142610,\n                \"land\": 23450,\n                \"improvements\": 119160\n            },\n            \"2021\": {\n                \"value\": 163440,\n                \"land\": 45050,\n                \"improvements\": 118390\n            },\n            \"2022\": {\n                \"value\": 197600,\n                \"land\": 49560,\n                \"improvements\": 148040\n            },\n            \"2023\": {\n                \"value\": 225790,\n                \"land\": 59380,\n                \"improvements\": 166410\n            }\n        },\n        \"propertyTaxes\": {\n            \"2019\": {\n                \"total\": 2984\n            },\n            \"2020\": {\n                \"total\": 3023\n            },\n            \"2021\": {\n                \"total\": 3455\n            },\n            \"2022\": {\n                \"total\": 4091\n            },\n            \"2023\": {\n                \"total\": 4675\n            }\n        },\n        \"owner\": {\n            \"names\": [\n                \"Michael Smith\"\n            ],\n            \"mailingAddress\": {\n                \"id\": \"149-Weaver-Blvd,---264,-Weaverville,-NC-28787\",\n                \"formattedAddress\": \"149 Weaver Blvd, # 264, Weaverville, NC 28787\",\n                \"addressLine1\": \"149 Weaver Blvd\",\n                \"addressLine2\": \"# 264\",\n                \"city\": \"Weaverville\",\n                \"state\": \"NC\",\n                \"zipCode\": \"28787\"\n            }\n        },\n        \"ownerOccupied\": false\n    }\n]"
+            }
+          ]
+        },
+        {
+          "name": "Random Property Records",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "https://api.rentcast.io/v1/properties/random?limit=5",
+              "protocol": "https",
+              "host": [
+                "api",
+                "rentcast",
+                "io"
+              ],
+              "path": [
+                "v1",
+                "properties",
+                "random"
+              ],
+              "query": [
+                {
+                  "key": "limit",
+                  "value": "5",
+                  "description": "(Integer) The number of property records to return, between 1 and 500. Defaults to 50 if not provided"
+                }
+              ]
+            },
+            "description": "Returns a list of property records selected at random.\n\nView the full documentation for this endpoint on our API developer portal:\n\n[https://developers.rentcast.io/reference/property-records-random](https://developers.rentcast.io/reference/property-records-random)"
+          },
+          "response": [
+            {
+              "name": "Get Random Property Records",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "https://api.rentcast.io/v1/properties/random?limit=5",
+                  "protocol": "https",
+                  "host": [
+                    "api",
+                    "rentcast",
+                    "io"
+                  ],
+                  "path": [
+                    "v1",
+                    "properties",
+                    "random"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "5",
+                      "description": "(Integer) The number of property records to return, between 1 and 500. Defaults to 50 if not provided"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json",
+                  "name": "Content-Type",
+                  "description": "",
+                  "type": "text"
+                }
+              ],
+              "cookie": [],
+              "body": "[\n    {\n        \"id\": \"5500-Grand-Lake-Dr,-San-Antonio,-TX-78244\",\n        \"formattedAddress\": \"5500 Grand Lake Dr, San Antonio, TX 78244\",\n        \"addressLine1\": \"5500 Grand Lake Dr\",\n        \"addressLine2\": null,\n        \"city\": \"San Antonio\",\n        \"state\": \"TX\",\n        \"zipCode\": \"78244\",\n        \"county\": \"Bexar\",\n        \"latitude\": 29.475962,\n        \"longitude\": -98.351442,\n        \"propertyType\": \"Single Family\",\n        \"bedrooms\": 3,\n        \"bathrooms\": 2,\n        \"squareFootage\": 1878,\n        \"lotSize\": 8843,\n        \"yearBuilt\": 1973,\n        \"assessorID\": \"05076-103-0500\",\n        \"legalDescription\": \"CB 5076A BLK 3 LOT 50\",\n        \"subdivision\": \"CONV A/S CODE\",\n        \"zoning\": \"RH\",\n        \"lastSaleDate\": \"2017-10-19T00:00:00.000Z\",\n        \"lastSalePrice\": 185000,\n        \"features\": {\n            \"architectureType\": \"Contemporary\",\n            \"cooling\": true,\n            \"coolingType\": \"Central\",\n            \"exteriorType\": \"Wood\",\n            \"floorCount\": 1,\n            \"foundationType\": \"Slab / Mat / Raft\",\n            \"garage\": true,\n            \"garageType\": \"Garage\",\n            \"heating\": true,\n            \"heatingType\": \"Forced Air\",\n            \"pool\": true,\n            \"roofType\": \"Asphalt\",\n            \"roomCount\": 5,\n            \"unitCount\": 1\n        },\n        \"taxAssessments\": {\n            \"2019\": {\n                \"value\": 135430,\n                \"land\": 23450,\n                \"improvements\": 111980\n            },\n            \"2020\": {\n                \"value\": 142610,\n                \"land\": 23450,\n                \"improvements\": 119160\n            },\n            \"2021\": {\n                \"value\": 163440,\n                \"land\": 45050,\n                \"improvements\": 118390\n            },\n            \"2022\": {\n                \"value\": 197600,\n                \"land\": 49560,\n                \"improvements\": 148040\n            },\n            \"2023\": {\n                \"value\": 225790,\n                \"land\": 59380,\n                \"improvements\": 166410\n            }\n        },\n        \"propertyTaxes\": {\n            \"2019\": {\n                \"total\": 2984\n            },\n            \"2020\": {\n                \"total\": 3023\n            },\n            \"2021\": {\n                \"total\": 3455\n            },\n            \"2022\": {\n                \"total\": 4091\n            },\n            \"2023\": {\n                \"total\": 4675\n            }\n        },\n        \"owner\": {\n            \"names\": [\n                \"Michael Smith\"\n            ],\n            \"mailingAddress\": {\n                \"id\": \"149-Weaver-Blvd,---264,-Weaverville,-NC-28787\",\n                \"formattedAddress\": \"149 Weaver Blvd, # 264, Weaverville, NC 28787\",\n                \"addressLine1\": \"149 Weaver Blvd\",\n                \"addressLine2\": \"# 264\",\n                \"city\": \"Weaverville\",\n                \"state\": \"NC\",\n                \"zipCode\": \"28787\"\n            }\n        },\n        \"ownerOccupied\": false\n    },\n    {\n        \"id\": \"602-University-Dr,-Waldorf,-MD-20602\",\n        \"formattedAddress\": \"602 University Dr, Waldorf, MD 20602\",\n        \"addressLine1\": \"602 University Dr\",\n        \"addressLine2\": null,\n        \"city\": \"Waldorf\",\n        \"state\": \"MD\",\n        \"zipCode\": \"20602\",\n        \"county\": \"Charles\",\n        \"latitude\": 38.589637,\n        \"longitude\": -76.916982,\n        \"propertyType\": \"Single Family\",\n        \"bedrooms\": 3,\n        \"bathrooms\": 1.5,\n        \"squareFootage\": 1500,\n        \"lotSize\": 11221,\n        \"yearBuilt\": 1977,\n        \"assessorID\": \"06-078761\",\n        \"legalDescription\": \"L-36 B-66 S-IV-B CARRINGTON NEIGHBORHOOD ST CHARLES SUB\",\n        \"subdivision\": \"CHARLES SUB\",\n        \"zoning\": \"RH\",\n        \"lastSaleDate\": \"2010-03-26T00:00:00.000Z\",\n        \"lastSalePrice\": 298000,\n        \"features\": {\n            \"architectureType\": \"Split Level\",\n            \"cooling\": true,\n            \"coolingType\": \"Commercial\",\n            \"exteriorType\": \"Siding\",\n            \"fireplace\": true,\n            \"fireplaceType\": \"2 Story Brick Chimney\",\n            \"floorCount\": 2,\n            \"garage\": true,\n            \"garageType\": \"Garage\",\n            \"heating\": true,\n            \"heatingType\": \"Forced Air\",\n            \"roofType\": \"Composition Shingle\",\n            \"unitCount\": 1\n        },\n        \"taxAssessments\": {\n            \"2022\": {\n                \"value\": 224100\n            },\n            \"2023\": {\n                \"value\": 245900\n            }\n        },\n        \"propertyTaxes\": {\n            \"2022\": {\n                \"total\": 2808\n            },\n            \"2023\": {\n                \"total\": 3382\n            }\n        },\n        \"owner\": {\n            \"names\": [\n                \"Priscilla D Harley\"\n            ],\n            \"mailingAddress\": {\n                \"id\": \"602-University-Dr,-Waldorf,-MD-20602\",\n                \"formattedAddress\": \"602 University Dr, Waldorf, MD 20602\",\n                \"addressLine1\": \"602 University Dr\",\n                \"addressLine2\": null,\n                \"city\": \"Waldorf\",\n                \"state\": \"MD\",\n                \"zipCode\": \"20602\"\n            }\n        },\n        \"ownerOccupied\": true\n    },\n    {\n        \"id\": \"10228-Enniscrone-Rd,-Pineville,-NC-28134\",\n        \"formattedAddress\": \"10228 Enniscrone Rd, Pineville, NC 28134\",\n        \"addressLine1\": \"10228 Enniscrone Rd\",\n        \"addressLine2\": null,\n        \"city\": \"Pineville\",\n        \"state\": \"NC\",\n        \"zipCode\": \"28134\",\n        \"county\": \"Mecklenburg\",\n        \"latitude\": 35.072198,\n        \"longitude\": -80.884813,\n        \"propertyType\": \"Single Family\",\n        \"bedrooms\": 3,\n        \"bathrooms\": 2.5,\n        \"squareFootage\": 2422,\n        \"lotSize\": 4200,\n        \"yearBuilt\": 2011,\n        \"assessorID\": \"22111210\",\n        \"legalDescription\": \"L71 M52-366\",\n        \"subdivision\": \"PARKWAY XING MAP 03\",\n        \"zoning\": \"B-P\",\n        \"lastSaleDate\": \"2023-11-29T00:00:00.000Z\",\n        \"lastSalePrice\": 410000,\n        \"features\": {\n            \"cooling\": true,\n            \"coolingType\": \"Central\",\n            \"exteriorType\": \"Aluminum / Vinyl Siding\",\n            \"fireplace\": true,\n            \"fireplaceType\": \"Prefab\",\n            \"floorCount\": 2,\n            \"foundationType\": \"Slab / Mat / Raft\",\n            \"garage\": true,\n            \"garageType\": \"Garage\",\n            \"heating\": true,\n            \"heatingType\": \"Forced Air\"\n        },\n        \"taxAssessments\": {\n            \"2020\": {\n                \"value\": 274700,\n                \"land\": 65000,\n                \"improvements\": 209700\n            },\n            \"2023\": {\n                \"value\": 407700,\n                \"land\": 100000,\n                \"improvements\": 307700\n            }\n        },\n        \"propertyTaxes\": {\n            \"2020\": {\n                \"total\": 2601\n            },\n            \"2023\": {\n                \"total\": 3861\n            }\n        },\n        \"owner\": {\n            \"names\": [\n                \"SUSAN BURRITT HINKLE\"\n            ],\n            \"mailingAddress\": {\n                \"id\": \"10228-Enniscrone-Rd,-Pineville,-NC-28134\",\n                \"addressLine1\": \"10228 Enniscrone Rd\",\n                \"addressLine2\": null,\n                \"city\": \"Pineville\",\n                \"state\": \"NC\",\n                \"zipCode\": \"28134\"\n            }\n        },\n        \"ownerOccupied\": true\n    },\n    {\n        \"id\": \"13-Stacy-Ln,-Gerrardstown,-WV-25420\",\n        \"formattedAddress\": \"13 Stacy Ln, Gerrardstown, WV 25420\",\n        \"addressLine1\": \"13 Stacy Ln\",\n        \"addressLine2\": null,\n        \"city\": \"Gerrardstown\",\n        \"state\": \"WV\",\n        \"zipCode\": \"25420\",\n        \"county\": \"Berkeley\",\n        \"latitude\": 39.361939,\n        \"longitude\": -78.112123,\n        \"propertyType\": \"Land\",\n        \"lotSize\": 25265,\n        \"assessorID\": \"02-03- 35J-0001.0005\",\n        \"legalDescription\": \".5838 AC LOT E S/OF GERRARDSTOWN\",\n        \"features\": {},\n        \"taxAssessments\": {\n            \"2022\": {\n                \"value\": 21900,\n                \"land\": 21900\n            },\n            \"2023\": {\n                \"value\": 22920,\n                \"land\": 22920\n            }\n        },\n        \"propertyTaxes\": {\n            \"2022\": {\n                \"total\": 510\n            },\n            \"2023\": {\n                \"total\": 579\n            }\n        },\n        \"owner\": {\n            \"names\": [\n                \"Stacey Clayton Silver Miller\"\n            ],\n            \"mailingAddress\": {\n                \"id\": \"412-Ronald-Ln,-Gerrardstown,-WV-25420\",\n                \"formattedAddress\": \"412 Ronald Ln, Gerrardstown, WV 25420\",\n                \"addressLine1\": \"412 Ronald Ln\",\n                \"addressLine2\": null,\n                \"city\": \"Gerrardstown\",\n                \"state\": \"WV\",\n                \"zipCode\": \"25420\"\n            }\n        },\n        \"ownerOccupied\": false\n    },\n    {\n        \"id\": \"3618-Warrensburg-Rd,-Delaware,-OH-43015\",\n        \"formattedAddress\": \"3618 Warrensburg Rd, Delaware, OH 43015\",\n        \"addressLine1\": \"3618 Warrensburg Rd\",\n        \"addressLine2\": null,\n        \"city\": \"Delaware\",\n        \"state\": \"OH\",\n        \"zipCode\": \"43015\",\n        \"county\": \"Delaware\",\n        \"latitude\": 40.312936,\n        \"longitude\": -83.136307,\n        \"propertyType\": \"Single Family\",\n        \"bedrooms\": 4,\n        \"bathrooms\": 2.5,\n        \"squareFootage\": 2464,\n        \"lotSize\": 217844,\n        \"yearBuilt\": 1991,\n        \"assessorID\": \"520-410-01-079-000\",\n        \"legalDescription\": \"LANDS 20 5 4 15\",\n        \"subdivision\": \"RADNOR\",\n        \"lastSaleDate\": \"2003-06-09T00:00:00.000Z\",\n        \"lastSalePrice\": 260800,\n        \"features\": {\n            \"architectureType\": \"Conventional\",\n            \"cooling\": true,\n            \"coolingType\": \"Central\",\n            \"exteriorType\": \"Combination\",\n            \"fireplace\": true,\n            \"floorCount\": 2,\n            \"garage\": true,\n            \"garageSpaces\": 3,\n            \"garageType\": \"Garage\",\n            \"heating\": true,\n            \"heatingType\": \"Baseboard\",\n            \"roomCount\": 7,\n            \"unitCount\": 1\n        },\n        \"taxAssessments\": {\n            \"2019\": {\n                \"value\": 105560,\n                \"land\": 22610,\n                \"improvements\": 82950\n            },\n            \"2022\": {\n                \"value\": 125550,\n                \"land\": 26010,\n                \"improvements\": 99540\n            }\n        },\n        \"propertyTaxes\": {\n            \"2019\": {\n                \"total\": 4465\n            },\n            \"2022\": {\n                \"total\": 5205\n            }\n        },\n        \"owner\": {\n            \"names\": [\n                \"Adam D Ralph\",\n                \"KATHERINE S RALPH\"\n            ],\n            \"mailingAddress\": {\n                \"id\": \"3618-Warrensburg-Rd,-Delaware,-OH-43015\",\n                \"formattedAddress\": \"3618 Warrensburg Rd, Delaware, OH 43015\",\n                \"addressLine1\": \"3618 Warrensburg Rd\",\n                \"addressLine2\": null,\n                \"city\": \"Delaware\",\n                \"state\": \"OH\",\n                \"zipCode\": \"43015\"\n            }\n        },\n        \"ownerOccupied\": true\n    }\n]"
+            }
+          ]
+        },
+        {
+          "name": "Property Record by Id",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "https://api.rentcast.io/v1/properties/:id",
+              "protocol": "https",
+              "host": [
+                "api",
+                "rentcast",
+                "io"
+              ],
+              "path": [
+                "v1",
+                "properties",
+                ":id"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "5500-Grand-Lake-Dr,-San-Antonio,-TX-78244",
+                  "description": "(String, Required) The id of the property record to return"
+                }
+              ]
+            },
+            "description": "Returns a single property record matching the specified id.\n\nView the full documentation for this endpoint on our API developer portal:\n\n[https://developers.rentcast.io/reference/property-record-by-id](https://developers.rentcast.io/reference/property-record-by-id)"
+          },
+          "response": [
+            {
+              "name": "Get Property Record by Id",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "https://api.rentcast.io/v1/properties/:id",
+                  "protocol": "https",
+                  "host": [
+                    "api",
+                    "rentcast",
+                    "io"
+                  ],
+                  "path": [
+                    "v1",
+                    "properties",
+                    ":id"
+                  ],
+                  "variable": [
+                    {
+                      "key": "id",
+                      "value": "5500-Grand-Lake-Dr,-San-Antonio,-TX-78244",
+                      "description": "(String, Required) The id of the property record to return"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json",
+                  "name": "Content-Type",
+                  "description": "",
+                  "type": "text"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"id\": \"5500-Grand-Lake-Dr,-San-Antonio,-TX-78244\",\n    \"formattedAddress\": \"5500 Grand Lake Dr, San Antonio, TX 78244\",\n    \"addressLine1\": \"5500 Grand Lake Dr\",\n    \"addressLine2\": null,\n    \"city\": \"San Antonio\",\n    \"state\": \"TX\",\n    \"zipCode\": \"78244\",\n    \"county\": \"Bexar\",\n    \"latitude\": 29.475962,\n    \"longitude\": -98.351442,\n    \"propertyType\": \"Single Family\",\n    \"bedrooms\": 3,\n    \"bathrooms\": 2,\n    \"squareFootage\": 1878,\n    \"lotSize\": 8843,\n    \"yearBuilt\": 1973,\n    \"assessorID\": \"05076-103-0500\",\n    \"legalDescription\": \"CB 5076A BLK 3 LOT 50\",\n    \"subdivision\": \"CONV A/S CODE\",\n    \"zoning\": \"RH\",\n    \"lastSaleDate\": \"2017-10-19T00:00:00.000Z\",\n    \"lastSalePrice\": 185000,\n    \"features\": {\n        \"architectureType\": \"Contemporary\",\n        \"cooling\": true,\n        \"coolingType\": \"Central\",\n        \"exteriorType\": \"Wood\",\n        \"floorCount\": 1,\n        \"foundationType\": \"Slab / Mat / Raft\",\n        \"garage\": true,\n        \"garageType\": \"Garage\",\n        \"heating\": true,\n        \"heatingType\": \"Forced Air\",\n        \"pool\": true,\n        \"roofType\": \"Asphalt\",\n        \"roomCount\": 5,\n        \"unitCount\": 1\n    },\n    \"taxAssessments\": {\n        \"2019\": {\n            \"value\": 135430,\n            \"land\": 23450,\n            \"improvements\": 111980\n        },\n        \"2020\": {\n            \"value\": 142610,\n            \"land\": 23450,\n            \"improvements\": 119160\n        },\n        \"2021\": {\n            \"value\": 163440,\n            \"land\": 45050,\n            \"improvements\": 118390\n        },\n        \"2022\": {\n            \"value\": 197600,\n            \"land\": 49560,\n            \"improvements\": 148040\n        },\n        \"2023\": {\n            \"value\": 225790,\n            \"land\": 59380,\n            \"improvements\": 166410\n        }\n    },\n    \"propertyTaxes\": {\n        \"2019\": {\n            \"total\": 2984\n        },\n        \"2020\": {\n            \"total\": 3023\n        },\n        \"2021\": {\n            \"total\": 3455\n        },\n        \"2022\": {\n            \"total\": 4091\n        },\n        \"2023\": {\n            \"total\": 4675\n        }\n    },\n    \"owner\": {\n        \"names\": [\n            \"Michael Smith\"\n        ],\n        \"mailingAddress\": {\n            \"id\": \"149-Weaver-Blvd,---264,-Weaverville,-NC-28787\",\n            \"formattedAddress\": \"149 Weaver Blvd, # 264, Weaverville, NC 28787\",\n            \"addressLine1\": \"149 Weaver Blvd\",\n            \"addressLine2\": \"# 264\",\n            \"city\": \"Weaverville\",\n            \"state\": \"NC\",\n            \"zipCode\": \"28787\"\n        }\n    },\n    \"ownerOccupied\": false\n}"
+            }
+          ]
+        }
+      ],
+      "description": "Our `/properties` endpoints allow you to retrieve data for over 140 million properties in the United States, covering most residential and commercial properties in the country.\n\n## Available Endpoints\n\nWe provide the following endpoints for retrieving property data and records:\n\n- [/properties](https://www.postman.com/rentcast/workspace/rentcast-api/request/34259606-a1e1ab91-c4af-4816-822e-71f37390a269): an endpoint that allows you to retrieve a group of property records matching specific criteria, or a single property record for a specific address\n- [/properties/random](https://www.postman.com/rentcast/workspace/rentcast-api/request/34259606-ad59f325-62a2-4382-bfc0-087f41e44428): an endpoint that allows you to retrieve up to 500 property records selected at random, to facilitate testing or use cases that require a random sampling of property data\n- [/properties/:id](https://www.postman.com/rentcast/workspace/rentcast-api/request/34259606-fb5d3973-affa-429c-aca3-217aba456764): an endpoint that allows you to retrieve a specific property record, given its internal id. The id can be retrieved using the other `/properties`, [/avm](https://www.postman.com/rentcast/workspace/rentcast-api/folder/34259606-5930b665-c298-402a-a11c-2c91723a5671) or [/listings](https://www.postman.com/rentcast/workspace/rentcast-api/folder/34259606-0d104a49-535a-44f5-bf66-f75ab8c8b030) endpoints, or cached in your application from prior requests\n    \n\n## Learn More\n\nYou can learn more about our property data sources, update frequency, supported queries, and pagination on our API developer portal:\n\n[https://developers.rentcast.io/reference/property-data](https://developers.rentcast.io/reference/property-data)"
+    },
+    {
+      "name": "Property Valuation",
+      "item": [
+        {
+          "name": "Value Estimate",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "https://api.rentcast.io/v1/avm/value?address=5500 Grand Lake Drive, San Antonio, TX, 78244&propertyType=Single Family&bedrooms=4&bathrooms=2&squareFootage=1600&compCount=5",
+              "protocol": "https",
+              "host": [
+                "api",
+                "rentcast",
+                "io"
+              ],
+              "path": [
+                "v1",
+                "avm",
+                "value"
+              ],
+              "query": [
+                {
+                  "key": "address",
+                  "value": "5500 Grand Lake Drive, San Antonio, TX, 78244",
+                  "description": "(String) The **full address** of the property, in the format of `Street, City, State, Zip`. You need to provide either the `address` or the `latitude`/`longitude` parameters"
+                },
+                {
+                  "key": "latitude",
+                  "value": null,
+                  "description": "(Float) The latitude of the property. The `latitude`/`longitude` can be provided instead of the `address` parameter",
+                  "disabled": true
+                },
+                {
+                  "key": "longitude",
+                  "value": null,
+                  "description": "(Float) The longitude of the property. The `latitude`/`longitude` can be provided instead of the `address` parameter",
+                  "disabled": true
+                },
+                {
+                  "key": "propertyType",
+                  "value": "Single Family",
+                  "description": "(String) The type of the property. See [explanation of property types](https://developers.rentcast.io/reference/property-types)"
+                },
+                {
+                  "key": "bedrooms",
+                  "value": "4",
+                  "description": "(Float) The number of bedrooms in the property. Use `0` to indicate a studio layout"
+                },
+                {
+                  "key": "bathrooms",
+                  "value": "2",
+                  "description": "(Float) The number of bathrooms in the property. Supports fractions to indicate partial bathrooms"
+                },
+                {
+                  "key": "squareFootage",
+                  "value": "1600",
+                  "description": "(Float) The total living area size of the property, in square feet"
+                },
+                {
+                  "key": "maxRadius",
+                  "value": "",
+                  "description": "(Float) The maximum distance between comparable listings and the subject property, in miles",
+                  "disabled": true
+                },
+                {
+                  "key": "daysOld",
+                  "value": "",
+                  "description": "(Integer) The maximum number of days since comparable listings were last seen on the market, with a minimum of 1",
+                  "disabled": true
+                },
+                {
+                  "key": "compCount",
+                  "value": "5",
+                  "description": "(Integer) The number of comparable listings to use when calculating the value estimate, between 5 and 25. Defaults to 15 if not provided"
+                }
+              ]
+            },
+            "description": "Returns a property value estimate and comparable properties.\n\nView the full documentation for this endpoint on our API developer portal:\n\n[https://developers.rentcast.io/reference/value-estimate](https://developers.rentcast.io/reference/value-estimate)"
+          },
+          "response": [
+            {
+              "name": "Get Value Estimate by Address",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "https://api.rentcast.io/v1/avm/value?address=5500 Grand Lake Drive, San Antonio, TX, 78244&propertyType=Single Family&bedrooms=4&bathrooms=2&squareFootage=1600&compCount=5",
+                  "protocol": "https",
+                  "host": [
+                    "api",
+                    "rentcast",
+                    "io"
+                  ],
+                  "path": [
+                    "v1",
+                    "avm",
+                    "value"
+                  ],
+                  "query": [
+                    {
+                      "key": "address",
+                      "value": "5500 Grand Lake Drive, San Antonio, TX, 78244",
+                      "description": "(String) The **full address** of the property, in the format of `Street, City, State, Zip`. You need to provide either the `address` or the `latitude`/`longitude` parameters"
+                    },
+                    {
+                      "key": "latitude",
+                      "value": null,
+                      "description": "(Float) The latitude of the property. The `latitude`/`longitude` can be provided instead of the `address` parameter",
+                      "disabled": true
+                    },
+                    {
+                      "key": "longitude",
+                      "value": null,
+                      "description": "(Float) The longitude of the property. The `latitude`/`longitude` can be provided instead of the `address` parameter",
+                      "disabled": true
+                    },
+                    {
+                      "key": "propertyType",
+                      "value": "Single Family",
+                      "description": "(String) The type of the property. See [explanation of property types](https://developers.rentcast.io/reference/property-types)"
+                    },
+                    {
+                      "key": "bedrooms",
+                      "value": "4",
+                      "description": "(Float) The number of bedrooms in the property. Use `0` to indicate a studio layout"
+                    },
+                    {
+                      "key": "bathrooms",
+                      "value": "2",
+                      "description": "(Float) The number of bathrooms in the property. Supports fractions to indicate partial bathrooms"
+                    },
+                    {
+                      "key": "squareFootage",
+                      "value": "1600",
+                      "description": "(Float) The total living area size of the property, in square feet"
+                    },
+                    {
+                      "key": "maxRadius",
+                      "value": null,
+                      "description": "(Float) The maximum distance between comparable listings and the subject property, in miles",
+                      "disabled": true
+                    },
+                    {
+                      "key": "daysOld",
+                      "value": null,
+                      "description": "(Integer) The maximum number of days since comparable listings were last seen on the market, with a minimum of 1",
+                      "disabled": true
+                    },
+                    {
+                      "key": "compCount",
+                      "value": "5",
+                      "description": "(Integer) The number of comparable listings to use when calculating the value estimate, between 5 and 25. Defaults to 15 if not provided"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json",
+                  "name": "Content-Type",
+                  "description": "",
+                  "type": "text"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"price\": 232000,\n    \"priceRangeLow\": 213000,\n    \"priceRangeHigh\": 251000,\n    \"latitude\": 29.475962,\n    \"longitude\": -98.351442,\n    \"comparables\": [\n        {\n            \"id\": \"6807-Blue-Lake-Dr,-San-Antonio,-TX-78244\",\n            \"formattedAddress\": \"6807 Blue Lake Dr, San Antonio, TX 78244\",\n            \"addressLine1\": \"6807 Blue Lake Dr\",\n            \"addressLine2\": null,\n            \"city\": \"San Antonio\",\n            \"state\": \"TX\",\n            \"zipCode\": \"78244\",\n            \"county\": \"Bexar\",\n            \"latitude\": 29.476178,\n            \"longitude\": -98.354769,\n            \"propertyType\": \"Single Family\",\n            \"bedrooms\": 4,\n            \"bathrooms\": 2,\n            \"squareFootage\": 1518,\n            \"lotSize\": 6534,\n            \"yearBuilt\": 1972,\n            \"price\": 198000,\n            \"listedDate\": \"2023-02-18T00:00:00.000Z\",\n            \"lastSeenDate\": \"2023-02-23T00:00:00.000Z\",\n            \"daysOld\": 5,\n            \"distance\": 0.2009,\n            \"correlation\": 0.9891\n        },\n        {\n            \"id\": \"6823-Quail-Lk,-San-Antonio,-TX-78244\",\n            \"formattedAddress\": \"6823 Quail Lk, San Antonio, TX 78244\",\n            \"addressLine1\": \"6823 Quail Lk\",\n            \"addressLine2\": null,\n            \"city\": \"San Antonio\",\n            \"state\": \"TX\",\n            \"zipCode\": \"78244\",\n            \"county\": \"Bexar\",\n            \"latitude\": 29.473522,\n            \"longitude\": -98.351689,\n            \"propertyType\": \"Single Family\",\n            \"bedrooms\": 4,\n            \"bathrooms\": 2,\n            \"squareFootage\": 1732,\n            \"lotSize\": 6621,\n            \"yearBuilt\": 1987,\n            \"price\": 243900,\n            \"listedDate\": \"2023-02-08T00:00:00.000Z\",\n            \"lastSeenDate\": \"2023-02-27T00:00:00.000Z\",\n            \"daysOld\": 1,\n            \"distance\": 0.1694,\n            \"correlation\": 0.9862\n        },\n        {\n            \"id\": \"5119-Pine-Lake-Dr,-San-Antonio,-TX-78244\",\n            \"formattedAddress\": \"5119 Pine Lake Dr, San Antonio, TX 78244\",\n            \"addressLine1\": \"5119 Pine Lake Dr\",\n            \"addressLine2\": null,\n            \"city\": \"San Antonio\",\n            \"state\": \"TX\",\n            \"zipCode\": \"78244\",\n            \"county\": \"Bexar\",\n            \"latitude\": 29.470208,\n            \"longitude\": -98.35069,\n            \"propertyType\": \"Single Family\",\n            \"bedrooms\": 4,\n            \"bathrooms\": 2,\n            \"squareFootage\": 1734,\n            \"lotSize\": 6665,\n            \"yearBuilt\": 1989,\n            \"price\": 260000,\n            \"listedDate\": \"2023-01-30T00:00:00.000Z\",\n            \"lastSeenDate\": \"2023-02-27T00:00:00.000Z\",\n            \"daysOld\": 1,\n            \"distance\": 0.4006,\n            \"correlation\": 0.9818\n        },\n        {\n            \"id\": \"4710-Crystal-Farm,-San-Antonio,-TX-78244\",\n            \"formattedAddress\": \"4710 Crystal Farm, San Antonio, TX 78244\",\n            \"addressLine1\": \"4710 Crystal Farm\",\n            \"addressLine2\": null,\n            \"city\": \"San Antonio\",\n            \"state\": \"TX\",\n            \"zipCode\": \"78244\",\n            \"county\": \"Bexar\",\n            \"latitude\": 29.470534,\n            \"longitude\": -98.361364,\n            \"propertyType\": \"Single Family\",\n            \"bedrooms\": 4,\n            \"bathrooms\": 2,\n            \"squareFootage\": 1514,\n            \"lotSize\": 5489,\n            \"yearBuilt\": 1999,\n            \"price\": 225000,\n            \"listedDate\": \"2023-01-13T00:00:00.000Z\",\n            \"lastSeenDate\": \"2023-02-09T00:00:00.000Z\",\n            \"daysOld\": 19,\n            \"distance\": 0.7057,\n            \"correlation\": 0.9793\n        },\n        {\n            \"id\": \"6162-Brandys-Farm,-San-Antonio,-TX-78244\",\n            \"formattedAddress\": \"6162 Brandys Farm, San Antonio, TX 78244\",\n            \"addressLine1\": \"6162 Brandys Farm\",\n            \"addressLine2\": null,\n            \"city\": \"San Antonio\",\n            \"state\": \"TX\",\n            \"zipCode\": \"78244\",\n            \"county\": \"Bexar\",\n            \"latitude\": 29.469905,\n            \"longitude\": -98.366161,\n            \"propertyType\": \"Single Family\",\n            \"bedrooms\": 4,\n            \"bathrooms\": 2,\n            \"squareFootage\": 1646,\n            \"lotSize\": 5489,\n            \"yearBuilt\": 2003,\n            \"price\": 235000,\n            \"listedDate\": \"2023-02-25T00:00:00.000Z\",\n            \"lastSeenDate\": \"2023-02-27T00:00:00.000Z\",\n            \"daysOld\": 1,\n            \"distance\": 0.9804,\n            \"correlation\": 0.9779\n        }\n    ]\n}"
+            },
+            {
+              "name": "Get Value Estimate by Location",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "https://api.rentcast.io/v1/avm/value?latitude=29.475962&longitude=-98.351442&propertyType=Single Family&bedrooms=4&bathrooms=2&squareFootage=1600&compCount=5",
+                  "protocol": "https",
+                  "host": [
+                    "api",
+                    "rentcast",
+                    "io"
+                  ],
+                  "path": [
+                    "v1",
+                    "avm",
+                    "value"
+                  ],
+                  "query": [
+                    {
+                      "key": "address",
+                      "value": "",
+                      "description": "(String) The **full address** of the property, in the format of `Street, City, State, Zip`. You need to provide either the `address` or the `latitude`/`longitude` parameters",
+                      "disabled": true
+                    },
+                    {
+                      "key": "latitude",
+                      "value": "29.475962",
+                      "description": "(Float) The latitude of the property. The `latitude`/`longitude` can be provided instead of the `address` parameter"
+                    },
+                    {
+                      "key": "longitude",
+                      "value": "-98.351442",
+                      "description": "(Float) The longitude of the property. The `latitude`/`longitude` can be provided instead of the `address` parameter"
+                    },
+                    {
+                      "key": "propertyType",
+                      "value": "Single Family",
+                      "description": "(String) The type of the property. See [explanation of property types](https://developers.rentcast.io/reference/property-types)"
+                    },
+                    {
+                      "key": "bedrooms",
+                      "value": "4",
+                      "description": "(Float) The number of bedrooms in the property. Use `0` to indicate a studio layout"
+                    },
+                    {
+                      "key": "bathrooms",
+                      "value": "2",
+                      "description": "(Float) The number of bathrooms in the property. Supports fractions to indicate partial bathrooms"
+                    },
+                    {
+                      "key": "squareFootage",
+                      "value": "1600",
+                      "description": "(Float) The total living area size of the property, in square feet"
+                    },
+                    {
+                      "key": "maxRadius",
+                      "value": null,
+                      "description": "(Float) The maximum distance between comparable listings and the subject property, in miles",
+                      "disabled": true
+                    },
+                    {
+                      "key": "daysOld",
+                      "value": null,
+                      "description": "(Integer) The maximum number of days since comparable listings were last seen on the market, with a minimum of 1",
+                      "disabled": true
+                    },
+                    {
+                      "key": "compCount",
+                      "value": "5",
+                      "description": "(Integer) The number of comparable listings to use when calculating the value estimate, between 5 and 25. Defaults to 15 if not provided"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json",
+                  "name": "Content-Type",
+                  "description": "",
+                  "type": "text"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"price\": 232000,\n    \"priceRangeLow\": 213000,\n    \"priceRangeHigh\": 251000,\n    \"latitude\": 29.475962,\n    \"longitude\": -98.351442,\n    \"comparables\": [\n        {\n            \"id\": \"6807-Blue-Lake-Dr,-San-Antonio,-TX-78244\",\n            \"formattedAddress\": \"6807 Blue Lake Dr, San Antonio, TX 78244\",\n            \"addressLine1\": \"6807 Blue Lake Dr\",\n            \"addressLine2\": null,\n            \"city\": \"San Antonio\",\n            \"state\": \"TX\",\n            \"zipCode\": \"78244\",\n            \"county\": \"Bexar\",\n            \"latitude\": 29.476178,\n            \"longitude\": -98.354769,\n            \"propertyType\": \"Single Family\",\n            \"bedrooms\": 4,\n            \"bathrooms\": 2,\n            \"squareFootage\": 1518,\n            \"lotSize\": 6534,\n            \"yearBuilt\": 1972,\n            \"price\": 198000,\n            \"listedDate\": \"2023-02-18T00:00:00.000Z\",\n            \"lastSeenDate\": \"2023-02-23T00:00:00.000Z\",\n            \"daysOld\": 5,\n            \"distance\": 0.2009,\n            \"correlation\": 0.9891\n        },\n        {\n            \"id\": \"6823-Quail-Lk,-San-Antonio,-TX-78244\",\n            \"formattedAddress\": \"6823 Quail Lk, San Antonio, TX 78244\",\n            \"addressLine1\": \"6823 Quail Lk\",\n            \"addressLine2\": null,\n            \"city\": \"San Antonio\",\n            \"state\": \"TX\",\n            \"zipCode\": \"78244\",\n            \"county\": \"Bexar\",\n            \"latitude\": 29.473522,\n            \"longitude\": -98.351689,\n            \"propertyType\": \"Single Family\",\n            \"bedrooms\": 4,\n            \"bathrooms\": 2,\n            \"squareFootage\": 1732,\n            \"lotSize\": 6621,\n            \"yearBuilt\": 1987,\n            \"price\": 243900,\n            \"listedDate\": \"2023-02-08T00:00:00.000Z\",\n            \"lastSeenDate\": \"2023-02-27T00:00:00.000Z\",\n            \"daysOld\": 1,\n            \"distance\": 0.1694,\n            \"correlation\": 0.9862\n        },\n        {\n            \"id\": \"5119-Pine-Lake-Dr,-San-Antonio,-TX-78244\",\n            \"formattedAddress\": \"5119 Pine Lake Dr, San Antonio, TX 78244\",\n            \"addressLine1\": \"5119 Pine Lake Dr\",\n            \"addressLine2\": null,\n            \"city\": \"San Antonio\",\n            \"state\": \"TX\",\n            \"zipCode\": \"78244\",\n            \"county\": \"Bexar\",\n            \"latitude\": 29.470208,\n            \"longitude\": -98.35069,\n            \"propertyType\": \"Single Family\",\n            \"bedrooms\": 4,\n            \"bathrooms\": 2,\n            \"squareFootage\": 1734,\n            \"lotSize\": 6665,\n            \"yearBuilt\": 1989,\n            \"price\": 260000,\n            \"listedDate\": \"2023-01-30T00:00:00.000Z\",\n            \"lastSeenDate\": \"2023-02-27T00:00:00.000Z\",\n            \"daysOld\": 1,\n            \"distance\": 0.4006,\n            \"correlation\": 0.9818\n        },\n        {\n            \"id\": \"4710-Crystal-Farm,-San-Antonio,-TX-78244\",\n            \"formattedAddress\": \"4710 Crystal Farm, San Antonio, TX 78244\",\n            \"addressLine1\": \"4710 Crystal Farm\",\n            \"addressLine2\": null,\n            \"city\": \"San Antonio\",\n            \"state\": \"TX\",\n            \"zipCode\": \"78244\",\n            \"county\": \"Bexar\",\n            \"latitude\": 29.470534,\n            \"longitude\": -98.361364,\n            \"propertyType\": \"Single Family\",\n            \"bedrooms\": 4,\n            \"bathrooms\": 2,\n            \"squareFootage\": 1514,\n            \"lotSize\": 5489,\n            \"yearBuilt\": 1999,\n            \"price\": 225000,\n            \"listedDate\": \"2023-01-13T00:00:00.000Z\",\n            \"lastSeenDate\": \"2023-02-09T00:00:00.000Z\",\n            \"daysOld\": 19,\n            \"distance\": 0.7057,\n            \"correlation\": 0.9793\n        },\n        {\n            \"id\": \"6162-Brandys-Farm,-San-Antonio,-TX-78244\",\n            \"formattedAddress\": \"6162 Brandys Farm, San Antonio, TX 78244\",\n            \"addressLine1\": \"6162 Brandys Farm\",\n            \"addressLine2\": null,\n            \"city\": \"San Antonio\",\n            \"state\": \"TX\",\n            \"zipCode\": \"78244\",\n            \"county\": \"Bexar\",\n            \"latitude\": 29.469905,\n            \"longitude\": -98.366161,\n            \"propertyType\": \"Single Family\",\n            \"bedrooms\": 4,\n            \"bathrooms\": 2,\n            \"squareFootage\": 1646,\n            \"lotSize\": 5489,\n            \"yearBuilt\": 2003,\n            \"price\": 235000,\n            \"listedDate\": \"2023-02-25T00:00:00.000Z\",\n            \"lastSeenDate\": \"2023-02-27T00:00:00.000Z\",\n            \"daysOld\": 1,\n            \"distance\": 0.9804,\n            \"correlation\": 0.9779\n        }\n    ]\n}"
+            }
+          ]
+        },
+        {
+          "name": "Rent Estimate",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "https://api.rentcast.io/v1/avm/rent/long-term?address=5500 Grand Lake Drive, San Antonio, TX, 78244&propertyType=Single Family&bedrooms=4&bathrooms=2&squareFootage=1600&compCount=5",
+              "protocol": "https",
+              "host": [
+                "api",
+                "rentcast",
+                "io"
+              ],
+              "path": [
+                "v1",
+                "avm",
+                "rent",
+                "long-term"
+              ],
+              "query": [
+                {
+                  "key": "address",
+                  "value": "5500 Grand Lake Drive, San Antonio, TX, 78244",
+                  "description": "(String) The **full address** of the property, in the format of `Street, City, State, Zip`. You need to provide either the `address` or the `latitude`/`longitude` parameters"
+                },
+                {
+                  "key": "latitude",
+                  "value": null,
+                  "description": "(Float) The latitude of the property. The `latitude`/`longitude` can be provided instead of the `address` parameter",
+                  "disabled": true
+                },
+                {
+                  "key": "longitude",
+                  "value": null,
+                  "description": "(Float) The longitude of the property. The `latitude`/`longitude` can be provided instead of the `address` parameter",
+                  "disabled": true
+                },
+                {
+                  "key": "propertyType",
+                  "value": "Single Family",
+                  "description": "(String) The type of the property. See [explanation of property types](https://developers.rentcast.io/reference/property-types)"
+                },
+                {
+                  "key": "bedrooms",
+                  "value": "4",
+                  "description": "(Float) The number of bedrooms in the property. Use `0` to indicate a studio layout"
+                },
+                {
+                  "key": "bathrooms",
+                  "value": "2",
+                  "description": "(Float) The number of bathrooms in the property. Supports fractions to indicate partial bathrooms"
+                },
+                {
+                  "key": "squareFootage",
+                  "value": "1600",
+                  "description": "(Float) The total living area size of the property, in square feet"
+                },
+                {
+                  "key": "maxRadius",
+                  "value": null,
+                  "description": "(Float) The maximum distance between comparable listings and the subject property, in miles",
+                  "disabled": true
+                },
+                {
+                  "key": "daysOld",
+                  "value": null,
+                  "description": "(Integer) The maximum number of days since comparable listings were last seen on the market, with a minimum of 1",
+                  "disabled": true
+                },
+                {
+                  "key": "compCount",
+                  "value": "5",
+                  "description": "(Integer) The number of comparable listings to use when calculating the rent estimate, between 5 and 25. Defaults to 15 if not provided"
+                }
+              ]
+            },
+            "description": "Returns a property rent estimate and comparable properties.\n\nView the full documentation for this endpoint on our API developer portal:\n\n[https://developers.rentcast.io/reference/rent-estimate-long-term](https://developers.rentcast.io/reference/rent-estimate-long-term)"
+          },
+          "response": [
+            {
+              "name": "Get Rent Estimate by Address",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "https://api.rentcast.io/v1/avm/rent/long-term?address=5500 Grand Lake Drive, San Antonio, TX, 78244&propertyType=Single Family&bedrooms=4&bathrooms=2&squareFootage=1600&compCount=5",
+                  "protocol": "https",
+                  "host": [
+                    "api",
+                    "rentcast",
+                    "io"
+                  ],
+                  "path": [
+                    "v1",
+                    "avm",
+                    "rent",
+                    "long-term"
+                  ],
+                  "query": [
+                    {
+                      "key": "address",
+                      "value": "5500 Grand Lake Drive, San Antonio, TX, 78244",
+                      "description": "(String) The **full address** of the property, in the format of `Street, City, State, Zip`. You need to provide either the `address` or the `latitude`/`longitude` parameters"
+                    },
+                    {
+                      "key": "latitude",
+                      "value": null,
+                      "description": "(Float) The latitude of the property. The `latitude`/`longitude` can be provided instead of the `address` parameter",
+                      "disabled": true
+                    },
+                    {
+                      "key": "longitude",
+                      "value": null,
+                      "description": "(Float) The longitude of the property. The `latitude`/`longitude` can be provided instead of the `address` parameter",
+                      "disabled": true
+                    },
+                    {
+                      "key": "propertyType",
+                      "value": "Single Family",
+                      "description": "(String) The type of the property. See [explanation of property types](https://developers.rentcast.io/reference/property-types)"
+                    },
+                    {
+                      "key": "bedrooms",
+                      "value": "4",
+                      "description": "(Float) The number of bedrooms in the property. Use `0` to indicate a studio layout"
+                    },
+                    {
+                      "key": "bathrooms",
+                      "value": "2",
+                      "description": "(Float) The number of bathrooms in the property. Supports fractions to indicate partial bathrooms"
+                    },
+                    {
+                      "key": "squareFootage",
+                      "value": "1600",
+                      "description": "(Float) The total living area size of the property, in square feet"
+                    },
+                    {
+                      "key": "maxRadius",
+                      "value": null,
+                      "description": "(Float) The maximum distance between comparable listings and the subject property, in miles",
+                      "disabled": true
+                    },
+                    {
+                      "key": "daysOld",
+                      "value": null,
+                      "description": "(Integer) The maximum number of days since comparable listings were last seen on the market, with a minimum of 1",
+                      "disabled": true
+                    },
+                    {
+                      "key": "compCount",
+                      "value": "5",
+                      "description": "(Integer) The number of comparable listings to use when calculating the rent estimate, between 5 and 25. Defaults to 15 if not provided"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json",
+                  "name": "Content-Type",
+                  "description": "",
+                  "type": "text"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"rent\": 1800,\n    \"rentRangeLow\": 1740,\n    \"rentRangeHigh\": 1860,\n    \"latitude\": 29.475962,\n    \"longitude\": -98.351442,\n    \"comparables\": [\n        {\n            \"id\": \"7410-Adaja-Riv,-San-Antonio,-TX-78244\",\n            \"formattedAddress\": \"7410 Adaja Riv, San Antonio, TX 78244\",\n            \"addressLine1\": \"7410 Adaja Riv\",\n            \"addressLine2\": null,\n            \"city\": \"San Antonio\",\n            \"state\": \"TX\",\n            \"zipCode\": \"78244\",\n            \"county\": \"Bexar\",\n            \"latitude\": 29.481005,\n            \"longitude\": -98.344856,\n            \"propertyType\": \"Single Family\",\n            \"bedrooms\": 4,\n            \"bathrooms\": 2,\n            \"squareFootage\": 1627,\n            \"lotSize\": 8224,\n            \"yearBuilt\": 1972,\n            \"price\": 1850,\n            \"listedDate\": \"2023-01-22T00:00:00.000Z\",\n            \"lastSeenDate\": \"2023-02-17T00:00:00.000Z\",\n            \"daysOld\": 11,\n            \"distance\": 0.5282,\n            \"correlation\": 0.988\n        },\n        {\n            \"id\": \"7303-Avila-Vis,-San-Antonio,-TX-78244\",\n            \"formattedAddress\": \"7303 Avila Vis, San Antonio, TX 78244\",\n            \"addressLine1\": \"7303 Avila Vis\",\n            \"addressLine2\": null,\n            \"city\": \"San Antonio\",\n            \"state\": \"TX\",\n            \"zipCode\": \"78244\",\n            \"county\": \"Bexar\",\n            \"latitude\": 29.483196,\n            \"longitude\": -98.34565,\n            \"propertyType\": \"Single Family\",\n            \"bedrooms\": 4,\n            \"bathrooms\": 2,\n            \"squareFootage\": 1627,\n            \"lotSize\": 6455,\n            \"yearBuilt\": 2020,\n            \"price\": 1850,\n            \"listedDate\": \"2023-02-03T00:00:00.000Z\",\n            \"lastSeenDate\": \"2023-02-17T00:00:00.000Z\",\n            \"daysOld\": 11,\n            \"distance\": 0.6099,\n            \"correlation\": 0.9867\n        },\n        {\n            \"id\": \"7331-Avila-Vis,-San-Antonio,-TX-78244\",\n            \"formattedAddress\": \"7331 Avila Vis, San Antonio, TX 78244\",\n            \"addressLine1\": \"7331 Avila Vis\",\n            \"addressLine2\": null,\n            \"city\": \"San Antonio\",\n            \"state\": \"TX\",\n            \"zipCode\": \"78244\",\n            \"county\": \"Bexar\",\n            \"latitude\": 29.482922,\n            \"longitude\": -98.34481,\n            \"propertyType\": \"Single Family\",\n            \"bedrooms\": 4,\n            \"bathrooms\": 2,\n            \"squareFootage\": 1627,\n            \"lotSize\": 4647,\n            \"yearBuilt\": 2021,\n            \"price\": 1810,\n            \"listedDate\": \"2023-02-21T00:00:00.000Z\",\n            \"lastSeenDate\": \"2023-02-27T00:00:00.000Z\",\n            \"daysOld\": 1,\n            \"distance\": 0.6255,\n            \"correlation\": 0.9865\n        },\n        {\n            \"id\": \"7411-Avila-Vis,-San-Antonio,-TX-78244\",\n            \"formattedAddress\": \"7411 Avila Vis, San Antonio, TX 78244\",\n            \"addressLine1\": \"7411 Avila Vis\",\n            \"addressLine2\": null,\n            \"city\": \"San Antonio\",\n            \"state\": \"TX\",\n            \"zipCode\": \"78244\",\n            \"county\": \"Bexar\",\n            \"latitude\": 29.482676,\n            \"longitude\": -98.344398,\n            \"propertyType\": \"Single Family\",\n            \"bedrooms\": 4,\n            \"bathrooms\": 2,\n            \"squareFootage\": 1627,\n            \"lotSize\": 4469,\n            \"yearBuilt\": 2021,\n            \"price\": 1815,\n            \"listedDate\": \"2023-01-16T00:00:00.000Z\",\n            \"lastSeenDate\": \"2023-02-10T00:00:00.000Z\",\n            \"daysOld\": 18,\n            \"distance\": 0.629,\n            \"correlation\": 0.9864\n        },\n        {\n            \"id\": \"7327-Plata-Cir,-San-Antonio,-TX-78244\",\n            \"formattedAddress\": \"7327 Plata Cir, San Antonio, TX 78244\",\n            \"addressLine1\": \"7327 Plata Cir\",\n            \"addressLine2\": null,\n            \"city\": \"San Antonio\",\n            \"state\": \"TX\",\n            \"zipCode\": \"78244\",\n            \"county\": \"Bexar\",\n            \"latitude\": 29.480621,\n            \"longitude\": -98.344406,\n            \"propertyType\": \"Single Family\",\n            \"bedrooms\": 4,\n            \"bathrooms\": 2,\n            \"squareFootage\": 1492,\n            \"lotSize\": 4024,\n            \"yearBuilt\": 2021,\n            \"price\": 1680,\n            \"listedDate\": \"2023-01-12T00:00:00.000Z\",\n            \"lastSeenDate\": \"2023-02-08T00:00:00.000Z\",\n            \"daysOld\": 20,\n            \"distance\": 0.5323,\n            \"correlation\": 0.9758\n        }\n    ]\n}"
+            },
+            {
+              "name": "Get Rent Estimate by Location",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "https://api.rentcast.io/v1/avm/rent/long-term?latitude=29.475962&longitude=-98.351442&propertyType=Single Family&bedrooms=4&bathrooms=2&squareFootage=1600&compCount=5",
+                  "protocol": "https",
+                  "host": [
+                    "api",
+                    "rentcast",
+                    "io"
+                  ],
+                  "path": [
+                    "v1",
+                    "avm",
+                    "rent",
+                    "long-term"
+                  ],
+                  "query": [
+                    {
+                      "key": "address",
+                      "value": "",
+                      "description": "(String) The **full address** of the property, in the format of `Street, City, State, Zip`. You need to provide either the `address` or the `latitude`/`longitude` parameters",
+                      "disabled": true
+                    },
+                    {
+                      "key": "latitude",
+                      "value": "29.475962",
+                      "description": "(Float) The latitude of the property. The `latitude`/`longitude` can be provided instead of the `address` parameter"
+                    },
+                    {
+                      "key": "longitude",
+                      "value": "-98.351442",
+                      "description": "(Float) The longitude of the property. The `latitude`/`longitude` can be provided instead of the `address` parameter"
+                    },
+                    {
+                      "key": "propertyType",
+                      "value": "Single Family",
+                      "description": "(String) The type of the property. See [explanation of property types](https://developers.rentcast.io/reference/property-types)"
+                    },
+                    {
+                      "key": "bedrooms",
+                      "value": "4",
+                      "description": "(Float) The number of bedrooms in the property. Use `0` to indicate a studio layout"
+                    },
+                    {
+                      "key": "bathrooms",
+                      "value": "2",
+                      "description": "(Float) The number of bathrooms in the property. Supports fractions to indicate partial bathrooms"
+                    },
+                    {
+                      "key": "squareFootage",
+                      "value": "1600",
+                      "description": "(Float) The total living area size of the property, in square feet"
+                    },
+                    {
+                      "key": "maxRadius",
+                      "value": null,
+                      "description": "(Float) The maximum distance between comparable listings and the subject property, in miles",
+                      "disabled": true
+                    },
+                    {
+                      "key": "daysOld",
+                      "value": null,
+                      "description": "(Integer) The maximum number of days since comparable listings were last seen on the market, with a minimum of 1",
+                      "disabled": true
+                    },
+                    {
+                      "key": "compCount",
+                      "value": "5",
+                      "description": "(Integer) The number of comparable listings to use when calculating the rent estimate, between 5 and 25. Defaults to 15 if not provided"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json",
+                  "name": "Content-Type",
+                  "description": "",
+                  "type": "text"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"rent\": 1800,\n    \"rentRangeLow\": 1740,\n    \"rentRangeHigh\": 1860,\n    \"latitude\": 29.475962,\n    \"longitude\": -98.351442,\n    \"comparables\": [\n        {\n            \"id\": \"7410-Adaja-Riv,-San-Antonio,-TX-78244\",\n            \"formattedAddress\": \"7410 Adaja Riv, San Antonio, TX 78244\",\n            \"addressLine1\": \"7410 Adaja Riv\",\n            \"addressLine2\": null,\n            \"city\": \"San Antonio\",\n            \"state\": \"TX\",\n            \"zipCode\": \"78244\",\n            \"county\": \"Bexar\",\n            \"latitude\": 29.481005,\n            \"longitude\": -98.344856,\n            \"propertyType\": \"Single Family\",\n            \"bedrooms\": 4,\n            \"bathrooms\": 2,\n            \"squareFootage\": 1627,\n            \"lotSize\": 8224,\n            \"yearBuilt\": 1972,\n            \"price\": 1850,\n            \"listedDate\": \"2023-01-22T00:00:00.000Z\",\n            \"lastSeenDate\": \"2023-02-17T00:00:00.000Z\",\n            \"daysOld\": 11,\n            \"distance\": 0.5282,\n            \"correlation\": 0.988\n        },\n        {\n            \"id\": \"7303-Avila-Vis,-San-Antonio,-TX-78244\",\n            \"formattedAddress\": \"7303 Avila Vis, San Antonio, TX 78244\",\n            \"addressLine1\": \"7303 Avila Vis\",\n            \"addressLine2\": null,\n            \"city\": \"San Antonio\",\n            \"state\": \"TX\",\n            \"zipCode\": \"78244\",\n            \"county\": \"Bexar\",\n            \"latitude\": 29.483196,\n            \"longitude\": -98.34565,\n            \"propertyType\": \"Single Family\",\n            \"bedrooms\": 4,\n            \"bathrooms\": 2,\n            \"squareFootage\": 1627,\n            \"lotSize\": 6455,\n            \"yearBuilt\": 2020,\n            \"price\": 1850,\n            \"listedDate\": \"2023-02-03T00:00:00.000Z\",\n            \"lastSeenDate\": \"2023-02-17T00:00:00.000Z\",\n            \"daysOld\": 11,\n            \"distance\": 0.6099,\n            \"correlation\": 0.9867\n        },\n        {\n            \"id\": \"7331-Avila-Vis,-San-Antonio,-TX-78244\",\n            \"formattedAddress\": \"7331 Avila Vis, San Antonio, TX 78244\",\n            \"addressLine1\": \"7331 Avila Vis\",\n            \"addressLine2\": null,\n            \"city\": \"San Antonio\",\n            \"state\": \"TX\",\n            \"zipCode\": \"78244\",\n            \"county\": \"Bexar\",\n            \"latitude\": 29.482922,\n            \"longitude\": -98.34481,\n            \"propertyType\": \"Single Family\",\n            \"bedrooms\": 4,\n            \"bathrooms\": 2,\n            \"squareFootage\": 1627,\n            \"lotSize\": 4647,\n            \"yearBuilt\": 2021,\n            \"price\": 1810,\n            \"listedDate\": \"2023-02-21T00:00:00.000Z\",\n            \"lastSeenDate\": \"2023-02-27T00:00:00.000Z\",\n            \"daysOld\": 1,\n            \"distance\": 0.6255,\n            \"correlation\": 0.9865\n        },\n        {\n            \"id\": \"7411-Avila-Vis,-San-Antonio,-TX-78244\",\n            \"formattedAddress\": \"7411 Avila Vis, San Antonio, TX 78244\",\n            \"addressLine1\": \"7411 Avila Vis\",\n            \"addressLine2\": null,\n            \"city\": \"San Antonio\",\n            \"state\": \"TX\",\n            \"zipCode\": \"78244\",\n            \"county\": \"Bexar\",\n            \"latitude\": 29.482676,\n            \"longitude\": -98.344398,\n            \"propertyType\": \"Single Family\",\n            \"bedrooms\": 4,\n            \"bathrooms\": 2,\n            \"squareFootage\": 1627,\n            \"lotSize\": 4469,\n            \"yearBuilt\": 2021,\n            \"price\": 1815,\n            \"listedDate\": \"2023-01-16T00:00:00.000Z\",\n            \"lastSeenDate\": \"2023-02-10T00:00:00.000Z\",\n            \"daysOld\": 18,\n            \"distance\": 0.629,\n            \"correlation\": 0.9864\n        },\n        {\n            \"id\": \"7327-Plata-Cir,-San-Antonio,-TX-78244\",\n            \"formattedAddress\": \"7327 Plata Cir, San Antonio, TX 78244\",\n            \"addressLine1\": \"7327 Plata Cir\",\n            \"addressLine2\": null,\n            \"city\": \"San Antonio\",\n            \"state\": \"TX\",\n            \"zipCode\": \"78244\",\n            \"county\": \"Bexar\",\n            \"latitude\": 29.480621,\n            \"longitude\": -98.344406,\n            \"propertyType\": \"Single Family\",\n            \"bedrooms\": 4,\n            \"bathrooms\": 2,\n            \"squareFootage\": 1492,\n            \"lotSize\": 4024,\n            \"yearBuilt\": 2021,\n            \"price\": 1680,\n            \"listedDate\": \"2023-01-12T00:00:00.000Z\",\n            \"lastSeenDate\": \"2023-02-08T00:00:00.000Z\",\n            \"daysOld\": 20,\n            \"distance\": 0.5323,\n            \"correlation\": 0.9758\n        }\n    ]\n}"
+            }
+          ]
+        }
+      ],
+      "description": "The `/avm` endpoints allow you to retrieve real-time property value and rent estimates for most residential and commercial properties in the United States.\n\nYou can also use our `/avm` endpoints to retrieve sales and rental comparables to display them in your applications, or calculate your own property value and rent estimates.\n\n## Available Endpoints\n\nWe provide the following endpoints for retrieving property value and rent estimates:\n\n- [/avm/value](https://www.postman.com/rentcast/workspace/rentcast-api/request/34259606-e002e7ad-0694-45f8-8009-caa228061d5a): an endpoint for retrieving current property value estimates, which represent the current market value, or after-repair value (ARV), of a given property. It also returns a list of comparable sale listings for that property\n- [/avm/rent/long-term](https://www.postman.com/rentcast/workspace/rentcast-api/request/34259606-797902b6-f22a-42ae-b912-ad47166dc3a8): an endpoint for retrieving current long-term property rent estimates for a given property. It also returns a list of comparable rental listings for that property\n    \n\n## Learn More\n\nYou can learn more about our property valuation methodology, data sources, and accuracy on our API developer portal:\n\n[https://developers.rentcast.io/reference/property-valuation](https://developers.rentcast.io/reference/property-valuation)"
+    },
+    {
+      "name": "Property Listings",
+      "item": [
+        {
+          "name": "Sale Listings",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "https://api.rentcast.io/v1/listings/sale?city=Austin&state=TX&status=Active&limit=5",
+              "protocol": "https",
+              "host": [
+                "api",
+                "rentcast",
+                "io"
+              ],
+              "path": [
+                "v1",
+                "listings",
+                "sale"
+              ],
+              "query": [
+                {
+                  "key": "address",
+                  "value": null,
+                  "description": "(String) The **full address** of the property, in the format of `Street, City, State, Zip`. Used to retrieve data for a specific property, or together with the `radius` parameter to search for listings in a specific area",
+                  "disabled": true
+                },
+                {
+                  "key": "city",
+                  "value": "Austin",
+                  "description": "(String) The name of the city, used to search for listings in a specific city. This parameter is case-sensitive"
+                },
+                {
+                  "key": "state",
+                  "value": "TX",
+                  "description": "(String) The 2-character state abbreviation, used to search for listings in a specific state. This parameter is case-sensitive"
+                },
+                {
+                  "key": "zipCode",
+                  "value": null,
+                  "description": "(String) The 5-digit zip code, used to search for listings in a specific zip code",
+                  "disabled": true
+                },
+                {
+                  "key": "latitude",
+                  "value": null,
+                  "description": "(Float) The latitude of the search area. Use the `latitude`/`longitude` and `radius` parameters to search for listings in a specific area",
+                  "disabled": true
+                },
+                {
+                  "key": "longitude",
+                  "value": null,
+                  "description": "(Float) The longitude of the search area. Use the `latitude`/`longitude` and `radius` parameters to search for listings in a specific area",
+                  "disabled": true
+                },
+                {
+                  "key": "radius",
+                  "value": null,
+                  "description": "(Float) The radius of the search area in miles, with a maximum of 100. Use in combination with the `latitude`/`longitude` or `address` parameters to search for listings in a specific area",
+                  "disabled": true
+                },
+                {
+                  "key": "propertyType",
+                  "value": null,
+                  "description": "(String) The type of the property, used to search for listings matching this criteria. See [explanation of property types](https://developers.rentcast.io/reference/property-types)",
+                  "disabled": true
+                },
+                {
+                  "key": "bedrooms",
+                  "value": null,
+                  "description": "(Float) The number of bedrooms, used to search for listings matching this criteria. Use `0` to indicate a studio layout",
+                  "disabled": true
+                },
+                {
+                  "key": "bathrooms",
+                  "value": null,
+                  "description": "(Float) The number of bathrooms, used to search for listings matching this criteria. Supports fractions to indicate partial bathrooms",
+                  "disabled": true
+                },
+                {
+                  "key": "status",
+                  "value": "Active",
+                  "description": "(String) The current listing status, used to search for listings matching this criteria"
+                },
+                {
+                  "key": "daysOld",
+                  "value": null,
+                  "description": "(Integer) The maximum number of days since a property was listed on the market, with a minimum of 1",
+                  "disabled": true
+                },
+                {
+                  "key": "limit",
+                  "value": "5",
+                  "description": "(Integer) The maximum number of listings to return, between 1 and 500. Defaults to 50 if not provided. [Learn more](https://developers.rentcast.io/reference/pagination) about pagination"
+                },
+                {
+                  "key": "offset",
+                  "value": null,
+                  "description": "(Integer) The index of the first listing to return, used to paginate through large lists of results. Defaults to 0 if not provided. [Learn more](https://developers.rentcast.io/reference/pagination) about pagination",
+                  "disabled": true
+                }
+              ]
+            },
+            "description": "Search for sale listings in a geographical area, or by a specific address.\n\nView the full documentation for this endpoint on our API developer portal:\n\n[https://developers.rentcast.io/reference/sale-listings](https://developers.rentcast.io/reference/sale-listings)"
+          },
+          "response": [
+            {
+              "name": "Get Sale Listings by Search Criteria",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "https://api.rentcast.io/v1/listings/sale?city=Austin&state=TX&status=Active&limit=5",
+                  "protocol": "https",
+                  "host": [
+                    "api",
+                    "rentcast",
+                    "io"
+                  ],
+                  "path": [
+                    "v1",
+                    "listings",
+                    "sale"
+                  ],
+                  "query": [
+                    {
+                      "key": "address",
+                      "value": null,
+                      "description": "(String) The **full address** of the property, in the format of `Street, City, State, Zip`. Used to retrieve data for a specific property, or together with the `radius` parameter to search for listings in a specific area",
+                      "disabled": true
+                    },
+                    {
+                      "key": "city",
+                      "value": "Austin",
+                      "description": "(String) The name of the city, used to search for listings in a specific city. This parameter is case-sensitive"
+                    },
+                    {
+                      "key": "state",
+                      "value": "TX",
+                      "description": "(String) The 2-character state abbreviation, used to search for listings in a specific state. This parameter is case-sensitive"
+                    },
+                    {
+                      "key": "zipCode",
+                      "value": null,
+                      "description": "(String) The 5-digit zip code, used to search for listings in a specific zip code",
+                      "disabled": true
+                    },
+                    {
+                      "key": "latitude",
+                      "value": null,
+                      "description": "(Float) The latitude of the search area. Use the `latitude`/`longitude` and `radius` parameters to search for listings in a specific area",
+                      "disabled": true
+                    },
+                    {
+                      "key": "longitude",
+                      "value": null,
+                      "description": "(Float) The longitude of the search area. Use the `latitude`/`longitude` and `radius` parameters to search for listings in a specific area",
+                      "disabled": true
+                    },
+                    {
+                      "key": "radius",
+                      "value": null,
+                      "description": "(Float) The radius of the search area in miles, with a maximum of 100. Use in combination with the `latitude`/`longitude` or `address` parameters to search for listings in a specific area",
+                      "disabled": true
+                    },
+                    {
+                      "key": "propertyType",
+                      "value": null,
+                      "description": "(String) The type of the property, used to search for listings matching this criteria. See [explanation of property types](https://developers.rentcast.io/reference/property-types)",
+                      "disabled": true
+                    },
+                    {
+                      "key": "bedrooms",
+                      "value": null,
+                      "description": "(Float) The number of bedrooms, used to search for listings matching this criteria. Use `0` to indicate a studio layout",
+                      "disabled": true
+                    },
+                    {
+                      "key": "bathrooms",
+                      "value": null,
+                      "description": "(Float) The number of bathrooms, used to search for listings matching this criteria. Supports fractions to indicate partial bathrooms",
+                      "disabled": true
+                    },
+                    {
+                      "key": "status",
+                      "value": "Active",
+                      "description": "(String) The current listing status, used to search for listings matching this criteria"
+                    },
+                    {
+                      "key": "daysOld",
+                      "value": null,
+                      "description": "(Integer) The maximum number of days since a property was listed on the market, with a minimum of 1",
+                      "disabled": true
+                    },
+                    {
+                      "key": "limit",
+                      "value": "5",
+                      "description": "(Integer) The maximum number of listings to return, between 1 and 500. Defaults to 50 if not provided. [Learn more](https://developers.rentcast.io/reference/pagination) about pagination"
+                    },
+                    {
+                      "key": "offset",
+                      "value": null,
+                      "description": "(Integer) The index of the first listing to return, used to paginate through large lists of results. Defaults to 0 if not provided. [Learn more](https://developers.rentcast.io/reference/pagination) about pagination",
+                      "disabled": true
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json",
+                  "name": "Content-Type",
+                  "description": "",
+                  "type": "text"
+                }
+              ],
+              "cookie": [],
+              "body": "[\n    {\n        \"id\": \"12166-Metric-Blvd,-Apt-212,-Austin,-TX-78758\",\n        \"formattedAddress\": \"12166 Metric Blvd, Apt 212, Austin, TX 78758\",\n        \"addressLine1\": \"12166 Metric Blvd\",\n        \"addressLine2\": \"Apt 212\",\n        \"city\": \"Austin\",\n        \"state\": \"TX\",\n        \"zipCode\": \"78758\",\n        \"county\": \"Travis\",\n        \"latitude\": 30.406796,\n        \"longitude\": -97.697869,\n        \"propertyType\": \"Condo\",\n        \"bedrooms\": 1,\n        \"bathrooms\": 1,\n        \"squareFootage\": 516,\n        \"lotSize\": 1568,\n        \"yearBuilt\": 1986,\n        \"status\": \"Active\",\n        \"price\": 205000,\n        \"listedDate\": \"2023-01-13T00:00:00.000Z\",\n        \"removedDate\": null,\n        \"createdDate\": \"2020-09-15T05:26:05.426Z\",\n        \"lastSeenDate\": \"2023-02-25T00:00:00.000Z\",\n        \"daysOnMarket\": 43\n    },\n    {\n        \"id\": \"2212-Big-Horn-Dr,-Austin,-TX-78734\",\n        \"formattedAddress\": \"2212 Big Horn Dr, Austin, TX 78734\",\n        \"addressLine1\": \"2212 Big Horn Dr\",\n        \"addressLine2\": null,\n        \"city\": \"Austin\",\n        \"state\": \"TX\",\n        \"zipCode\": \"78734\",\n        \"county\": \"Travis\",\n        \"latitude\": 30.372577,\n        \"longitude\": -97.916294,\n        \"propertyType\": \"Land\",\n        \"lotSize\": 10498,\n        \"status\": \"Active\",\n        \"price\": 265000,\n        \"listedDate\": \"2022-05-19T00:00:00.000Z\",\n        \"removedDate\": null,\n        \"createdDate\": \"2020-09-15T04:00:54.343Z\",\n        \"lastSeenDate\": \"2023-02-25T00:00:00.000Z\",\n        \"daysOnMarket\": 282\n    },\n    {\n        \"id\": \"364-Seneca-Dr,-Austin,-TX-78737\",\n        \"formattedAddress\": \"364 Seneca Dr, Austin, TX 78737\",\n        \"addressLine1\": \"364 Seneca Dr\",\n        \"addressLine2\": null,\n        \"city\": \"Austin\",\n        \"state\": \"TX\",\n        \"zipCode\": \"78737\",\n        \"county\": \"Hays\",\n        \"latitude\": 30.190639,\n        \"longitude\": -97.990657,\n        \"propertyType\": \"Land\",\n        \"lotSize\": 14680,\n        \"status\": \"Active\",\n        \"price\": 330000,\n        \"listedDate\": \"2022-12-30T00:00:00.000Z\",\n        \"removedDate\": null,\n        \"createdDate\": \"2020-09-15T04:10:54.051Z\",\n        \"lastSeenDate\": \"2023-02-25T00:00:00.000Z\",\n        \"daysOnMarket\": 57\n    },\n    {\n        \"id\": \"1410-E-Applegate-Dr,-Austin,-TX-78753\",\n        \"formattedAddress\": \"1410 E Applegate Dr, Austin, TX 78753\",\n        \"addressLine1\": \"1410 E Applegate Dr\",\n        \"addressLine2\": null,\n        \"city\": \"Austin\",\n        \"state\": \"TX\",\n        \"zipCode\": \"78753\",\n        \"county\": \"Travis\",\n        \"latitude\": 30.363393,\n        \"longitude\": -97.668667,\n        \"propertyType\": \"Land\",\n        \"lotSize\": 141526,\n        \"status\": \"Active\",\n        \"price\": 1100000,\n        \"listedDate\": \"2023-01-31T00:00:00.000Z\",\n        \"removedDate\": null,\n        \"createdDate\": \"2020-09-15T05:26:05.430Z\",\n        \"lastSeenDate\": \"2023-02-25T00:00:00.000Z\",\n        \"daysOnMarket\": 25\n    },\n    {\n        \"id\": \"8417-Lakewood-Ridge-Cv,-Austin,-TX-78738\",\n        \"formattedAddress\": \"8417 Lakewood Ridge Cv, Austin, TX 78738\",\n        \"addressLine1\": \"8417 Lakewood Ridge Cv\",\n        \"addressLine2\": null,\n        \"city\": \"Austin\",\n        \"state\": \"TX\",\n        \"zipCode\": \"78738\",\n        \"county\": \"Travis\",\n        \"latitude\": 30.295995,\n        \"longitude\": -98.03995,\n        \"propertyType\": \"Land\",\n        \"lotSize\": 45128,\n        \"status\": \"Active\",\n        \"price\": 799000,\n        \"listedDate\": \"2022-06-16T00:00:00.000Z\",\n        \"removedDate\": null,\n        \"createdDate\": \"2020-09-15T18:20:57.279Z\",\n        \"lastSeenDate\": \"2023-02-25T00:00:00.000Z\",\n        \"daysOnMarket\": 254\n    }\n]"
+            },
+            {
+              "name": "Get Sale Listings by Address",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "https://api.rentcast.io/v1/listings/sale?address=1702 Cherry Orchard Dr, Austin, TX 78745",
+                  "protocol": "https",
+                  "host": [
+                    "api",
+                    "rentcast",
+                    "io"
+                  ],
+                  "path": [
+                    "v1",
+                    "listings",
+                    "sale"
+                  ],
+                  "query": [
+                    {
+                      "key": "address",
+                      "value": "1702 Cherry Orchard Dr, Austin, TX 78745",
+                      "description": "(String) The **full address** of the property, in the format of `Street, City, State, Zip`. Used to retrieve data for a specific property, or together with the `radius` parameter to search for listings in a specific area"
+                    },
+                    {
+                      "key": "city",
+                      "value": "",
+                      "description": "(String) The name of the city, used to search for listings in a specific city. This parameter is case-sensitive",
+                      "disabled": true
+                    },
+                    {
+                      "key": "state",
+                      "value": "",
+                      "description": "(String) The 2-character state abbreviation, used to search for listings in a specific state. This parameter is case-sensitive",
+                      "disabled": true
+                    },
+                    {
+                      "key": "zipCode",
+                      "value": null,
+                      "description": "(String) The 5-digit zip code, used to search for listings in a specific zip code",
+                      "disabled": true
+                    },
+                    {
+                      "key": "latitude",
+                      "value": null,
+                      "description": "(Float) The latitude of the search area. Use the `latitude`/`longitude` and `radius` parameters to search for listings in a specific area",
+                      "disabled": true
+                    },
+                    {
+                      "key": "longitude",
+                      "value": null,
+                      "description": "(Float) The longitude of the search area. Use the `latitude`/`longitude` and `radius` parameters to search for listings in a specific area",
+                      "disabled": true
+                    },
+                    {
+                      "key": "radius",
+                      "value": null,
+                      "description": "(Float) The radius of the search area in miles, with a maximum of 100. Use in combination with the `latitude`/`longitude` or `address` parameters to search for listings in a specific area",
+                      "disabled": true
+                    },
+                    {
+                      "key": "propertyType",
+                      "value": null,
+                      "description": "(String) The type of the property, used to search for listings matching this criteria. See [explanation of property types](https://developers.rentcast.io/reference/property-types)",
+                      "disabled": true
+                    },
+                    {
+                      "key": "bedrooms",
+                      "value": null,
+                      "description": "(Float) The number of bedrooms, used to search for listings matching this criteria. Use `0` to indicate a studio layout",
+                      "disabled": true
+                    },
+                    {
+                      "key": "bathrooms",
+                      "value": null,
+                      "description": "(Float) The number of bathrooms, used to search for listings matching this criteria. Supports fractions to indicate partial bathrooms",
+                      "disabled": true
+                    },
+                    {
+                      "key": "status",
+                      "value": "",
+                      "description": "(String) The current listing status, used to search for listings matching this criteria",
+                      "disabled": true
+                    },
+                    {
+                      "key": "daysOld",
+                      "value": null,
+                      "description": "(Integer) The maximum number of days since a property was listed on the market, with a minimum of 1",
+                      "disabled": true
+                    },
+                    {
+                      "key": "limit",
+                      "value": "",
+                      "description": "(Integer) The maximum number of listings to return, between 1 and 500. Defaults to 50 if not provided. [Learn more](https://developers.rentcast.io/reference/pagination) about pagination",
+                      "disabled": true
+                    },
+                    {
+                      "key": "offset",
+                      "value": null,
+                      "description": "(Integer) The index of the first listing to return, used to paginate through large lists of results. Defaults to 0 if not provided. [Learn more](https://developers.rentcast.io/reference/pagination) about pagination",
+                      "disabled": true
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json",
+                  "name": "Content-Type",
+                  "description": "",
+                  "type": "text"
+                }
+              ],
+              "cookie": [],
+              "body": "[\n    {\n        \"id\": \"1702-Cherry-Orchard-Dr,-Austin,-TX-78745\",\n        \"formattedAddress\": \"1702 Cherry Orchard Dr, Austin, TX 78745\",\n        \"addressLine1\": \"1702 Cherry Orchard Dr\",\n        \"addressLine2\": null,\n        \"city\": \"Austin\",\n        \"state\": \"TX\",\n        \"zipCode\": \"78745\",\n        \"county\": \"Travis\",\n        \"latitude\": 30.201436,\n        \"longitude\": -97.802849,\n        \"propertyType\": \"Single Family\",\n        \"bedrooms\": 3,\n        \"bathrooms\": 1,\n        \"squareFootage\": 910,\n        \"lotSize\": 8233,\n        \"yearBuilt\": 1972,\n        \"status\": \"Active\",\n        \"price\": 385000,\n        \"listedDate\": \"2023-02-02T00:00:00.000Z\",\n        \"removedDate\": null,\n        \"createdDate\": \"2020-09-20T00:00:00.000Z\",\n        \"lastSeenDate\": \"2023-02-25T00:00:00.000Z\",\n        \"daysOnMarket\": 23\n    }\n]"
+            }
+          ]
+        },
+        {
+          "name": "Sale Listing by Id",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "https://api.rentcast.io/v1/listings/sale/:id",
+              "protocol": "https",
+              "host": [
+                "api",
+                "rentcast",
+                "io"
+              ],
+              "path": [
+                "v1",
+                "listings",
+                "sale",
+                ":id"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "1702-Cherry-Orchard-Dr,-Austin,-TX-78745",
+                  "description": "(String, Required) The id of the property listing to return"
+                }
+              ]
+            },
+            "description": "Returns a single sale listing matching the specified id.\n\nView the full documentation for this endpoint on our API developer portal:\n\n[https://developers.rentcast.io/reference/sale-listing-by-id](https://developers.rentcast.io/reference/sale-listing-by-id)"
+          },
+          "response": [
+            {
+              "name": "Get Sale Listing by Id",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "https://api.rentcast.io/v1/listings/sale/:id",
+                  "protocol": "https",
+                  "host": [
+                    "api",
+                    "rentcast",
+                    "io"
+                  ],
+                  "path": [
+                    "v1",
+                    "listings",
+                    "sale",
+                    ":id"
+                  ],
+                  "variable": [
+                    {
+                      "key": "id",
+                      "value": "1702-Cherry-Orchard-Dr,-Austin,-TX-78745",
+                      "description": "(String, Required) The id of the property listing to return"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json",
+                  "name": "Content-Type",
+                  "description": "",
+                  "type": "text"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"id\": \"1702-Cherry-Orchard-Dr,-Austin,-TX-78745\",\n    \"formattedAddress\": \"1702 Cherry Orchard Dr, Austin, TX 78745\",\n    \"addressLine1\": \"1702 Cherry Orchard Dr\",\n    \"addressLine2\": null,\n    \"city\": \"Austin\",\n    \"state\": \"TX\",\n    \"zipCode\": \"78745\",\n    \"county\": \"Travis\",\n    \"latitude\": 30.201436,\n    \"longitude\": -97.802849,\n    \"propertyType\": \"Single Family\",\n    \"bedrooms\": 3,\n    \"bathrooms\": 1,\n    \"squareFootage\": 910,\n    \"lotSize\": 8233,\n    \"yearBuilt\": 1972,\n    \"status\": \"Active\",\n    \"price\": 385000,\n    \"listedDate\": \"2023-02-02T00:00:00.000Z\",\n    \"removedDate\": null,\n    \"createdDate\": \"2020-09-20T00:00:00.000Z\",\n    \"lastSeenDate\": \"2023-02-25T00:00:00.000Z\",\n    \"daysOnMarket\": 23\n}"
+            }
+          ]
+        },
+        {
+          "name": "Rental Listings",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "https://api.rentcast.io/v1/listings/rental/long-term?city=Austin&state=TX&status=Active&limit=5",
+              "protocol": "https",
+              "host": [
+                "api",
+                "rentcast",
+                "io"
+              ],
+              "path": [
+                "v1",
+                "listings",
+                "rental",
+                "long-term"
+              ],
+              "query": [
+                {
+                  "key": "address",
+                  "value": null,
+                  "description": "(String) The **full address** of the property, in the format of `Street, City, State, Zip`. Used to retrieve data for a specific property, or together with the `radius` parameter to search for listings in a specific area",
+                  "disabled": true
+                },
+                {
+                  "key": "city",
+                  "value": "Austin",
+                  "description": "(String) The name of the city, used to search for listings in a specific city. This parameter is case-sensitive"
+                },
+                {
+                  "key": "state",
+                  "value": "TX",
+                  "description": "(String) The 2-character state abbreviation, used to search for listings in a specific state. This parameter is case-sensitive"
+                },
+                {
+                  "key": "zipCode",
+                  "value": null,
+                  "description": "(String) The 5-digit zip code, used to search for listings in a specific zip code",
+                  "disabled": true
+                },
+                {
+                  "key": "latitude",
+                  "value": null,
+                  "description": "(Float) The latitude of the search area. Use the `latitude`/`longitude` and `radius` parameters to search for listings in a specific area",
+                  "disabled": true
+                },
+                {
+                  "key": "longitude",
+                  "value": null,
+                  "description": "(Float) The longitude of the search area. Use the `latitude`/`longitude` and `radius` parameters to search for listings in a specific area",
+                  "disabled": true
+                },
+                {
+                  "key": "radius",
+                  "value": null,
+                  "description": "(Float) The radius of the search area in miles, with a maximum of 100. Use in combination with the `latitude`/`longitude` or `address` parameters to search for listings in a specific area",
+                  "disabled": true
+                },
+                {
+                  "key": "propertyType",
+                  "value": null,
+                  "description": "(String) The type of the property, used to search for listings matching this criteria. See [explanation of property types](https://developers.rentcast.io/reference/property-types)",
+                  "disabled": true
+                },
+                {
+                  "key": "bedrooms",
+                  "value": null,
+                  "description": "(Float) The number of bedrooms, used to search for listings matching this criteria. Use `0` to indicate a studio layout",
+                  "disabled": true
+                },
+                {
+                  "key": "bathrooms",
+                  "value": null,
+                  "description": "(Float) The number of bathrooms, used to search for listings matching this criteria. Supports fractions to indicate partial bathrooms",
+                  "disabled": true
+                },
+                {
+                  "key": "status",
+                  "value": "Active",
+                  "description": "(String) The current listing status, used to search for listings matching this criteria"
+                },
+                {
+                  "key": "daysOld",
+                  "value": null,
+                  "description": "(Integer) The maximum number of days since a property was listed on the market, with a minimum of 1",
+                  "disabled": true
+                },
+                {
+                  "key": "limit",
+                  "value": "5",
+                  "description": "(Integer) The maximum number of listings to return, between 1 and 500. Defaults to 50 if not provided. [Learn more](https://developers.rentcast.io/reference/pagination) about pagination"
+                },
+                {
+                  "key": "offset",
+                  "value": null,
+                  "description": "(Integer) The index of the first listing to return, used to paginate through large lists of results. Defaults to 0 if not provided. [Learn more](https://developers.rentcast.io/reference/pagination) about pagination",
+                  "disabled": true
+                }
+              ]
+            },
+            "description": "Search for rental listings in a geographical area, or by a specific address.\n\nView the full documentation for this endpoint on our API developer portal:\n\n[https://developers.rentcast.io/reference/rental-listings-long-term](https://developers.rentcast.io/reference/rental-listings-long-term)"
+          },
+          "response": [
+            {
+              "name": "Get Rental Listings by Search Criteria",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "https://api.rentcast.io/v1/listings/rental/long-term?city=Austin&state=TX&status=Active&limit=5",
+                  "protocol": "https",
+                  "host": [
+                    "api",
+                    "rentcast",
+                    "io"
+                  ],
+                  "path": [
+                    "v1",
+                    "listings",
+                    "rental",
+                    "long-term"
+                  ],
+                  "query": [
+                    {
+                      "key": "address",
+                      "value": null,
+                      "description": "(String) The **full address** of the property, in the format of `Street, City, State, Zip`. Used to retrieve data for a specific property, or together with the `radius` parameter to search for listings in a specific area",
+                      "disabled": true
+                    },
+                    {
+                      "key": "city",
+                      "value": "Austin",
+                      "description": "(String) The name of the city, used to search for listings in a specific city. This parameter is case-sensitive"
+                    },
+                    {
+                      "key": "state",
+                      "value": "TX",
+                      "description": "(String) The 2-character state abbreviation, used to search for listings in a specific state. This parameter is case-sensitive"
+                    },
+                    {
+                      "key": "zipCode",
+                      "value": null,
+                      "description": "(String) The 5-digit zip code, used to search for listings in a specific zip code",
+                      "disabled": true
+                    },
+                    {
+                      "key": "latitude",
+                      "value": null,
+                      "description": "(Float) The latitude of the search area. Use the `latitude`/`longitude` and `radius` parameters to search for listings in a specific area",
+                      "disabled": true
+                    },
+                    {
+                      "key": "longitude",
+                      "value": null,
+                      "description": "(Float) The longitude of the search area. Use the `latitude`/`longitude` and `radius` parameters to search for listings in a specific area",
+                      "disabled": true
+                    },
+                    {
+                      "key": "radius",
+                      "value": null,
+                      "description": "(Float) The radius of the search area in miles, with a maximum of 100. Use in combination with the `latitude`/`longitude` or `address` parameters to search for listings in a specific area",
+                      "disabled": true
+                    },
+                    {
+                      "key": "propertyType",
+                      "value": null,
+                      "description": "(String) The type of the property, used to search for listings matching this criteria. See [explanation of property types](https://developers.rentcast.io/reference/property-types)",
+                      "disabled": true
+                    },
+                    {
+                      "key": "bedrooms",
+                      "value": null,
+                      "description": "(Float) The number of bedrooms, used to search for listings matching this criteria. Use `0` to indicate a studio layout",
+                      "disabled": true
+                    },
+                    {
+                      "key": "bathrooms",
+                      "value": null,
+                      "description": "(Float) The number of bathrooms, used to search for listings matching this criteria. Supports fractions to indicate partial bathrooms",
+                      "disabled": true
+                    },
+                    {
+                      "key": "status",
+                      "value": "Active",
+                      "description": "(String) The current listing status, used to search for listings matching this criteria"
+                    },
+                    {
+                      "key": "daysOld",
+                      "value": null,
+                      "description": "(Integer) The maximum number of days since a property was listed on the market, with a minimum of 1",
+                      "disabled": true
+                    },
+                    {
+                      "key": "limit",
+                      "value": "5",
+                      "description": "(Integer) The maximum number of listings to return, between 1 and 500. Defaults to 50 if not provided. [Learn more](https://developers.rentcast.io/reference/pagination) about pagination"
+                    },
+                    {
+                      "key": "offset",
+                      "value": null,
+                      "description": "(Integer) The index of the first listing to return, used to paginate through large lists of results. Defaults to 0 if not provided. [Learn more](https://developers.rentcast.io/reference/pagination) about pagination",
+                      "disabled": true
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json",
+                  "name": "Content-Type",
+                  "description": "",
+                  "type": "text"
+                }
+              ],
+              "cookie": [],
+              "body": "[\n    {\n        \"id\": \"1000-W-26th-St,-Apt-216,-Austin,-TX-78705\",\n        \"formattedAddress\": \"1000 W 26th St, Apt 216, Austin, TX 78705\",\n        \"addressLine1\": \"1000 W 26th St\",\n        \"addressLine2\": \"Apt 216\",\n        \"city\": \"Austin\",\n        \"state\": \"TX\",\n        \"zipCode\": \"78705\",\n        \"county\": \"Travis\",\n        \"latitude\": 30.291138,\n        \"longitude\": -97.747833,\n        \"propertyType\": \"Condo\",\n        \"bedrooms\": 1,\n        \"bathrooms\": 1,\n        \"squareFootage\": 445,\n        \"lotSize\": 653,\n        \"yearBuilt\": 1973,\n        \"status\": \"Active\",\n        \"price\": 1275,\n        \"listedDate\": \"2022-11-21T00:00:00.000Z\",\n        \"removedDate\": null,\n        \"createdDate\": \"2019-11-07T15:13:54.790Z\",\n        \"lastSeenDate\": \"2023-02-25T00:00:00.000Z\",\n        \"daysOnMarket\": 96\n    },\n    {\n        \"id\": \"10015-Lake-Creek-Pkwy,-Austin,-TX-78729\",\n        \"formattedAddress\": \"10015 Lake Creek Pkwy, Austin, TX 78729\",\n        \"addressLine1\": \"10015 Lake Creek Pkwy\",\n        \"addressLine2\": null,\n        \"city\": \"Austin\",\n        \"state\": \"TX\",\n        \"zipCode\": \"78729\",\n        \"county\": \"Williamson\",\n        \"latitude\": 30.466927,\n        \"longitude\": -97.786581,\n        \"propertyType\": \"Apartment\",\n        \"bedrooms\": 1,\n        \"bathrooms\": 1,\n        \"squareFootage\": 901,\n        \"yearBuilt\": 2001,\n        \"status\": \"Active\",\n        \"price\": 1885,\n        \"listedDate\": \"2023-01-13T00:00:00.000Z\",\n        \"removedDate\": null,\n        \"createdDate\": \"2019-11-07T15:23:43.984Z\",\n        \"lastSeenDate\": \"2023-02-25T00:00:00.000Z\",\n        \"daysOnMarket\": 43\n    },\n    {\n        \"id\": \"10000-N-Lamar-Blvd,-Austin,-TX-78753\",\n        \"formattedAddress\": \"10000 N Lamar Blvd, Austin, TX 78753\",\n        \"addressLine1\": \"10000 N Lamar Blvd\",\n        \"addressLine2\": null,\n        \"city\": \"Austin\",\n        \"state\": \"TX\",\n        \"zipCode\": \"78753\",\n        \"county\": \"Travis\",\n        \"latitude\": 30.369334,\n        \"longitude\": -97.695373,\n        \"propertyType\": \"Apartment\",\n        \"bedrooms\": 2,\n        \"bathrooms\": 1,\n        \"status\": \"Active\",\n        \"price\": 1294,\n        \"listedDate\": \"2022-12-22T00:00:00.000Z\",\n        \"removedDate\": null,\n        \"createdDate\": \"2019-11-05T20:07:02.749Z\",\n        \"lastSeenDate\": \"2023-02-25T00:00:00.000Z\",\n        \"daysOnMarket\": 65\n    },\n    {\n        \"id\": \"1001-Collinwood-West-Dr,-Austin,-TX-78753\",\n        \"formattedAddress\": \"1001 Collinwood West Dr, Austin, TX 78753\",\n        \"addressLine1\": \"1001 Collinwood West Dr\",\n        \"addressLine2\": null,\n        \"city\": \"Austin\",\n        \"state\": \"TX\",\n        \"zipCode\": \"78753\",\n        \"county\": \"Travis\",\n        \"latitude\": 30.37071,\n        \"longitude\": -97.67469,\n        \"propertyType\": \"Apartment\",\n        \"bedrooms\": 2,\n        \"bathrooms\": 1,\n        \"yearBuilt\": 2001,\n        \"status\": \"Active\",\n        \"price\": 925,\n        \"listedDate\": \"2022-12-22T00:00:00.000Z\",\n        \"removedDate\": null,\n        \"createdDate\": \"2019-11-05T20:06:58.888Z\",\n        \"lastSeenDate\": \"2023-02-25T00:00:00.000Z\",\n        \"daysOnMarket\": 65\n    },\n    {\n        \"id\": \"10011-Stonelake-Blvd,-Austin,-TX-78759\",\n        \"formattedAddress\": \"10011 Stonelake Blvd, Austin, TX 78759\",\n        \"addressLine1\": \"10011 Stonelake Blvd\",\n        \"addressLine2\": null,\n        \"city\": \"Austin\",\n        \"state\": \"TX\",\n        \"zipCode\": \"78759\",\n        \"county\": \"Travis\",\n        \"latitude\": 30.392466,\n        \"longitude\": -97.738149,\n        \"propertyType\": \"Apartment\",\n        \"bedrooms\": 1,\n        \"bathrooms\": 1,\n        \"squareFootage\": 924,\n        \"yearBuilt\": 2014,\n        \"status\": \"Active\",\n        \"price\": 1581,\n        \"listedDate\": \"2022-12-22T00:00:00.000Z\",\n        \"removedDate\": null,\n        \"createdDate\": \"2019-11-07T14:53:38.218Z\",\n        \"lastSeenDate\": \"2023-02-25T00:00:00.000Z\",\n        \"daysOnMarket\": 65\n    }\n]"
+            },
+            {
+              "name": "Get Rental Listings by Address",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "https://api.rentcast.io/v1/listings/rental/long-term?address=1702 Cherry Orchard Dr, Austin, TX 78745",
+                  "protocol": "https",
+                  "host": [
+                    "api",
+                    "rentcast",
+                    "io"
+                  ],
+                  "path": [
+                    "v1",
+                    "listings",
+                    "rental",
+                    "long-term"
+                  ],
+                  "query": [
+                    {
+                      "key": "address",
+                      "value": "1702 Cherry Orchard Dr, Austin, TX 78745",
+                      "description": "(String) The **full address** of the property, in the format of `Street, City, State, Zip`. Used to retrieve data for a specific property, or together with the `radius` parameter to search for listings in a specific area"
+                    },
+                    {
+                      "key": "city",
+                      "value": "",
+                      "description": "(String) The name of the city, used to search for listings in a specific city. This parameter is case-sensitive",
+                      "disabled": true
+                    },
+                    {
+                      "key": "state",
+                      "value": "",
+                      "description": "(String) The 2-character state abbreviation, used to search for listings in a specific state. This parameter is case-sensitive",
+                      "disabled": true
+                    },
+                    {
+                      "key": "zipCode",
+                      "value": null,
+                      "description": "(String) The 5-digit zip code, used to search for listings in a specific zip code",
+                      "disabled": true
+                    },
+                    {
+                      "key": "latitude",
+                      "value": null,
+                      "description": "(Float) The latitude of the search area. Use the `latitude`/`longitude` and `radius` parameters to search for listings in a specific area",
+                      "disabled": true
+                    },
+                    {
+                      "key": "longitude",
+                      "value": null,
+                      "description": "(Float) The longitude of the search area. Use the `latitude`/`longitude` and `radius` parameters to search for listings in a specific area",
+                      "disabled": true
+                    },
+                    {
+                      "key": "radius",
+                      "value": null,
+                      "description": "(Float) The radius of the search area in miles, with a maximum of 100. Use in combination with the `latitude`/`longitude` or `address` parameters to search for listings in a specific area",
+                      "disabled": true
+                    },
+                    {
+                      "key": "propertyType",
+                      "value": null,
+                      "description": "(String) The type of the property, used to search for listings matching this criteria. See [explanation of property types](https://developers.rentcast.io/reference/property-types)",
+                      "disabled": true
+                    },
+                    {
+                      "key": "bedrooms",
+                      "value": null,
+                      "description": "(Float) The number of bedrooms, used to search for listings matching this criteria. Use `0` to indicate a studio layout",
+                      "disabled": true
+                    },
+                    {
+                      "key": "bathrooms",
+                      "value": null,
+                      "description": "(Float) The number of bathrooms, used to search for listings matching this criteria. Supports fractions to indicate partial bathrooms",
+                      "disabled": true
+                    },
+                    {
+                      "key": "status",
+                      "value": "",
+                      "description": "(String) The current listing status, used to search for listings matching this criteria",
+                      "disabled": true
+                    },
+                    {
+                      "key": "daysOld",
+                      "value": null,
+                      "description": "(Integer) The maximum number of days since a property was listed on the market, with a minimum of 1",
+                      "disabled": true
+                    },
+                    {
+                      "key": "limit",
+                      "value": "",
+                      "description": "(Integer) The maximum number of listings to return, between 1 and 500. Defaults to 50 if not provided. [Learn more](https://developers.rentcast.io/reference/pagination) about pagination",
+                      "disabled": true
+                    },
+                    {
+                      "key": "offset",
+                      "value": null,
+                      "description": "(Integer) The index of the first listing to return, used to paginate through large lists of results. Defaults to 0 if not provided. [Learn more](https://developers.rentcast.io/reference/pagination) about pagination",
+                      "disabled": true
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json",
+                  "name": "Content-Type",
+                  "description": "",
+                  "type": "text"
+                }
+              ],
+              "cookie": [],
+              "body": "[\n    {\n        \"id\": \"1702-Cherry-Orchard-Dr,-Austin,-TX-78745\",\n        \"formattedAddress\": \"1702 Cherry Orchard Dr, Austin, TX 78745\",\n        \"addressLine1\": \"1702 Cherry Orchard Dr\",\n        \"addressLine2\": null,\n        \"city\": \"Austin\",\n        \"state\": \"TX\",\n        \"zipCode\": \"78745\",\n        \"county\": \"Travis\",\n        \"latitude\": 30.201391,\n        \"longitude\": -97.802872,\n        \"propertyType\": \"Single Family\",\n        \"bedrooms\": 3,\n        \"bathrooms\": 1,\n        \"squareFootage\": 910,\n        \"lotSize\": 8233,\n        \"yearBuilt\": 1972,\n        \"status\": \"Active\",\n        \"price\": 2025,\n        \"listedDate\": \"2022-10-18T00:00:00.000Z\",\n        \"removedDate\": null,\n        \"createdDate\": \"2022-10-18T00:00:00.000Z\",\n        \"lastSeenDate\": \"2022-12-02T00:00:00.000Z\",\n        \"daysOnMarket\": 45\n    }\n]"
+            }
+          ]
+        },
+        {
+          "name": "Rental Listing by Id",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "https://api.rentcast.io/v1/listings/rental/long-term/:id",
+              "protocol": "https",
+              "host": [
+                "api",
+                "rentcast",
+                "io"
+              ],
+              "path": [
+                "v1",
+                "listings",
+                "rental",
+                "long-term",
+                ":id"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "1702-Cherry-Orchard-Dr,-Austin,-TX-78745",
+                  "description": "(String, Required) The id of the property listing to return"
+                }
+              ]
+            },
+            "description": "Returns a single rental listing matching the specified id.\n\nView the full documentation for this endpoint on our API developer portal:\n\n[https://developers.rentcast.io/reference/rental-listing-long-term-by-id](https://developers.rentcast.io/reference/rental-listing-long-term-by-id)"
+          },
+          "response": [
+            {
+              "name": "Get Rental Listing by Id",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "https://api.rentcast.io/v1/listings/rental/long-term/:id",
+                  "protocol": "https",
+                  "host": [
+                    "api",
+                    "rentcast",
+                    "io"
+                  ],
+                  "path": [
+                    "v1",
+                    "listings",
+                    "rental",
+                    "long-term",
+                    ":id"
+                  ],
+                  "variable": [
+                    {
+                      "key": "id",
+                      "value": "1702-Cherry-Orchard-Dr,-Austin,-TX-78745",
+                      "description": "(String, Required) The id of the property listing to return"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json",
+                  "name": "Content-Type",
+                  "description": "",
+                  "type": "text"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"id\": \"1702-Cherry-Orchard-Dr,-Austin,-TX-78745\",\n    \"formattedAddress\": \"1702 Cherry Orchard Dr, Austin, TX 78745\",\n    \"addressLine1\": \"1702 Cherry Orchard Dr\",\n    \"addressLine2\": null,\n    \"city\": \"Austin\",\n    \"state\": \"TX\",\n    \"zipCode\": \"78745\",\n    \"county\": \"Travis\",\n    \"latitude\": 30.201391,\n    \"longitude\": -97.802872,\n    \"propertyType\": \"Single Family\",\n    \"bedrooms\": 3,\n    \"bathrooms\": 1,\n    \"squareFootage\": 910,\n    \"lotSize\": 8233,\n    \"yearBuilt\": 1972,\n    \"status\": \"Active\",\n    \"price\": 2025,\n    \"listedDate\": \"2022-10-18T00:00:00.000Z\",\n    \"removedDate\": null,\n    \"createdDate\": \"2022-10-18T00:00:00.000Z\",\n    \"lastSeenDate\": \"2022-12-02T00:00:00.000Z\",\n    \"daysOnMarket\": 45\n}"
+            }
+          ]
+        }
+      ],
+      "description": "The `/listings` endpoints allow you to search for and retrieve active and inactive sale and rental listings in all 50 US states.\n\n“Sale” listings refer to properties listed for sale, while “rental” listings refer to properties listed for rent.\n\n## Available Endpoints\n\nWe provide the following endpoints for retrieving sale and rental listings:\n\n- [/listings/sale](https://www.postman.com/rentcast/workspace/rentcast-api/request/34259606-c7b379b2-7d5b-443a-8661-cc36cadf7d19): an endpoint that allows you to retrieve sale listings matching specific criteria in a given city or state, or in a particular geographical area\n- [/listings/sale/:id](https://www.postman.com/rentcast/workspace/rentcast-api/request/34259606-d079fb30-7dfb-47c2-8d51-8339eb661fbf): an endpoint that allows you to retrieve a specific sale listing, given its internal id. The id can be retrieved using the [/properties](https://www.postman.com/rentcast/workspace/rentcast-api/folder/34259606-7a95fcca-5c07-49d8-9d33-3d2013e4e49b), [/avm](https://www.postman.com/rentcast/workspace/rentcast-api/folder/34259606-5930b665-c298-402a-a11c-2c91723a5671) or other `/listings` endpoints, or cached in your application from prior requests\n- [/listings/rental/long-term](https://www.postman.com/rentcast/workspace/rentcast-api/request/34259606-e0db5624-e797-44c4-ba70-a9e28ee53df1): an endpoint that allows you to retrieve rental listings matching specific criteria in a given city or state, or in a particular geographical area\n- [/listings/rental/long-term/:id](https://www.postman.com/rentcast/workspace/rentcast-api/request/34259606-b66d3109-2c54-4bd4-990d-2039701250ac): an endpoint that allows you to retrieve a specific rental listing, given its internal id. The id can be retrieved using the [/properties](https://www.postman.com/rentcast/workspace/rentcast-api/folder/34259606-7a95fcca-5c07-49d8-9d33-3d2013e4e49b), [/avm](https://www.postman.com/rentcast/workspace/rentcast-api/folder/34259606-5930b665-c298-402a-a11c-2c91723a5671) or other `/listings` endpoints, or cached in your application from prior requests\n    \n\n## Learn More\n\nYou can learn more about our property listings sources, update frequency, supported queries, and pagination on our API developer portal:\n\n[https://developers.rentcast.io/reference/property-listings](https://developers.rentcast.io/reference/property-listings)"
+    },
+    {
+      "name": "Market Data",
+      "item": [
+        {
+          "name": "Market Statistics",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "https://api.rentcast.io/v1/markets?zipCode=29611&historyRange=6",
+              "protocol": "https",
+              "host": [
+                "api",
+                "rentcast",
+                "io"
+              ],
+              "path": [
+                "v1",
+                "markets"
+              ],
+              "query": [
+                {
+                  "key": "zipCode",
+                  "value": "29611",
+                  "description": "(String, Required) A valid 5-digit US zip code"
+                },
+                {
+                  "key": "historyRange",
+                  "value": "6",
+                  "description": "(Integer) The time range for historical record entries, in months. Defaults to 12 if not provided"
+                }
+              ]
+            },
+            "description": "Returns aggregate rental statistics and listing trends for a single US zip code.\n\nView the full documentation for this endpoint on our API developer portal:\n\n[https://developers.rentcast.io/reference/market-statistics](https://developers.rentcast.io/reference/market-statistics)"
+          },
+          "response": [
+            {
+              "name": "Get Market Statistics",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "https://api.rentcast.io/v1/markets?zipCode=29611&historyRange=6",
+                  "protocol": "https",
+                  "host": [
+                    "api",
+                    "rentcast",
+                    "io"
+                  ],
+                  "path": [
+                    "v1",
+                    "markets"
+                  ],
+                  "query": [
+                    {
+                      "key": "zipCode",
+                      "value": "29611",
+                      "description": "(String, Required) A valid 5-digit US zip code"
+                    },
+                    {
+                      "key": "historyRange",
+                      "value": "6",
+                      "description": "(Integer) The time range for historical record entries, in months. Defaults to 12 if not provided"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json",
+                  "name": "Content-Type",
+                  "description": "",
+                  "type": "text"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"id\": \"29611\",\n    \"zipCode\": \"29611\",\n    \"rentalData\": {\n        \"averageRent\": 1526,\n        \"minRent\": 735,\n        \"maxRent\": 3500,\n        \"totalListings\": 85,\n        \"lastUpdatedDate\": \"2024-02-28T00:00:00.000Z\",\n        \"dataByBedrooms\": [\n            {\n                \"bedrooms\": 1,\n                \"averageRent\": 997,\n                \"minRent\": 750,\n                \"maxRent\": 1610,\n                \"totalListings\": 5\n            },\n            {\n                \"bedrooms\": 2,\n                \"averageRent\": 1387,\n                \"minRent\": 775,\n                \"maxRent\": 2750,\n                \"totalListings\": 37\n            },\n            {\n                \"bedrooms\": 3,\n                \"averageRent\": 1677,\n                \"minRent\": 735,\n                \"maxRent\": 3500,\n                \"totalListings\": 36\n            },\n            {\n                \"bedrooms\": 4,\n                \"averageRent\": 1864,\n                \"minRent\": 1500,\n                \"maxRent\": 2500,\n                \"totalListings\": 7\n            }\n        ],\n        \"history\": {\n            \"2023-09\": {\n                \"averageRent\": 1385,\n                \"minRent\": 750,\n                \"maxRent\": 2750,\n                \"totalListings\": 88,\n                \"dataByBedrooms\": [\n                    {\n                        \"bedrooms\": 1,\n                        \"averageRent\": 1130,\n                        \"minRent\": 875,\n                        \"maxRent\": 1610,\n                        \"totalListings\": 6\n                    },\n                    {\n                        \"bedrooms\": 2,\n                        \"averageRent\": 1282,\n                        \"minRent\": 795,\n                        \"maxRent\": 2750,\n                        \"totalListings\": 35\n                    },\n                    {\n                        \"bedrooms\": 3,\n                        \"averageRent\": 1476,\n                        \"minRent\": 750,\n                        \"maxRent\": 2550,\n                        \"totalListings\": 43\n                    },\n                    {\n                        \"bedrooms\": 4,\n                        \"averageRent\": 1686,\n                        \"minRent\": 1150,\n                        \"maxRent\": 1995,\n                        \"totalListings\": 4\n                    }\n                ]\n            },\n            \"2023-10\": {\n                \"averageRent\": 1370,\n                \"minRent\": 750,\n                \"maxRent\": 2750,\n                \"totalListings\": 92,\n                \"dataByBedrooms\": [\n                    {\n                        \"bedrooms\": 1,\n                        \"averageRent\": 1005,\n                        \"minRent\": 800,\n                        \"maxRent\": 1610,\n                        \"totalListings\": 7\n                    },\n                    {\n                        \"bedrooms\": 2,\n                        \"averageRent\": 1279,\n                        \"minRent\": 850,\n                        \"maxRent\": 2750,\n                        \"totalListings\": 36\n                    },\n                    {\n                        \"bedrooms\": 3,\n                        \"averageRent\": 1455,\n                        \"minRent\": 750,\n                        \"maxRent\": 2200,\n                        \"totalListings\": 43\n                    },\n                    {\n                        \"bedrooms\": 4,\n                        \"averageRent\": 1732,\n                        \"minRent\": 1150,\n                        \"maxRent\": 1995,\n                        \"totalListings\": 6\n                    }\n                ]\n            },\n            \"2023-11\": {\n                \"averageRent\": 1358,\n                \"minRent\": 575,\n                \"maxRent\": 2900,\n                \"totalListings\": 92,\n                \"dataByBedrooms\": [\n                    {\n                        \"bedrooms\": 1,\n                        \"averageRent\": 926,\n                        \"minRent\": 575,\n                        \"maxRent\": 1610,\n                        \"totalListings\": 8\n                    },\n                    {\n                        \"bedrooms\": 2,\n                        \"averageRent\": 1282,\n                        \"minRent\": 850,\n                        \"maxRent\": 2750,\n                        \"totalListings\": 39\n                    },\n                    {\n                        \"bedrooms\": 3,\n                        \"averageRent\": 1484,\n                        \"minRent\": 750,\n                        \"maxRent\": 2900,\n                        \"totalListings\": 41\n                    },\n                    {\n                        \"bedrooms\": 4,\n                        \"averageRent\": 1686,\n                        \"minRent\": 1150,\n                        \"maxRent\": 1950,\n                        \"totalListings\": 4\n                    }\n                ]\n            },\n            \"2023-12\": {\n                \"averageRent\": 1362,\n                \"minRent\": 575,\n                \"maxRent\": 2800,\n                \"totalListings\": 87,\n                \"dataByBedrooms\": [\n                    {\n                        \"bedrooms\": 1,\n                        \"averageRent\": 934,\n                        \"minRent\": 575,\n                        \"maxRent\": 1610,\n                        \"totalListings\": 7\n                    },\n                    {\n                        \"bedrooms\": 2,\n                        \"averageRent\": 1276,\n                        \"minRent\": 775,\n                        \"maxRent\": 2750,\n                        \"totalListings\": 40\n                    },\n                    {\n                        \"bedrooms\": 3,\n                        \"averageRent\": 1516,\n                        \"minRent\": 735,\n                        \"maxRent\": 2800,\n                        \"totalListings\": 37\n                    },\n                    {\n                        \"bedrooms\": 4,\n                        \"averageRent\": 1598,\n                        \"minRent\": 1150,\n                        \"maxRent\": 1850,\n                        \"totalListings\": 3\n                    }\n                ]\n            },\n            \"2024-01\": {\n                \"averageRent\": 1471,\n                \"minRent\": 575,\n                \"maxRent\": 2800,\n                \"totalListings\": 70,\n                \"dataByBedrooms\": [\n                    {\n                        \"bedrooms\": 1,\n                        \"averageRent\": 962,\n                        \"minRent\": 575,\n                        \"maxRent\": 1610,\n                        \"totalListings\": 5\n                    },\n                    {\n                        \"bedrooms\": 2,\n                        \"averageRent\": 1386,\n                        \"minRent\": 775,\n                        \"maxRent\": 2750,\n                        \"totalListings\": 29\n                    },\n                    {\n                        \"bedrooms\": 3,\n                        \"averageRent\": 1589,\n                        \"minRent\": 735,\n                        \"maxRent\": 2800,\n                        \"totalListings\": 32\n                    },\n                    {\n                        \"bedrooms\": 4,\n                        \"averageRent\": 1786,\n                        \"minRent\": 1650,\n                        \"maxRent\": 1975,\n                        \"totalListings\": 4\n                    }\n                ]\n            },\n            \"2024-02\": {\n                \"averageRent\": 1526,\n                \"minRent\": 735,\n                \"maxRent\": 3500,\n                \"totalListings\": 85,\n                \"dataByBedrooms\": [\n                    {\n                        \"bedrooms\": 1,\n                        \"averageRent\": 997,\n                        \"minRent\": 750,\n                        \"maxRent\": 1610,\n                        \"totalListings\": 5\n                    },\n                    {\n                        \"bedrooms\": 2,\n                        \"averageRent\": 1387,\n                        \"minRent\": 775,\n                        \"maxRent\": 2750,\n                        \"totalListings\": 37\n                    },\n                    {\n                        \"bedrooms\": 3,\n                        \"averageRent\": 1677,\n                        \"minRent\": 735,\n                        \"maxRent\": 3500,\n                        \"totalListings\": 36\n                    },\n                    {\n                        \"bedrooms\": 4,\n                        \"averageRent\": 1864,\n                        \"minRent\": 1500,\n                        \"maxRent\": 2500,\n                        \"totalListings\": 7\n                    }\n                ]\n            }\n        }\n    }\n}"
+            }
+          ]
+        }
+      ],
+      "description": "The `/markets` endpoint allows you to retrieve aggregate rental listing data, averages, listing statistics, and historical rent trends for most zip codes in the United States.\n\n## Available Endpoints\n\nWe provide a single endpoint for retrieving rental market data - [/markets](https://www.postman.com/rentcast/workspace/rentcast-api/request/34259606-9f62d566-85d7-4f86-b187-7497b5498036). It will return all of the aggregate and historical data we have available for a given zip code.\n\n## Learn More\n\nYou can learn more about our market data sources and update frequency on our API developer portal:\n\n[https://developers.rentcast.io/reference/market-data](https://developers.rentcast.io/reference/market-data)"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "value",
+        "value": "{{api_key}}",
+        "type": "string"
+      },
+      {
+        "key": "key",
+        "value": "X-Api-Key",
+        "type": "string"
+      }
+    ]
+  },
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "api_key",
+      "value": "",
+      "type": "string"
+    }
+  ]
+}

@@ -1,0 +1,3167 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "RentCast API",
+    "version": "1.0"
+  },
+  "servers": [
+    {
+      "url": "https://api.rentcast.io/v1"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "sec0": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "X-Api-Key"
+      }
+    }
+  },
+  "security": [
+    {
+      "sec0": []
+    }
+  ],
+  "paths": {
+    "/listings/sale": {
+      "get": {
+        "summary": "Sale Listings",
+        "description": "Search for sale listings in a geographical area, or by a specific address.",
+        "operationId": "sale-listings",
+        "parameters": [
+          {
+            "name": "address",
+            "in": "query",
+            "description": "The **full address** of the property, in the format of `Street, City, State, Zip`. Used to retrieve data for a specific property, or together with the `radius` parameter to search for listings in a specific area",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "city",
+            "in": "query",
+            "description": "The name of the city, used to search for listings in a specific city. This parameter is case-sensitive",
+            "schema": {
+              "type": "string",
+              "default": "Austin"
+            }
+          },
+          {
+            "name": "state",
+            "in": "query",
+            "description": "The 2-character state abbreviation, used to search for listings in a specific state. This parameter is case-sensitive",
+            "schema": {
+              "type": "string",
+              "default": "TX"
+            }
+          },
+          {
+            "name": "zipCode",
+            "in": "query",
+            "description": "The 5-digit zip code, used to search for listings in a specific zip code",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "latitude",
+            "in": "query",
+            "description": "The latitude of the search area. Use the `latitude`/`longitude` and `radius` parameters to search for listings in a specific area",
+            "schema": {
+              "type": "number",
+              "format": "float"
+            }
+          },
+          {
+            "name": "longitude",
+            "in": "query",
+            "description": "The longitude of the search area. Use the `latitude`/`longitude` and `radius` parameters to search for listings in a specific area",
+            "schema": {
+              "type": "number",
+              "format": "float"
+            }
+          },
+          {
+            "name": "radius",
+            "in": "query",
+            "description": "The radius of the search area in miles, with a maximum of 100. Use in combination with the `latitude`/`longitude` or `address` parameters to search for listings in a specific area",
+            "schema": {
+              "type": "number",
+              "format": "float"
+            }
+          },
+          {
+            "name": "propertyType",
+            "in": "query",
+            "description": "The type of the property, used to search for listings matching this criteria. See [explanation of property types](https://developers.rentcast.io/reference/property-types)",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "Single Family",
+                "Condo",
+                "Townhouse",
+                "Manufactured",
+                "Multi-Family",
+                "Apartment",
+                "Land"
+              ]
+            }
+          },
+          {
+            "name": "bedrooms",
+            "in": "query",
+            "description": "The number of bedrooms, used to search for listings matching this criteria. Use `0` to indicate a studio layout",
+            "schema": {
+              "type": "number",
+              "format": "float"
+            }
+          },
+          {
+            "name": "bathrooms",
+            "in": "query",
+            "description": "The number of bathrooms, used to search for listings matching this criteria. Supports fractions to indicate partial bathrooms",
+            "schema": {
+              "type": "number",
+              "format": "float"
+            }
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "description": "The current listing status, used to search for listings matching this criteria",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "Active",
+                "Inactive"
+              ],
+              "default": "Active"
+            }
+          },
+          {
+            "name": "daysOld",
+            "in": "query",
+            "description": "The maximum number of days since a property was listed on the market, with a minimum of 1",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "The maximum number of listings to return, between 1 and 500. Defaults to 50 if not provided. [Learn more](https://developers.rentcast.io/reference/pagination) about pagination",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 5
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "The index of the first listing to return, used to paginate through large lists of results. Defaults to 0 if not provided. [Learn more](https://developers.rentcast.io/reference/pagination) about pagination",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "200",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Response": {
+                    "value": "[{\"id\":\"12166-Metric-Blvd,-Apt-212,-Austin,-TX-78758\",\"formattedAddress\":\"12166 Metric Blvd, Apt 212, Austin, TX 78758\",\"addressLine1\":\"12166 Metric Blvd\",\"addressLine2\":\"Apt 212\",\"city\":\"Austin\",\"state\":\"TX\",\"zipCode\":\"78758\",\"county\":\"Travis\",\"latitude\":30.406796,\"longitude\":-97.697869,\"propertyType\":\"Condo\",\"bedrooms\":1,\"bathrooms\":1,\"squareFootage\":516,\"lotSize\":1568,\"yearBuilt\":1986,\"status\":\"Active\",\"price\":205000,\"listedDate\":\"2023-01-13T00:00:00.000Z\",\"removedDate\":null,\"createdDate\":\"2020-09-15T05:26:05.426Z\",\"lastSeenDate\":\"2023-02-25T00:00:00.000Z\",\"daysOnMarket\":43},{\"id\":\"2212-Big-Horn-Dr,-Austin,-TX-78734\",\"formattedAddress\":\"2212 Big Horn Dr, Austin, TX 78734\",\"addressLine1\":\"2212 Big Horn Dr\",\"addressLine2\":null,\"city\":\"Austin\",\"state\":\"TX\",\"zipCode\":\"78734\",\"county\":\"Travis\",\"latitude\":30.372577,\"longitude\":-97.916294,\"propertyType\":\"Land\",\"lotSize\":10498,\"status\":\"Active\",\"price\":265000,\"listedDate\":\"2022-05-19T00:00:00.000Z\",\"removedDate\":null,\"createdDate\":\"2020-09-15T04:00:54.343Z\",\"lastSeenDate\":\"2023-02-25T00:00:00.000Z\",\"daysOnMarket\":282},{\"id\":\"364-Seneca-Dr,-Austin,-TX-78737\",\"formattedAddress\":\"364 Seneca Dr, Austin, TX 78737\",\"addressLine1\":\"364 Seneca Dr\",\"addressLine2\":null,\"city\":\"Austin\",\"state\":\"TX\",\"zipCode\":\"78737\",\"county\":\"Hays\",\"latitude\":30.190639,\"longitude\":-97.990657,\"propertyType\":\"Land\",\"lotSize\":14680,\"status\":\"Active\",\"price\":330000,\"listedDate\":\"2022-12-30T00:00:00.000Z\",\"removedDate\":null,\"createdDate\":\"2020-09-15T04:10:54.051Z\",\"lastSeenDate\":\"2023-02-25T00:00:00.000Z\",\"daysOnMarket\":57},{\"id\":\"1410-E-Applegate-Dr,-Austin,-TX-78753\",\"formattedAddress\":\"1410 E Applegate Dr, Austin, TX 78753\",\"addressLine1\":\"1410 E Applegate Dr\",\"addressLine2\":null,\"city\":\"Austin\",\"state\":\"TX\",\"zipCode\":\"78753\",\"county\":\"Travis\",\"latitude\":30.363393,\"longitude\":-97.668667,\"propertyType\":\"Land\",\"lotSize\":141526,\"status\":\"Active\",\"price\":1100000,\"listedDate\":\"2023-01-31T00:00:00.000Z\",\"removedDate\":null,\"createdDate\":\"2020-09-15T05:26:05.430Z\",\"lastSeenDate\":\"2023-02-25T00:00:00.000Z\",\"daysOnMarket\":25},{\"id\":\"8417-Lakewood-Ridge-Cv,-Austin,-TX-78738\",\"formattedAddress\":\"8417 Lakewood Ridge Cv, Austin, TX 78738\",\"addressLine1\":\"8417 Lakewood Ridge Cv\",\"addressLine2\":null,\"city\":\"Austin\",\"state\":\"TX\",\"zipCode\":\"78738\",\"county\":\"Travis\",\"latitude\":30.295995,\"longitude\":-98.03995,\"propertyType\":\"Land\",\"lotSize\":45128,\"status\":\"Active\",\"price\":799000,\"listedDate\":\"2022-06-16T00:00:00.000Z\",\"removedDate\":null,\"createdDate\":\"2020-09-15T18:20:57.279Z\",\"lastSeenDate\":\"2023-02-25T00:00:00.000Z\",\"daysOnMarket\":254}]"
+                  }
+                },
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string",
+                        "example": "12166-Metric-Blvd,-Apt-212,-Austin,-TX-78758"
+                      },
+                      "formattedAddress": {
+                        "type": "string",
+                        "example": "12166 Metric Blvd, Apt 212, Austin, TX 78758"
+                      },
+                      "addressLine1": {
+                        "type": "string",
+                        "example": "12166 Metric Blvd"
+                      },
+                      "addressLine2": {
+                        "type": "string",
+                        "example": "Apt 212"
+                      },
+                      "city": {
+                        "type": "string",
+                        "example": "Austin"
+                      },
+                      "state": {
+                        "type": "string",
+                        "example": "TX"
+                      },
+                      "zipCode": {
+                        "type": "string",
+                        "example": "78758"
+                      },
+                      "county": {
+                        "type": "string",
+                        "example": "Travis"
+                      },
+                      "latitude": {
+                        "type": "number",
+                        "example": 30.406796,
+                        "default": 0
+                      },
+                      "longitude": {
+                        "type": "number",
+                        "example": -97.697869,
+                        "default": 0
+                      },
+                      "propertyType": {
+                        "type": "string",
+                        "example": "Condo"
+                      },
+                      "bedrooms": {
+                        "type": "integer",
+                        "example": 1,
+                        "default": 0
+                      },
+                      "bathrooms": {
+                        "type": "integer",
+                        "example": 1,
+                        "default": 0
+                      },
+                      "squareFootage": {
+                        "type": "integer",
+                        "example": 516,
+                        "default": 0
+                      },
+                      "lotSize": {
+                        "type": "integer",
+                        "example": 1568,
+                        "default": 0
+                      },
+                      "yearBuilt": {
+                        "type": "integer",
+                        "example": 1986,
+                        "default": 0
+                      },
+                      "status": {
+                        "type": "string",
+                        "example": "Active"
+                      },
+                      "price": {
+                        "type": "integer",
+                        "example": 205000,
+                        "default": 0
+                      },
+                      "listedDate": {
+                        "type": "string",
+                        "example": "2023-01-13T00:00:00.000Z"
+                      },
+                      "removedDate": {},
+                      "createdDate": {
+                        "type": "string",
+                        "example": "2020-09-15T05:26:05.426Z"
+                      },
+                      "lastSeenDate": {
+                        "type": "string",
+                        "example": "2023-02-25T00:00:00.000Z"
+                      },
+                      "daysOnMarket": {
+                        "type": "integer",
+                        "example": 43,
+                        "default": 0
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/properties": {
+      "get": {
+        "summary": "Property Records",
+        "description": "Search for property records in a geographical area, or by a specific address.",
+        "operationId": "property-records",
+        "parameters": [
+          {
+            "name": "address",
+            "in": "query",
+            "description": "The **full address** of the property, in the format of `Street, City, State, Zip`. Used to retrieve data for a specific property, or together with the `radius` parameter to search for properties in a specific area",
+            "schema": {
+              "type": "string",
+              "default": "5500 Grand Lake Dr, San Antonio, TX, 78244"
+            }
+          },
+          {
+            "name": "city",
+            "in": "query",
+            "description": "The name of the city, used to search for properties in a specific city. This parameter is case-sensitive",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "state",
+            "in": "query",
+            "description": "The 2-character state abbreviation, used to search for properties in a specific state. This parameter is case-sensitive",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "zipCode",
+            "in": "query",
+            "description": "The 5-digit zip code, used to search for properties in a specific zip code",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "latitude",
+            "in": "query",
+            "description": "The latitude of the search area. Use the `latitude`/`longitude` and `radius` parameters to search for properties in a specific area",
+            "schema": {
+              "type": "number",
+              "format": "float"
+            }
+          },
+          {
+            "name": "longitude",
+            "in": "query",
+            "description": "The longitude of the search area. Use the `latitude`/`longitude` and `radius` parameters to search for properties in a specific area",
+            "schema": {
+              "type": "number",
+              "format": "float"
+            }
+          },
+          {
+            "name": "radius",
+            "in": "query",
+            "description": "The radius of the search area in miles, with a maximum of 100. Use in combination with the `latitude`/`longitude` or `address` parameters to search for properties in a specific area",
+            "schema": {
+              "type": "number",
+              "format": "float"
+            }
+          },
+          {
+            "name": "propertyType",
+            "in": "query",
+            "description": "The type of the property, used to search for properties matching this criteria. See [explanation of property types](https://developers.rentcast.io/reference/property-types)",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "Single Family",
+                "Condo",
+                "Townhouse",
+                "Manufactured",
+                "Multi-Family",
+                "Apartment",
+                "Land"
+              ]
+            }
+          },
+          {
+            "name": "bedrooms",
+            "in": "query",
+            "description": "The number of bedrooms, used to search for properties matching this criteria. Use `0` to indicate a studio layout",
+            "schema": {
+              "type": "number",
+              "format": "float"
+            }
+          },
+          {
+            "name": "bathrooms",
+            "in": "query",
+            "description": "The number of bathrooms, used to search for properties matching this criteria. Supports fractions to indicate partial bathrooms",
+            "schema": {
+              "type": "number",
+              "format": "float"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "The maximum number of property records to return, between 1 and 500. Defaults to 50 if not provided. [Learn more](https://developers.rentcast.io/reference/pagination) about pagination",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "The index of the first property record to return, used to paginate through large lists of results. Defaults to 0 if not provided. [Learn more](https://developers.rentcast.io/reference/pagination) about pagination",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "200",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Response": {
+                    "value": "[{\"id\":\"5500-Grand-Lake-Dr,-San-Antonio,-TX-78244\",\"formattedAddress\":\"5500 Grand Lake Dr, San Antonio, TX 78244\",\"addressLine1\":\"5500 Grand Lake Dr\",\"addressLine2\":null,\"city\":\"San Antonio\",\"state\":\"TX\",\"zipCode\":\"78244\",\"county\":\"Bexar\",\"latitude\":29.475962,\"longitude\":-98.351442,\"propertyType\":\"Single Family\",\"bedrooms\":3,\"bathrooms\":2,\"squareFootage\":1878,\"lotSize\":8843,\"yearBuilt\":1973,\"assessorID\":\"05076-103-0500\",\"legalDescription\":\"CB 5076A BLK 3 LOT 50\",\"subdivision\":\"CONV A/S CODE\",\"zoning\":\"RH\",\"lastSaleDate\":\"2017-10-19T00:00:00.000Z\",\"lastSalePrice\":185000,\"features\":{\"architectureType\":\"Contemporary\",\"cooling\":true,\"coolingType\":\"Central\",\"exteriorType\":\"Wood\",\"floorCount\":1,\"foundationType\":\"Slab / Mat / Raft\",\"garage\":true,\"garageType\":\"Garage\",\"heating\":true,\"heatingType\":\"Forced Air\",\"pool\":true,\"roofType\":\"Asphalt\",\"roomCount\":5,\"unitCount\":1},\"taxAssessments\":{\"2019\":{\"value\":135430,\"land\":23450,\"improvements\":111980},\"2020\":{\"value\":142610,\"land\":23450,\"improvements\":119160},\"2021\":{\"value\":163440,\"land\":45050,\"improvements\":118390},\"2022\":{\"value\":197600,\"land\":49560,\"improvements\":148040},\"2023\":{\"value\":225790,\"land\":59380,\"improvements\":166410}},\"propertyTaxes\":{\"2019\":{\"total\":2984},\"2020\":{\"total\":3023},\"2021\":{\"total\":3455},\"2022\":{\"total\":4091},\"2023\":{\"total\":4675}},\"owner\":{\"names\":[\"Michael Smith\"],\"mailingAddress\":{\"id\":\"149-Weaver-Blvd,---264,-Weaverville,-NC-28787\",\"formattedAddress\":\"149 Weaver Blvd, # 264, Weaverville, NC 28787\",\"addressLine1\":\"149 Weaver Blvd\",\"addressLine2\":\"# 264\",\"city\":\"Weaverville\",\"state\":\"NC\",\"zipCode\":\"28787\"}},\"ownerOccupied\":false}]"
+                  }
+                },
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string",
+                        "example": "5500-Grand-Lake-Dr,-San-Antonio,-TX-78244"
+                      },
+                      "formattedAddress": {
+                        "type": "string",
+                        "example": "5500 Grand Lake Dr, San Antonio, TX 78244"
+                      },
+                      "addressLine1": {
+                        "type": "string",
+                        "example": "5500 Grand Lake Dr"
+                      },
+                      "addressLine2": {},
+                      "city": {
+                        "type": "string",
+                        "example": "San Antonio"
+                      },
+                      "state": {
+                        "type": "string",
+                        "example": "TX"
+                      },
+                      "zipCode": {
+                        "type": "string",
+                        "example": "78244"
+                      },
+                      "county": {
+                        "type": "string",
+                        "example": "Bexar"
+                      },
+                      "latitude": {
+                        "type": "number",
+                        "example": 29.475962,
+                        "default": 0
+                      },
+                      "longitude": {
+                        "type": "number",
+                        "example": -98.351442,
+                        "default": 0
+                      },
+                      "propertyType": {
+                        "type": "string",
+                        "example": "Single Family"
+                      },
+                      "bedrooms": {
+                        "type": "integer",
+                        "example": 3,
+                        "default": 0
+                      },
+                      "bathrooms": {
+                        "type": "integer",
+                        "example": 2,
+                        "default": 0
+                      },
+                      "squareFootage": {
+                        "type": "integer",
+                        "example": 1878,
+                        "default": 0
+                      },
+                      "lotSize": {
+                        "type": "integer",
+                        "example": 8843,
+                        "default": 0
+                      },
+                      "yearBuilt": {
+                        "type": "integer",
+                        "example": 1973,
+                        "default": 0
+                      },
+                      "assessorID": {
+                        "type": "string",
+                        "example": "05076-103-0500"
+                      },
+                      "legalDescription": {
+                        "type": "string",
+                        "example": "CB 5076A BLK 3 LOT 50"
+                      },
+                      "subdivision": {
+                        "type": "string",
+                        "example": "CONV A/S CODE"
+                      },
+                      "zoning": {
+                        "type": "string",
+                        "example": "RH"
+                      },
+                      "lastSaleDate": {
+                        "type": "string",
+                        "example": "2017-10-19T00:00:00.000Z"
+                      },
+                      "lastSalePrice": {
+                        "type": "integer",
+                        "example": 185000,
+                        "default": 0
+                      },
+                      "features": {
+                        "type": "object",
+                        "properties": {
+                          "architectureType": {
+                            "type": "string",
+                            "example": "Contemporary"
+                          },
+                          "cooling": {
+                            "type": "boolean",
+                            "example": true,
+                            "default": true
+                          },
+                          "coolingType": {
+                            "type": "string",
+                            "example": "Central"
+                          },
+                          "exteriorType": {
+                            "type": "string",
+                            "example": "Wood"
+                          },
+                          "floorCount": {
+                            "type": "integer",
+                            "example": 1,
+                            "default": 0
+                          },
+                          "foundationType": {
+                            "type": "string",
+                            "example": "Slab / Mat / Raft"
+                          },
+                          "garage": {
+                            "type": "boolean",
+                            "example": true,
+                            "default": true
+                          },
+                          "garageType": {
+                            "type": "string",
+                            "example": "Garage"
+                          },
+                          "heating": {
+                            "type": "boolean",
+                            "example": true,
+                            "default": true
+                          },
+                          "heatingType": {
+                            "type": "string",
+                            "example": "Forced Air"
+                          },
+                          "pool": {
+                            "type": "boolean",
+                            "example": true,
+                            "default": true
+                          },
+                          "roofType": {
+                            "type": "string",
+                            "example": "Asphalt"
+                          },
+                          "roomCount": {
+                            "type": "integer",
+                            "example": 5,
+                            "default": 0
+                          },
+                          "unitCount": {
+                            "type": "integer",
+                            "example": 1,
+                            "default": 0
+                          }
+                        }
+                      },
+                      "taxAssessments": {
+                        "type": "object",
+                        "properties": {
+                          "2019": {
+                            "type": "object",
+                            "properties": {
+                              "value": {
+                                "type": "integer",
+                                "example": 135430,
+                                "default": 0
+                              },
+                              "land": {
+                                "type": "integer",
+                                "example": 23450,
+                                "default": 0
+                              },
+                              "improvements": {
+                                "type": "integer",
+                                "example": 111980,
+                                "default": 0
+                              }
+                            }
+                          },
+                          "2020": {
+                            "type": "object",
+                            "properties": {
+                              "value": {
+                                "type": "integer",
+                                "example": 142610,
+                                "default": 0
+                              },
+                              "land": {
+                                "type": "integer",
+                                "example": 23450,
+                                "default": 0
+                              },
+                              "improvements": {
+                                "type": "integer",
+                                "example": 119160,
+                                "default": 0
+                              }
+                            }
+                          },
+                          "2021": {
+                            "type": "object",
+                            "properties": {
+                              "value": {
+                                "type": "integer",
+                                "example": 163440,
+                                "default": 0
+                              },
+                              "land": {
+                                "type": "integer",
+                                "example": 45050,
+                                "default": 0
+                              },
+                              "improvements": {
+                                "type": "integer",
+                                "example": 118390,
+                                "default": 0
+                              }
+                            }
+                          },
+                          "2022": {
+                            "type": "object",
+                            "properties": {
+                              "value": {
+                                "type": "integer",
+                                "example": 197600,
+                                "default": 0
+                              },
+                              "land": {
+                                "type": "integer",
+                                "example": 49560,
+                                "default": 0
+                              },
+                              "improvements": {
+                                "type": "integer",
+                                "example": 148040,
+                                "default": 0
+                              }
+                            }
+                          },
+                          "2023": {
+                            "type": "object",
+                            "properties": {
+                              "value": {
+                                "type": "integer",
+                                "example": 225790,
+                                "default": 0
+                              },
+                              "land": {
+                                "type": "integer",
+                                "example": 59380,
+                                "default": 0
+                              },
+                              "improvements": {
+                                "type": "integer",
+                                "example": 166410,
+                                "default": 0
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "propertyTaxes": {
+                        "type": "object",
+                        "properties": {
+                          "2019": {
+                            "type": "object",
+                            "properties": {
+                              "total": {
+                                "type": "integer",
+                                "example": 2984,
+                                "default": 0
+                              }
+                            }
+                          },
+                          "2020": {
+                            "type": "object",
+                            "properties": {
+                              "total": {
+                                "type": "integer",
+                                "example": 3023,
+                                "default": 0
+                              }
+                            }
+                          },
+                          "2021": {
+                            "type": "object",
+                            "properties": {
+                              "total": {
+                                "type": "integer",
+                                "example": 3455,
+                                "default": 0
+                              }
+                            }
+                          },
+                          "2022": {
+                            "type": "object",
+                            "properties": {
+                              "total": {
+                                "type": "integer",
+                                "example": 4091,
+                                "default": 0
+                              }
+                            }
+                          },
+                          "2023": {
+                            "type": "object",
+                            "properties": {
+                              "total": {
+                                "type": "integer",
+                                "example": 4675,
+                                "default": 0
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "owner": {
+                        "type": "object",
+                        "properties": {
+                          "names": {
+                            "type": "array",
+                            "items": {
+                              "type": "string",
+                              "example": "Michael Smith"
+                            }
+                          },
+                          "mailingAddress": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "string",
+                                "example": "149-Weaver-Blvd,---264,-Weaverville,-NC-28787"
+                              },
+                              "formattedAddress": {
+                                "type": "string",
+                                "example": "149 Weaver Blvd, # 264, Weaverville, NC 28787"
+                              },
+                              "addressLine1": {
+                                "type": "string",
+                                "example": "149 Weaver Blvd"
+                              },
+                              "addressLine2": {
+                                "type": "string",
+                                "example": "# 264"
+                              },
+                              "city": {
+                                "type": "string",
+                                "example": "Weaverville"
+                              },
+                              "state": {
+                                "type": "string",
+                                "example": "NC"
+                              },
+                              "zipCode": {
+                                "type": "string",
+                                "example": "28787"
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "ownerOccupied": {
+                        "type": "boolean",
+                        "example": false,
+                        "default": true
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/avm/value": {
+      "get": {
+        "summary": "Value Estimate",
+        "description": "Returns a property value estimate and comparable properties.",
+        "operationId": "value-estimate",
+        "parameters": [
+          {
+            "name": "address",
+            "in": "query",
+            "description": "The **full address** of the property, in the format of `Street, City, State, Zip`. You need to provide either the `address` or the `latitude`/`longitude` parameters",
+            "schema": {
+              "type": "string",
+              "default": "5500 Grand Lake Drive, San Antonio, TX, 78244"
+            }
+          },
+          {
+            "name": "latitude",
+            "in": "query",
+            "description": "The latitude of the property. The `latitude`/`longitude` can be provided instead of the `address` parameter",
+            "schema": {
+              "type": "number",
+              "format": "float"
+            }
+          },
+          {
+            "name": "longitude",
+            "in": "query",
+            "description": "The longitude of the property. The `latitude`/`longitude` can be provided instead of the `address` parameter",
+            "schema": {
+              "type": "number",
+              "format": "float"
+            }
+          },
+          {
+            "name": "propertyType",
+            "in": "query",
+            "description": "The type of the property. See [explanation of property types](https://developers.rentcast.io/reference/property-types)",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "Single Family",
+                "Condo",
+                "Townhouse",
+                "Manufactured",
+                "Multi-Family",
+                "Apartment",
+                "Land"
+              ],
+              "default": "Single Family"
+            }
+          },
+          {
+            "name": "bedrooms",
+            "in": "query",
+            "description": "The number of bedrooms in the property. Use `0` to indicate a studio layout",
+            "schema": {
+              "type": "number",
+              "format": "float",
+              "default": 4
+            }
+          },
+          {
+            "name": "bathrooms",
+            "in": "query",
+            "description": "The number of bathrooms in the property. Supports fractions to indicate partial bathrooms",
+            "schema": {
+              "type": "number",
+              "format": "float",
+              "default": 2
+            }
+          },
+          {
+            "name": "squareFootage",
+            "in": "query",
+            "description": "The total living area size of the property, in square feet",
+            "schema": {
+              "type": "number",
+              "format": "float",
+              "default": 1600
+            }
+          },
+          {
+            "name": "maxRadius",
+            "in": "query",
+            "description": "The maximum distance between comparable listings and the subject property, in miles",
+            "schema": {
+              "type": "number",
+              "format": "float"
+            }
+          },
+          {
+            "name": "daysOld",
+            "in": "query",
+            "description": "The maximum number of days since comparable listings were last seen on the market, with a minimum of 1",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "compCount",
+            "in": "query",
+            "description": "The number of comparable listings to use when calculating the value estimate, between 5 and 25. Defaults to 15 if not provided",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 5
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "200",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Response": {
+                    "value": "{\"price\":232000,\"priceRangeLow\":213000,\"priceRangeHigh\":251000,\"latitude\":29.475962,\"longitude\":-98.351442,\"comparables\":[{\"id\":\"6807-Blue-Lake-Dr,-San-Antonio,-TX-78244\",\"formattedAddress\":\"6807 Blue Lake Dr, San Antonio, TX 78244\",\"addressLine1\":\"6807 Blue Lake Dr\",\"addressLine2\":null,\"city\":\"San Antonio\",\"state\":\"TX\",\"zipCode\":\"78244\",\"county\":\"Bexar\",\"latitude\":29.476178,\"longitude\":-98.354769,\"propertyType\":\"Single Family\",\"bedrooms\":4,\"bathrooms\":2,\"squareFootage\":1518,\"lotSize\":6534,\"yearBuilt\":1972,\"price\":198000,\"listedDate\":\"2023-02-18T00:00:00.000Z\",\"lastSeenDate\":\"2023-02-23T00:00:00.000Z\",\"daysOld\":5,\"distance\":0.2009,\"correlation\":0.9891},{\"id\":\"6823-Quail-Lk,-San-Antonio,-TX-78244\",\"formattedAddress\":\"6823 Quail Lk, San Antonio, TX 78244\",\"addressLine1\":\"6823 Quail Lk\",\"addressLine2\":null,\"city\":\"San Antonio\",\"state\":\"TX\",\"zipCode\":\"78244\",\"county\":\"Bexar\",\"latitude\":29.473522,\"longitude\":-98.351689,\"propertyType\":\"Single Family\",\"bedrooms\":4,\"bathrooms\":2,\"squareFootage\":1732,\"lotSize\":6621,\"yearBuilt\":1987,\"price\":243900,\"listedDate\":\"2023-02-08T00:00:00.000Z\",\"lastSeenDate\":\"2023-02-27T00:00:00.000Z\",\"daysOld\":1,\"distance\":0.1694,\"correlation\":0.9862},{\"id\":\"5119-Pine-Lake-Dr,-San-Antonio,-TX-78244\",\"formattedAddress\":\"5119 Pine Lake Dr, San Antonio, TX 78244\",\"addressLine1\":\"5119 Pine Lake Dr\",\"addressLine2\":null,\"city\":\"San Antonio\",\"state\":\"TX\",\"zipCode\":\"78244\",\"county\":\"Bexar\",\"latitude\":29.470208,\"longitude\":-98.35069,\"propertyType\":\"Single Family\",\"bedrooms\":4,\"bathrooms\":2,\"squareFootage\":1734,\"lotSize\":6665,\"yearBuilt\":1989,\"price\":260000,\"listedDate\":\"2023-01-30T00:00:00.000Z\",\"lastSeenDate\":\"2023-02-27T00:00:00.000Z\",\"daysOld\":1,\"distance\":0.4006,\"correlation\":0.9818},{\"id\":\"4710-Crystal-Farm,-San-Antonio,-TX-78244\",\"formattedAddress\":\"4710 Crystal Farm, San Antonio, TX 78244\",\"addressLine1\":\"4710 Crystal Farm\",\"addressLine2\":null,\"city\":\"San Antonio\",\"state\":\"TX\",\"zipCode\":\"78244\",\"county\":\"Bexar\",\"latitude\":29.470534,\"longitude\":-98.361364,\"propertyType\":\"Single Family\",\"bedrooms\":4,\"bathrooms\":2,\"squareFootage\":1514,\"lotSize\":5489,\"yearBuilt\":1999,\"price\":225000,\"listedDate\":\"2023-01-13T00:00:00.000Z\",\"lastSeenDate\":\"2023-02-09T00:00:00.000Z\",\"daysOld\":19,\"distance\":0.7057,\"correlation\":0.9793},{\"id\":\"6162-Brandys-Farm,-San-Antonio,-TX-78244\",\"formattedAddress\":\"6162 Brandys Farm, San Antonio, TX 78244\",\"addressLine1\":\"6162 Brandys Farm\",\"addressLine2\":null,\"city\":\"San Antonio\",\"state\":\"TX\",\"zipCode\":\"78244\",\"county\":\"Bexar\",\"latitude\":29.469905,\"longitude\":-98.366161,\"propertyType\":\"Single Family\",\"bedrooms\":4,\"bathrooms\":2,\"squareFootage\":1646,\"lotSize\":5489,\"yearBuilt\":2003,\"price\":235000,\"listedDate\":\"2023-02-25T00:00:00.000Z\",\"lastSeenDate\":\"2023-02-27T00:00:00.000Z\",\"daysOld\":1,\"distance\":0.9804,\"correlation\":0.9779}]}"
+                  }
+                },
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "price": {
+                      "type": "integer",
+                      "example": 232000,
+                      "default": 0
+                    },
+                    "priceRangeLow": {
+                      "type": "integer",
+                      "example": 213000,
+                      "default": 0
+                    },
+                    "priceRangeHigh": {
+                      "type": "integer",
+                      "example": 251000,
+                      "default": 0
+                    },
+                    "latitude": {
+                      "type": "number",
+                      "example": 29.475962,
+                      "default": 0
+                    },
+                    "longitude": {
+                      "type": "number",
+                      "example": -98.351442,
+                      "default": 0
+                    },
+                    "comparables": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string",
+                            "example": "6807-Blue-Lake-Dr,-San-Antonio,-TX-78244"
+                          },
+                          "formattedAddress": {
+                            "type": "string",
+                            "example": "6807 Blue Lake Dr, San Antonio, TX 78244"
+                          },
+                          "addressLine1": {
+                            "type": "string",
+                            "example": "6807 Blue Lake Dr"
+                          },
+                          "addressLine2": {},
+                          "city": {
+                            "type": "string",
+                            "example": "San Antonio"
+                          },
+                          "state": {
+                            "type": "string",
+                            "example": "TX"
+                          },
+                          "zipCode": {
+                            "type": "string",
+                            "example": "78244"
+                          },
+                          "county": {
+                            "type": "string",
+                            "example": "Bexar"
+                          },
+                          "latitude": {
+                            "type": "number",
+                            "example": 29.476178,
+                            "default": 0
+                          },
+                          "longitude": {
+                            "type": "number",
+                            "example": -98.354769,
+                            "default": 0
+                          },
+                          "propertyType": {
+                            "type": "string",
+                            "example": "Single Family"
+                          },
+                          "bedrooms": {
+                            "type": "integer",
+                            "example": 4,
+                            "default": 0
+                          },
+                          "bathrooms": {
+                            "type": "integer",
+                            "example": 2,
+                            "default": 0
+                          },
+                          "squareFootage": {
+                            "type": "integer",
+                            "example": 1518,
+                            "default": 0
+                          },
+                          "lotSize": {
+                            "type": "integer",
+                            "example": 6534,
+                            "default": 0
+                          },
+                          "yearBuilt": {
+                            "type": "integer",
+                            "example": 1972,
+                            "default": 0
+                          },
+                          "price": {
+                            "type": "integer",
+                            "example": 198000,
+                            "default": 0
+                          },
+                          "listedDate": {
+                            "type": "string",
+                            "example": "2023-02-18T00:00:00.000Z"
+                          },
+                          "lastSeenDate": {
+                            "type": "string",
+                            "example": "2023-02-23T00:00:00.000Z"
+                          },
+                          "daysOld": {
+                            "type": "integer",
+                            "example": 5,
+                            "default": 0
+                          },
+                          "distance": {
+                            "type": "number",
+                            "example": 0.2009,
+                            "default": 0
+                          },
+                          "correlation": {
+                            "type": "number",
+                            "example": 0.9891,
+                            "default": 0
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/markets": {
+      "get": {
+        "summary": "Market Statistics",
+        "description": "Returns aggregate rental statistics and listing trends for a single US zip code.",
+        "operationId": "market-statistics",
+        "parameters": [
+          {
+            "name": "zipCode",
+            "in": "query",
+            "description": "A valid 5-digit US zip code",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "29611"
+            }
+          },
+          {
+            "name": "historyRange",
+            "in": "query",
+            "description": "The time range for historical record entries, in months. Defaults to 12 if not provided",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 6
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "200",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Response": {
+                    "value": "{\"id\":\"29611\",\"zipCode\":\"29611\",\"rentalData\":{\"averageRent\":1526,\"minRent\":735,\"maxRent\":3500,\"totalListings\":85,\"lastUpdatedDate\":\"2024-02-28T00:00:00.000Z\",\"dataByBedrooms\":[{\"bedrooms\":1,\"averageRent\":997,\"minRent\":750,\"maxRent\":1610,\"totalListings\":5},{\"bedrooms\":2,\"averageRent\":1387,\"minRent\":775,\"maxRent\":2750,\"totalListings\":37},{\"bedrooms\":3,\"averageRent\":1677,\"minRent\":735,\"maxRent\":3500,\"totalListings\":36},{\"bedrooms\":4,\"averageRent\":1864,\"minRent\":1500,\"maxRent\":2500,\"totalListings\":7}],\"history\":{\"2023-09\":{\"averageRent\":1385,\"minRent\":750,\"maxRent\":2750,\"totalListings\":88,\"dataByBedrooms\":[{\"bedrooms\":1,\"averageRent\":1130,\"minRent\":875,\"maxRent\":1610,\"totalListings\":6},{\"bedrooms\":2,\"averageRent\":1282,\"minRent\":795,\"maxRent\":2750,\"totalListings\":35},{\"bedrooms\":3,\"averageRent\":1476,\"minRent\":750,\"maxRent\":2550,\"totalListings\":43},{\"bedrooms\":4,\"averageRent\":1686,\"minRent\":1150,\"maxRent\":1995,\"totalListings\":4}]},\"2023-10\":{\"averageRent\":1370,\"minRent\":750,\"maxRent\":2750,\"totalListings\":92,\"dataByBedrooms\":[{\"bedrooms\":1,\"averageRent\":1005,\"minRent\":800,\"maxRent\":1610,\"totalListings\":7},{\"bedrooms\":2,\"averageRent\":1279,\"minRent\":850,\"maxRent\":2750,\"totalListings\":36},{\"bedrooms\":3,\"averageRent\":1455,\"minRent\":750,\"maxRent\":2200,\"totalListings\":43},{\"bedrooms\":4,\"averageRent\":1732,\"minRent\":1150,\"maxRent\":1995,\"totalListings\":6}]},\"2023-11\":{\"averageRent\":1358,\"minRent\":575,\"maxRent\":2900,\"totalListings\":92,\"dataByBedrooms\":[{\"bedrooms\":1,\"averageRent\":926,\"minRent\":575,\"maxRent\":1610,\"totalListings\":8},{\"bedrooms\":2,\"averageRent\":1282,\"minRent\":850,\"maxRent\":2750,\"totalListings\":39},{\"bedrooms\":3,\"averageRent\":1484,\"minRent\":750,\"maxRent\":2900,\"totalListings\":41},{\"bedrooms\":4,\"averageRent\":1686,\"minRent\":1150,\"maxRent\":1950,\"totalListings\":4}]},\"2023-12\":{\"averageRent\":1362,\"minRent\":575,\"maxRent\":2800,\"totalListings\":87,\"dataByBedrooms\":[{\"bedrooms\":1,\"averageRent\":934,\"minRent\":575,\"maxRent\":1610,\"totalListings\":7},{\"bedrooms\":2,\"averageRent\":1276,\"minRent\":775,\"maxRent\":2750,\"totalListings\":40},{\"bedrooms\":3,\"averageRent\":1516,\"minRent\":735,\"maxRent\":2800,\"totalListings\":37},{\"bedrooms\":4,\"averageRent\":1598,\"minRent\":1150,\"maxRent\":1850,\"totalListings\":3}]},\"2024-01\":{\"averageRent\":1471,\"minRent\":575,\"maxRent\":2800,\"totalListings\":70,\"dataByBedrooms\":[{\"bedrooms\":1,\"averageRent\":962,\"minRent\":575,\"maxRent\":1610,\"totalListings\":5},{\"bedrooms\":2,\"averageRent\":1386,\"minRent\":775,\"maxRent\":2750,\"totalListings\":29},{\"bedrooms\":3,\"averageRent\":1589,\"minRent\":735,\"maxRent\":2800,\"totalListings\":32},{\"bedrooms\":4,\"averageRent\":1786,\"minRent\":1650,\"maxRent\":1975,\"totalListings\":4}]},\"2024-02\":{\"averageRent\":1526,\"minRent\":735,\"maxRent\":3500,\"totalListings\":85,\"dataByBedrooms\":[{\"bedrooms\":1,\"averageRent\":997,\"minRent\":750,\"maxRent\":1610,\"totalListings\":5},{\"bedrooms\":2,\"averageRent\":1387,\"minRent\":775,\"maxRent\":2750,\"totalListings\":37},{\"bedrooms\":3,\"averageRent\":1677,\"minRent\":735,\"maxRent\":3500,\"totalListings\":36},{\"bedrooms\":4,\"averageRent\":1864,\"minRent\":1500,\"maxRent\":2500,\"totalListings\":7}]}}}}"
+                  }
+                },
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "example": "29611"
+                    },
+                    "zipCode": {
+                      "type": "string",
+                      "example": "29611"
+                    },
+                    "rentalData": {
+                      "type": "object",
+                      "properties": {
+                        "averageRent": {
+                          "type": "integer",
+                          "example": 1526,
+                          "default": 0
+                        },
+                        "minRent": {
+                          "type": "integer",
+                          "example": 735,
+                          "default": 0
+                        },
+                        "maxRent": {
+                          "type": "integer",
+                          "example": 3500,
+                          "default": 0
+                        },
+                        "totalListings": {
+                          "type": "integer",
+                          "example": 85,
+                          "default": 0
+                        },
+                        "lastUpdatedDate": {
+                          "type": "string",
+                          "example": "2024-02-28T00:00:00.000Z"
+                        },
+                        "dataByBedrooms": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "bedrooms": {
+                                "type": "integer",
+                                "example": 1,
+                                "default": 0
+                              },
+                              "averageRent": {
+                                "type": "integer",
+                                "example": 997,
+                                "default": 0
+                              },
+                              "minRent": {
+                                "type": "integer",
+                                "example": 750,
+                                "default": 0
+                              },
+                              "maxRent": {
+                                "type": "integer",
+                                "example": 1610,
+                                "default": 0
+                              },
+                              "totalListings": {
+                                "type": "integer",
+                                "example": 5,
+                                "default": 0
+                              }
+                            }
+                          }
+                        },
+                        "history": {
+                          "type": "object",
+                          "properties": {
+                            "2023-09": {
+                              "type": "object",
+                              "properties": {
+                                "averageRent": {
+                                  "type": "integer",
+                                  "example": 1385,
+                                  "default": 0
+                                },
+                                "minRent": {
+                                  "type": "integer",
+                                  "example": 750,
+                                  "default": 0
+                                },
+                                "maxRent": {
+                                  "type": "integer",
+                                  "example": 2750,
+                                  "default": 0
+                                },
+                                "totalListings": {
+                                  "type": "integer",
+                                  "example": 88,
+                                  "default": 0
+                                },
+                                "dataByBedrooms": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "object",
+                                    "properties": {
+                                      "bedrooms": {
+                                        "type": "integer",
+                                        "example": 1,
+                                        "default": 0
+                                      },
+                                      "averageRent": {
+                                        "type": "integer",
+                                        "example": 1130,
+                                        "default": 0
+                                      },
+                                      "minRent": {
+                                        "type": "integer",
+                                        "example": 875,
+                                        "default": 0
+                                      },
+                                      "maxRent": {
+                                        "type": "integer",
+                                        "example": 1610,
+                                        "default": 0
+                                      },
+                                      "totalListings": {
+                                        "type": "integer",
+                                        "example": 6,
+                                        "default": 0
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            "2023-10": {
+                              "type": "object",
+                              "properties": {
+                                "averageRent": {
+                                  "type": "integer",
+                                  "example": 1370,
+                                  "default": 0
+                                },
+                                "minRent": {
+                                  "type": "integer",
+                                  "example": 750,
+                                  "default": 0
+                                },
+                                "maxRent": {
+                                  "type": "integer",
+                                  "example": 2750,
+                                  "default": 0
+                                },
+                                "totalListings": {
+                                  "type": "integer",
+                                  "example": 92,
+                                  "default": 0
+                                },
+                                "dataByBedrooms": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "object",
+                                    "properties": {
+                                      "bedrooms": {
+                                        "type": "integer",
+                                        "example": 1,
+                                        "default": 0
+                                      },
+                                      "averageRent": {
+                                        "type": "integer",
+                                        "example": 1005,
+                                        "default": 0
+                                      },
+                                      "minRent": {
+                                        "type": "integer",
+                                        "example": 800,
+                                        "default": 0
+                                      },
+                                      "maxRent": {
+                                        "type": "integer",
+                                        "example": 1610,
+                                        "default": 0
+                                      },
+                                      "totalListings": {
+                                        "type": "integer",
+                                        "example": 7,
+                                        "default": 0
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            "2023-11": {
+                              "type": "object",
+                              "properties": {
+                                "averageRent": {
+                                  "type": "integer",
+                                  "example": 1358,
+                                  "default": 0
+                                },
+                                "minRent": {
+                                  "type": "integer",
+                                  "example": 575,
+                                  "default": 0
+                                },
+                                "maxRent": {
+                                  "type": "integer",
+                                  "example": 2900,
+                                  "default": 0
+                                },
+                                "totalListings": {
+                                  "type": "integer",
+                                  "example": 92,
+                                  "default": 0
+                                },
+                                "dataByBedrooms": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "object",
+                                    "properties": {
+                                      "bedrooms": {
+                                        "type": "integer",
+                                        "example": 1,
+                                        "default": 0
+                                      },
+                                      "averageRent": {
+                                        "type": "integer",
+                                        "example": 926,
+                                        "default": 0
+                                      },
+                                      "minRent": {
+                                        "type": "integer",
+                                        "example": 575,
+                                        "default": 0
+                                      },
+                                      "maxRent": {
+                                        "type": "integer",
+                                        "example": 1610,
+                                        "default": 0
+                                      },
+                                      "totalListings": {
+                                        "type": "integer",
+                                        "example": 8,
+                                        "default": 0
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            "2023-12": {
+                              "type": "object",
+                              "properties": {
+                                "averageRent": {
+                                  "type": "integer",
+                                  "example": 1362,
+                                  "default": 0
+                                },
+                                "minRent": {
+                                  "type": "integer",
+                                  "example": 575,
+                                  "default": 0
+                                },
+                                "maxRent": {
+                                  "type": "integer",
+                                  "example": 2800,
+                                  "default": 0
+                                },
+                                "totalListings": {
+                                  "type": "integer",
+                                  "example": 87,
+                                  "default": 0
+                                },
+                                "dataByBedrooms": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "object",
+                                    "properties": {
+                                      "bedrooms": {
+                                        "type": "integer",
+                                        "example": 1,
+                                        "default": 0
+                                      },
+                                      "averageRent": {
+                                        "type": "integer",
+                                        "example": 934,
+                                        "default": 0
+                                      },
+                                      "minRent": {
+                                        "type": "integer",
+                                        "example": 575,
+                                        "default": 0
+                                      },
+                                      "maxRent": {
+                                        "type": "integer",
+                                        "example": 1610,
+                                        "default": 0
+                                      },
+                                      "totalListings": {
+                                        "type": "integer",
+                                        "example": 7,
+                                        "default": 0
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            "2024-01": {
+                              "type": "object",
+                              "properties": {
+                                "averageRent": {
+                                  "type": "integer",
+                                  "example": 1471,
+                                  "default": 0
+                                },
+                                "minRent": {
+                                  "type": "integer",
+                                  "example": 575,
+                                  "default": 0
+                                },
+                                "maxRent": {
+                                  "type": "integer",
+                                  "example": 2800,
+                                  "default": 0
+                                },
+                                "totalListings": {
+                                  "type": "integer",
+                                  "example": 70,
+                                  "default": 0
+                                },
+                                "dataByBedrooms": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "object",
+                                    "properties": {
+                                      "bedrooms": {
+                                        "type": "integer",
+                                        "example": 1,
+                                        "default": 0
+                                      },
+                                      "averageRent": {
+                                        "type": "integer",
+                                        "example": 962,
+                                        "default": 0
+                                      },
+                                      "minRent": {
+                                        "type": "integer",
+                                        "example": 575,
+                                        "default": 0
+                                      },
+                                      "maxRent": {
+                                        "type": "integer",
+                                        "example": 1610,
+                                        "default": 0
+                                      },
+                                      "totalListings": {
+                                        "type": "integer",
+                                        "example": 5,
+                                        "default": 0
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            "2024-02": {
+                              "type": "object",
+                              "properties": {
+                                "averageRent": {
+                                  "type": "integer",
+                                  "example": 1526,
+                                  "default": 0
+                                },
+                                "minRent": {
+                                  "type": "integer",
+                                  "example": 735,
+                                  "default": 0
+                                },
+                                "maxRent": {
+                                  "type": "integer",
+                                  "example": 3500,
+                                  "default": 0
+                                },
+                                "totalListings": {
+                                  "type": "integer",
+                                  "example": 85,
+                                  "default": 0
+                                },
+                                "dataByBedrooms": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "object",
+                                    "properties": {
+                                      "bedrooms": {
+                                        "type": "integer",
+                                        "example": 1,
+                                        "default": 0
+                                      },
+                                      "averageRent": {
+                                        "type": "integer",
+                                        "example": 997,
+                                        "default": 0
+                                      },
+                                      "minRent": {
+                                        "type": "integer",
+                                        "example": 750,
+                                        "default": 0
+                                      },
+                                      "maxRent": {
+                                        "type": "integer",
+                                        "example": 1610,
+                                        "default": 0
+                                      },
+                                      "totalListings": {
+                                        "type": "integer",
+                                        "example": 5,
+                                        "default": 0
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/properties/{id}": {
+      "get": {
+        "summary": "Property Record by Id",
+        "description": "Returns a single property record matching the specified id.",
+        "operationId": "property-record-by-id",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The id of the property record to return",
+            "schema": {
+              "type": "string",
+              "default": "5500-Grand-Lake-Dr,-San-Antonio,-TX-78244"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "200",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Response": {
+                    "value": "{\"id\":\"5500-Grand-Lake-Dr,-San-Antonio,-TX-78244\",\"formattedAddress\":\"5500 Grand Lake Dr, San Antonio, TX 78244\",\"addressLine1\":\"5500 Grand Lake Dr\",\"addressLine2\":null,\"city\":\"San Antonio\",\"state\":\"TX\",\"zipCode\":\"78244\",\"county\":\"Bexar\",\"latitude\":29.475962,\"longitude\":-98.351442,\"propertyType\":\"Single Family\",\"bedrooms\":3,\"bathrooms\":2,\"squareFootage\":1878,\"lotSize\":8843,\"yearBuilt\":1973,\"assessorID\":\"05076-103-0500\",\"legalDescription\":\"CB 5076A BLK 3 LOT 50\",\"subdivision\":\"CONV A/S CODE\",\"zoning\":\"RH\",\"lastSaleDate\":\"2017-10-19T00:00:00.000Z\",\"lastSalePrice\":185000,\"features\":{\"architectureType\":\"Contemporary\",\"cooling\":true,\"coolingType\":\"Central\",\"exteriorType\":\"Wood\",\"floorCount\":1,\"foundationType\":\"Slab / Mat / Raft\",\"garage\":true,\"garageType\":\"Garage\",\"heating\":true,\"heatingType\":\"Forced Air\",\"pool\":true,\"roofType\":\"Asphalt\",\"roomCount\":5,\"unitCount\":1},\"taxAssessments\":{\"2019\":{\"value\":135430,\"land\":23450,\"improvements\":111980},\"2020\":{\"value\":142610,\"land\":23450,\"improvements\":119160},\"2021\":{\"value\":163440,\"land\":45050,\"improvements\":118390},\"2022\":{\"value\":197600,\"land\":49560,\"improvements\":148040},\"2023\":{\"value\":225790,\"land\":59380,\"improvements\":166410}},\"propertyTaxes\":{\"2019\":{\"total\":2984},\"2020\":{\"total\":3023},\"2021\":{\"total\":3455},\"2022\":{\"total\":4091},\"2023\":{\"total\":4675}},\"owner\":{\"names\":[\"Michael Smith\"],\"mailingAddress\":{\"id\":\"149-Weaver-Blvd,---264,-Weaverville,-NC-28787\",\"formattedAddress\":\"149 Weaver Blvd, # 264, Weaverville, NC 28787\",\"addressLine1\":\"149 Weaver Blvd\",\"addressLine2\":\"# 264\",\"city\":\"Weaverville\",\"state\":\"NC\",\"zipCode\":\"28787\"}},\"ownerOccupied\":false}"
+                  }
+                },
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "example": "5500-Grand-Lake-Dr,-San-Antonio,-TX-78244"
+                    },
+                    "formattedAddress": {
+                      "type": "string",
+                      "example": "5500 Grand Lake Dr, San Antonio, TX 78244"
+                    },
+                    "addressLine1": {
+                      "type": "string",
+                      "example": "5500 Grand Lake Dr"
+                    },
+                    "addressLine2": {},
+                    "city": {
+                      "type": "string",
+                      "example": "San Antonio"
+                    },
+                    "state": {
+                      "type": "string",
+                      "example": "TX"
+                    },
+                    "zipCode": {
+                      "type": "string",
+                      "example": "78244"
+                    },
+                    "county": {
+                      "type": "string",
+                      "example": "Bexar"
+                    },
+                    "latitude": {
+                      "type": "number",
+                      "example": 29.475962,
+                      "default": 0
+                    },
+                    "longitude": {
+                      "type": "number",
+                      "example": -98.351442,
+                      "default": 0
+                    },
+                    "propertyType": {
+                      "type": "string",
+                      "example": "Single Family"
+                    },
+                    "bedrooms": {
+                      "type": "integer",
+                      "example": 3,
+                      "default": 0
+                    },
+                    "bathrooms": {
+                      "type": "integer",
+                      "example": 2,
+                      "default": 0
+                    },
+                    "squareFootage": {
+                      "type": "integer",
+                      "example": 1878,
+                      "default": 0
+                    },
+                    "lotSize": {
+                      "type": "integer",
+                      "example": 8843,
+                      "default": 0
+                    },
+                    "yearBuilt": {
+                      "type": "integer",
+                      "example": 1973,
+                      "default": 0
+                    },
+                    "assessorID": {
+                      "type": "string",
+                      "example": "05076-103-0500"
+                    },
+                    "legalDescription": {
+                      "type": "string",
+                      "example": "CB 5076A BLK 3 LOT 50"
+                    },
+                    "subdivision": {
+                      "type": "string",
+                      "example": "CONV A/S CODE"
+                    },
+                    "zoning": {
+                      "type": "string",
+                      "example": "RH"
+                    },
+                    "lastSaleDate": {
+                      "type": "string",
+                      "example": "2017-10-19T00:00:00.000Z"
+                    },
+                    "lastSalePrice": {
+                      "type": "integer",
+                      "example": 185000,
+                      "default": 0
+                    },
+                    "features": {
+                      "type": "object",
+                      "properties": {
+                        "architectureType": {
+                          "type": "string",
+                          "example": "Contemporary"
+                        },
+                        "cooling": {
+                          "type": "boolean",
+                          "example": true,
+                          "default": true
+                        },
+                        "coolingType": {
+                          "type": "string",
+                          "example": "Central"
+                        },
+                        "exteriorType": {
+                          "type": "string",
+                          "example": "Wood"
+                        },
+                        "floorCount": {
+                          "type": "integer",
+                          "example": 1,
+                          "default": 0
+                        },
+                        "foundationType": {
+                          "type": "string",
+                          "example": "Slab / Mat / Raft"
+                        },
+                        "garage": {
+                          "type": "boolean",
+                          "example": true,
+                          "default": true
+                        },
+                        "garageType": {
+                          "type": "string",
+                          "example": "Garage"
+                        },
+                        "heating": {
+                          "type": "boolean",
+                          "example": true,
+                          "default": true
+                        },
+                        "heatingType": {
+                          "type": "string",
+                          "example": "Forced Air"
+                        },
+                        "pool": {
+                          "type": "boolean",
+                          "example": true,
+                          "default": true
+                        },
+                        "roofType": {
+                          "type": "string",
+                          "example": "Asphalt"
+                        },
+                        "roomCount": {
+                          "type": "integer",
+                          "example": 5,
+                          "default": 0
+                        },
+                        "unitCount": {
+                          "type": "integer",
+                          "example": 1,
+                          "default": 0
+                        }
+                      }
+                    },
+                    "taxAssessments": {
+                      "type": "object",
+                      "properties": {
+                        "2019": {
+                          "type": "object",
+                          "properties": {
+                            "value": {
+                              "type": "integer",
+                              "example": 135430,
+                              "default": 0
+                            },
+                            "land": {
+                              "type": "integer",
+                              "example": 23450,
+                              "default": 0
+                            },
+                            "improvements": {
+                              "type": "integer",
+                              "example": 111980,
+                              "default": 0
+                            }
+                          }
+                        },
+                        "2020": {
+                          "type": "object",
+                          "properties": {
+                            "value": {
+                              "type": "integer",
+                              "example": 142610,
+                              "default": 0
+                            },
+                            "land": {
+                              "type": "integer",
+                              "example": 23450,
+                              "default": 0
+                            },
+                            "improvements": {
+                              "type": "integer",
+                              "example": 119160,
+                              "default": 0
+                            }
+                          }
+                        },
+                        "2021": {
+                          "type": "object",
+                          "properties": {
+                            "value": {
+                              "type": "integer",
+                              "example": 163440,
+                              "default": 0
+                            },
+                            "land": {
+                              "type": "integer",
+                              "example": 45050,
+                              "default": 0
+                            },
+                            "improvements": {
+                              "type": "integer",
+                              "example": 118390,
+                              "default": 0
+                            }
+                          }
+                        },
+                        "2022": {
+                          "type": "object",
+                          "properties": {
+                            "value": {
+                              "type": "integer",
+                              "example": 197600,
+                              "default": 0
+                            },
+                            "land": {
+                              "type": "integer",
+                              "example": 49560,
+                              "default": 0
+                            },
+                            "improvements": {
+                              "type": "integer",
+                              "example": 148040,
+                              "default": 0
+                            }
+                          }
+                        },
+                        "2023": {
+                          "type": "object",
+                          "properties": {
+                            "value": {
+                              "type": "integer",
+                              "example": 225790,
+                              "default": 0
+                            },
+                            "land": {
+                              "type": "integer",
+                              "example": 59380,
+                              "default": 0
+                            },
+                            "improvements": {
+                              "type": "integer",
+                              "example": 166410,
+                              "default": 0
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "propertyTaxes": {
+                      "type": "object",
+                      "properties": {
+                        "2019": {
+                          "type": "object",
+                          "properties": {
+                            "total": {
+                              "type": "integer",
+                              "example": 2984,
+                              "default": 0
+                            }
+                          }
+                        },
+                        "2020": {
+                          "type": "object",
+                          "properties": {
+                            "total": {
+                              "type": "integer",
+                              "example": 3023,
+                              "default": 0
+                            }
+                          }
+                        },
+                        "2021": {
+                          "type": "object",
+                          "properties": {
+                            "total": {
+                              "type": "integer",
+                              "example": 3455,
+                              "default": 0
+                            }
+                          }
+                        },
+                        "2022": {
+                          "type": "object",
+                          "properties": {
+                            "total": {
+                              "type": "integer",
+                              "example": 4091,
+                              "default": 0
+                            }
+                          }
+                        },
+                        "2023": {
+                          "type": "object",
+                          "properties": {
+                            "total": {
+                              "type": "integer",
+                              "example": 4675,
+                              "default": 0
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "owner": {
+                      "type": "object",
+                      "properties": {
+                        "names": {
+                          "type": "array",
+                          "items": {
+                            "type": "string",
+                            "example": "Michael Smith"
+                          }
+                        },
+                        "mailingAddress": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "string",
+                              "example": "149-Weaver-Blvd,---264,-Weaverville,-NC-28787"
+                            },
+                            "formattedAddress": {
+                              "type": "string",
+                              "example": "149 Weaver Blvd, # 264, Weaverville, NC 28787"
+                            },
+                            "addressLine1": {
+                              "type": "string",
+                              "example": "149 Weaver Blvd"
+                            },
+                            "addressLine2": {
+                              "type": "string",
+                              "example": "# 264"
+                            },
+                            "city": {
+                              "type": "string",
+                              "example": "Weaverville"
+                            },
+                            "state": {
+                              "type": "string",
+                              "example": "NC"
+                            },
+                            "zipCode": {
+                              "type": "string",
+                              "example": "28787"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "ownerOccupied": {
+                      "type": "boolean",
+                      "example": false,
+                      "default": true
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/properties/random": {
+      "get": {
+        "summary": "Random Property Records",
+        "description": "Returns a list of property records selected at random.",
+        "operationId": "property-records-random",
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "The number of property records to return, between 1 and 500. Defaults to 50 if not provided",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 5
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "200",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Response": {
+                    "value": "[{\"id\":\"5500-Grand-Lake-Dr,-San-Antonio,-TX-78244\",\"formattedAddress\":\"5500 Grand Lake Dr, San Antonio, TX 78244\",\"addressLine1\":\"5500 Grand Lake Dr\",\"addressLine2\":null,\"city\":\"San Antonio\",\"state\":\"TX\",\"zipCode\":\"78244\",\"county\":\"Bexar\",\"latitude\":29.475962,\"longitude\":-98.351442,\"propertyType\":\"Single Family\",\"bedrooms\":3,\"bathrooms\":2,\"squareFootage\":1878,\"lotSize\":8843,\"yearBuilt\":1973,\"assessorID\":\"05076-103-0500\",\"legalDescription\":\"CB 5076A BLK 3 LOT 50\",\"subdivision\":\"CONV A/S CODE\",\"zoning\":\"RH\",\"lastSaleDate\":\"2017-10-19T00:00:00.000Z\",\"lastSalePrice\":185000,\"features\":{\"architectureType\":\"Contemporary\",\"cooling\":true,\"coolingType\":\"Central\",\"exteriorType\":\"Wood\",\"floorCount\":1,\"foundationType\":\"Slab / Mat / Raft\",\"garage\":true,\"garageType\":\"Garage\",\"heating\":true,\"heatingType\":\"Forced Air\",\"pool\":true,\"roofType\":\"Asphalt\",\"roomCount\":5,\"unitCount\":1},\"taxAssessments\":{\"2019\":{\"value\":135430,\"land\":23450,\"improvements\":111980},\"2020\":{\"value\":142610,\"land\":23450,\"improvements\":119160},\"2021\":{\"value\":163440,\"land\":45050,\"improvements\":118390},\"2022\":{\"value\":197600,\"land\":49560,\"improvements\":148040},\"2023\":{\"value\":225790,\"land\":59380,\"improvements\":166410}},\"propertyTaxes\":{\"2019\":{\"total\":2984},\"2020\":{\"total\":3023},\"2021\":{\"total\":3455},\"2022\":{\"total\":4091},\"2023\":{\"total\":4675}},\"owner\":{\"names\":[\"Michael Smith\"],\"mailingAddress\":{\"id\":\"149-Weaver-Blvd,---264,-Weaverville,-NC-28787\",\"formattedAddress\":\"149 Weaver Blvd, # 264, Weaverville, NC 28787\",\"addressLine1\":\"149 Weaver Blvd\",\"addressLine2\":\"# 264\",\"city\":\"Weaverville\",\"state\":\"NC\",\"zipCode\":\"28787\"}},\"ownerOccupied\":false},{\"id\":\"602-University-Dr,-Waldorf,-MD-20602\",\"formattedAddress\":\"602 University Dr, Waldorf, MD 20602\",\"addressLine1\":\"602 University Dr\",\"addressLine2\":null,\"city\":\"Waldorf\",\"state\":\"MD\",\"zipCode\":\"20602\",\"county\":\"Charles\",\"latitude\":38.589637,\"longitude\":-76.916982,\"propertyType\":\"Single Family\",\"bedrooms\":3,\"bathrooms\":1.5,\"squareFootage\":1500,\"lotSize\":11221,\"yearBuilt\":1977,\"assessorID\":\"06-078761\",\"legalDescription\":\"L-36 B-66 S-IV-B CARRINGTON NEIGHBORHOOD ST CHARLES SUB\",\"subdivision\":\"CHARLES SUB\",\"zoning\":\"RH\",\"lastSaleDate\":\"2010-03-26T00:00:00.000Z\",\"lastSalePrice\":298000,\"features\":{\"architectureType\":\"Split Level\",\"cooling\":true,\"coolingType\":\"Commercial\",\"exteriorType\":\"Siding\",\"fireplace\":true,\"fireplaceType\":\"2 Story Brick Chimney\",\"floorCount\":2,\"garage\":true,\"garageType\":\"Garage\",\"heating\":true,\"heatingType\":\"Forced Air\",\"roofType\":\"Composition Shingle\",\"unitCount\":1},\"taxAssessments\":{\"2022\":{\"value\":224100},\"2023\":{\"value\":245900}},\"propertyTaxes\":{\"2022\":{\"total\":2808},\"2023\":{\"total\":3382}},\"owner\":{\"names\":[\"Priscilla D Harley\"],\"mailingAddress\":{\"id\":\"602-University-Dr,-Waldorf,-MD-20602\",\"formattedAddress\":\"602 University Dr, Waldorf, MD 20602\",\"addressLine1\":\"602 University Dr\",\"addressLine2\":null,\"city\":\"Waldorf\",\"state\":\"MD\",\"zipCode\":\"20602\"}},\"ownerOccupied\":true},{\"id\":\"10228-Enniscrone-Rd,-Pineville,-NC-28134\",\"formattedAddress\":\"10228 Enniscrone Rd, Pineville, NC 28134\",\"addressLine1\":\"10228 Enniscrone Rd\",\"addressLine2\":null,\"city\":\"Pineville\",\"state\":\"NC\",\"zipCode\":\"28134\",\"county\":\"Mecklenburg\",\"latitude\":35.072198,\"longitude\":-80.884813,\"propertyType\":\"Single Family\",\"bedrooms\":3,\"bathrooms\":2.5,\"squareFootage\":2422,\"lotSize\":4200,\"yearBuilt\":2011,\"assessorID\":\"22111210\",\"legalDescription\":\"L71 M52-366\",\"subdivision\":\"PARKWAY XING MAP 03\",\"zoning\":\"B-P\",\"lastSaleDate\":\"2023-11-29T00:00:00.000Z\",\"lastSalePrice\":410000,\"features\":{\"cooling\":true,\"coolingType\":\"Central\",\"exteriorType\":\"Aluminum / Vinyl Siding\",\"fireplace\":true,\"fireplaceType\":\"Prefab\",\"floorCount\":2,\"foundationType\":\"Slab / Mat / Raft\",\"garage\":true,\"garageType\":\"Garage\",\"heating\":true,\"heatingType\":\"Forced Air\"},\"taxAssessments\":{\"2020\":{\"value\":274700,\"land\":65000,\"improvements\":209700},\"2023\":{\"value\":407700,\"land\":100000,\"improvements\":307700}},\"propertyTaxes\":{\"2020\":{\"total\":2601},\"2023\":{\"total\":3861}},\"owner\":{\"names\":[\"SUSAN BURRITT HINKLE\"],\"mailingAddress\":{\"id\":\"10228-Enniscrone-Rd,-Pineville,-NC-28134\",\"addressLine1\":\"10228 Enniscrone Rd\",\"addressLine2\":null,\"city\":\"Pineville\",\"state\":\"NC\",\"zipCode\":\"28134\"}},\"ownerOccupied\":true},{\"id\":\"13-Stacy-Ln,-Gerrardstown,-WV-25420\",\"formattedAddress\":\"13 Stacy Ln, Gerrardstown, WV 25420\",\"addressLine1\":\"13 Stacy Ln\",\"addressLine2\":null,\"city\":\"Gerrardstown\",\"state\":\"WV\",\"zipCode\":\"25420\",\"county\":\"Berkeley\",\"latitude\":39.361939,\"longitude\":-78.112123,\"propertyType\":\"Land\",\"lotSize\":25265,\"assessorID\":\"02-03- 35J-0001.0005\",\"legalDescription\":\".5838 AC LOT E S/OF GERRARDSTOWN\",\"features\":{},\"taxAssessments\":{\"2022\":{\"value\":21900,\"land\":21900},\"2023\":{\"value\":22920,\"land\":22920}},\"propertyTaxes\":{\"2022\":{\"total\":510},\"2023\":{\"total\":579}},\"owner\":{\"names\":[\"Stacey Clayton Silver Miller\"],\"mailingAddress\":{\"id\":\"412-Ronald-Ln,-Gerrardstown,-WV-25420\",\"formattedAddress\":\"412 Ronald Ln, Gerrardstown, WV 25420\",\"addressLine1\":\"412 Ronald Ln\",\"addressLine2\":null,\"city\":\"Gerrardstown\",\"state\":\"WV\",\"zipCode\":\"25420\"}},\"ownerOccupied\":false},{\"id\":\"3618-Warrensburg-Rd,-Delaware,-OH-43015\",\"formattedAddress\":\"3618 Warrensburg Rd, Delaware, OH 43015\",\"addressLine1\":\"3618 Warrensburg Rd\",\"addressLine2\":null,\"city\":\"Delaware\",\"state\":\"OH\",\"zipCode\":\"43015\",\"county\":\"Delaware\",\"latitude\":40.312936,\"longitude\":-83.136307,\"propertyType\":\"Single Family\",\"bedrooms\":4,\"bathrooms\":2.5,\"squareFootage\":2464,\"lotSize\":217844,\"yearBuilt\":1991,\"assessorID\":\"520-410-01-079-000\",\"legalDescription\":\"LANDS 20 5 4 15\",\"subdivision\":\"RADNOR\",\"lastSaleDate\":\"2003-06-09T00:00:00.000Z\",\"lastSalePrice\":260800,\"features\":{\"architectureType\":\"Conventional\",\"cooling\":true,\"coolingType\":\"Central\",\"exteriorType\":\"Combination\",\"fireplace\":true,\"floorCount\":2,\"garage\":true,\"garageSpaces\":3,\"garageType\":\"Garage\",\"heating\":true,\"heatingType\":\"Baseboard\",\"roomCount\":7,\"unitCount\":1},\"taxAssessments\":{\"2019\":{\"value\":105560,\"land\":22610,\"improvements\":82950},\"2022\":{\"value\":125550,\"land\":26010,\"improvements\":99540}},\"propertyTaxes\":{\"2019\":{\"total\":4465},\"2022\":{\"total\":5205}},\"owner\":{\"names\":[\"Adam D Ralph\",\"KATHERINE S RALPH\"],\"mailingAddress\":{\"id\":\"3618-Warrensburg-Rd,-Delaware,-OH-43015\",\"formattedAddress\":\"3618 Warrensburg Rd, Delaware, OH 43015\",\"addressLine1\":\"3618 Warrensburg Rd\",\"addressLine2\":null,\"city\":\"Delaware\",\"state\":\"OH\",\"zipCode\":\"43015\"}},\"ownerOccupied\":true}]"
+                  }
+                },
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string",
+                        "example": "5500-Grand-Lake-Dr,-San-Antonio,-TX-78244"
+                      },
+                      "formattedAddress": {
+                        "type": "string",
+                        "example": "5500 Grand Lake Dr, San Antonio, TX 78244"
+                      },
+                      "addressLine1": {
+                        "type": "string",
+                        "example": "5500 Grand Lake Dr"
+                      },
+                      "addressLine2": {},
+                      "city": {
+                        "type": "string",
+                        "example": "San Antonio"
+                      },
+                      "state": {
+                        "type": "string",
+                        "example": "TX"
+                      },
+                      "zipCode": {
+                        "type": "string",
+                        "example": "78244"
+                      },
+                      "county": {
+                        "type": "string",
+                        "example": "Bexar"
+                      },
+                      "latitude": {
+                        "type": "number",
+                        "example": 29.475962,
+                        "default": 0
+                      },
+                      "longitude": {
+                        "type": "number",
+                        "example": -98.351442,
+                        "default": 0
+                      },
+                      "propertyType": {
+                        "type": "string",
+                        "example": "Single Family"
+                      },
+                      "bedrooms": {
+                        "type": "integer",
+                        "example": 3,
+                        "default": 0
+                      },
+                      "bathrooms": {
+                        "type": "integer",
+                        "example": 2,
+                        "default": 0
+                      },
+                      "squareFootage": {
+                        "type": "integer",
+                        "example": 1878,
+                        "default": 0
+                      },
+                      "lotSize": {
+                        "type": "integer",
+                        "example": 8843,
+                        "default": 0
+                      },
+                      "yearBuilt": {
+                        "type": "integer",
+                        "example": 1973,
+                        "default": 0
+                      },
+                      "assessorID": {
+                        "type": "string",
+                        "example": "05076-103-0500"
+                      },
+                      "legalDescription": {
+                        "type": "string",
+                        "example": "CB 5076A BLK 3 LOT 50"
+                      },
+                      "subdivision": {
+                        "type": "string",
+                        "example": "CONV A/S CODE"
+                      },
+                      "zoning": {
+                        "type": "string",
+                        "example": "RH"
+                      },
+                      "lastSaleDate": {
+                        "type": "string",
+                        "example": "2017-10-19T00:00:00.000Z"
+                      },
+                      "lastSalePrice": {
+                        "type": "integer",
+                        "example": 185000,
+                        "default": 0
+                      },
+                      "features": {
+                        "type": "object",
+                        "properties": {
+                          "architectureType": {
+                            "type": "string",
+                            "example": "Contemporary"
+                          },
+                          "cooling": {
+                            "type": "boolean",
+                            "example": true,
+                            "default": true
+                          },
+                          "coolingType": {
+                            "type": "string",
+                            "example": "Central"
+                          },
+                          "exteriorType": {
+                            "type": "string",
+                            "example": "Wood"
+                          },
+                          "floorCount": {
+                            "type": "integer",
+                            "example": 1,
+                            "default": 0
+                          },
+                          "foundationType": {
+                            "type": "string",
+                            "example": "Slab / Mat / Raft"
+                          },
+                          "garage": {
+                            "type": "boolean",
+                            "example": true,
+                            "default": true
+                          },
+                          "garageType": {
+                            "type": "string",
+                            "example": "Garage"
+                          },
+                          "heating": {
+                            "type": "boolean",
+                            "example": true,
+                            "default": true
+                          },
+                          "heatingType": {
+                            "type": "string",
+                            "example": "Forced Air"
+                          },
+                          "pool": {
+                            "type": "boolean",
+                            "example": true,
+                            "default": true
+                          },
+                          "roofType": {
+                            "type": "string",
+                            "example": "Asphalt"
+                          },
+                          "roomCount": {
+                            "type": "integer",
+                            "example": 5,
+                            "default": 0
+                          },
+                          "unitCount": {
+                            "type": "integer",
+                            "example": 1,
+                            "default": 0
+                          }
+                        }
+                      },
+                      "taxAssessments": {
+                        "type": "object",
+                        "properties": {
+                          "2019": {
+                            "type": "object",
+                            "properties": {
+                              "value": {
+                                "type": "integer",
+                                "example": 135430,
+                                "default": 0
+                              },
+                              "land": {
+                                "type": "integer",
+                                "example": 23450,
+                                "default": 0
+                              },
+                              "improvements": {
+                                "type": "integer",
+                                "example": 111980,
+                                "default": 0
+                              }
+                            }
+                          },
+                          "2020": {
+                            "type": "object",
+                            "properties": {
+                              "value": {
+                                "type": "integer",
+                                "example": 142610,
+                                "default": 0
+                              },
+                              "land": {
+                                "type": "integer",
+                                "example": 23450,
+                                "default": 0
+                              },
+                              "improvements": {
+                                "type": "integer",
+                                "example": 119160,
+                                "default": 0
+                              }
+                            }
+                          },
+                          "2021": {
+                            "type": "object",
+                            "properties": {
+                              "value": {
+                                "type": "integer",
+                                "example": 163440,
+                                "default": 0
+                              },
+                              "land": {
+                                "type": "integer",
+                                "example": 45050,
+                                "default": 0
+                              },
+                              "improvements": {
+                                "type": "integer",
+                                "example": 118390,
+                                "default": 0
+                              }
+                            }
+                          },
+                          "2022": {
+                            "type": "object",
+                            "properties": {
+                              "value": {
+                                "type": "integer",
+                                "example": 197600,
+                                "default": 0
+                              },
+                              "land": {
+                                "type": "integer",
+                                "example": 49560,
+                                "default": 0
+                              },
+                              "improvements": {
+                                "type": "integer",
+                                "example": 148040,
+                                "default": 0
+                              }
+                            }
+                          },
+                          "2023": {
+                            "type": "object",
+                            "properties": {
+                              "value": {
+                                "type": "integer",
+                                "example": 225790,
+                                "default": 0
+                              },
+                              "land": {
+                                "type": "integer",
+                                "example": 59380,
+                                "default": 0
+                              },
+                              "improvements": {
+                                "type": "integer",
+                                "example": 166410,
+                                "default": 0
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "propertyTaxes": {
+                        "type": "object",
+                        "properties": {
+                          "2019": {
+                            "type": "object",
+                            "properties": {
+                              "total": {
+                                "type": "integer",
+                                "example": 2984,
+                                "default": 0
+                              }
+                            }
+                          },
+                          "2020": {
+                            "type": "object",
+                            "properties": {
+                              "total": {
+                                "type": "integer",
+                                "example": 3023,
+                                "default": 0
+                              }
+                            }
+                          },
+                          "2021": {
+                            "type": "object",
+                            "properties": {
+                              "total": {
+                                "type": "integer",
+                                "example": 3455,
+                                "default": 0
+                              }
+                            }
+                          },
+                          "2022": {
+                            "type": "object",
+                            "properties": {
+                              "total": {
+                                "type": "integer",
+                                "example": 4091,
+                                "default": 0
+                              }
+                            }
+                          },
+                          "2023": {
+                            "type": "object",
+                            "properties": {
+                              "total": {
+                                "type": "integer",
+                                "example": 4675,
+                                "default": 0
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "owner": {
+                        "type": "object",
+                        "properties": {
+                          "names": {
+                            "type": "array",
+                            "items": {
+                              "type": "string",
+                              "example": "Michael Smith"
+                            }
+                          },
+                          "mailingAddress": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "string",
+                                "example": "149-Weaver-Blvd,---264,-Weaverville,-NC-28787"
+                              },
+                              "formattedAddress": {
+                                "type": "string",
+                                "example": "149 Weaver Blvd, # 264, Weaverville, NC 28787"
+                              },
+                              "addressLine1": {
+                                "type": "string",
+                                "example": "149 Weaver Blvd"
+                              },
+                              "addressLine2": {
+                                "type": "string",
+                                "example": "# 264"
+                              },
+                              "city": {
+                                "type": "string",
+                                "example": "Weaverville"
+                              },
+                              "state": {
+                                "type": "string",
+                                "example": "NC"
+                              },
+                              "zipCode": {
+                                "type": "string",
+                                "example": "28787"
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "ownerOccupied": {
+                        "type": "boolean",
+                        "example": false,
+                        "default": true
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/avm/rent/long-term": {
+      "get": {
+        "summary": "Rent Estimate",
+        "description": "Returns a property rent estimate and comparable properties.",
+        "operationId": "rent-estimate-long-term",
+        "parameters": [
+          {
+            "name": "address",
+            "in": "query",
+            "description": "The **full address** of the property, in the format of `Street, City, State, Zip`. You need to provide either the `address` or the `latitude`/`longitude` parameters",
+            "schema": {
+              "type": "string",
+              "default": "5500 Grand Lake Drive, San Antonio, TX, 78244"
+            }
+          },
+          {
+            "name": "latitude",
+            "in": "query",
+            "description": "The latitude of the property. The `latitude`/`longitude` can be provided instead of the `address` parameter",
+            "schema": {
+              "type": "number",
+              "format": "float"
+            }
+          },
+          {
+            "name": "longitude",
+            "in": "query",
+            "description": "The longitude of the property. The `latitude`/`longitude` can be provided instead of the `address` parameter",
+            "schema": {
+              "type": "number",
+              "format": "float"
+            }
+          },
+          {
+            "name": "propertyType",
+            "in": "query",
+            "description": "The type of the property. See [explanation of property types](https://developers.rentcast.io/reference/property-types)",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "Single Family",
+                "Condo",
+                "Townhouse",
+                "Manufactured",
+                "Multi-Family",
+                "Apartment"
+              ],
+              "default": "Single Family"
+            }
+          },
+          {
+            "name": "bedrooms",
+            "in": "query",
+            "description": "The number of bedrooms in the property. Use `0` to indicate a studio layout",
+            "schema": {
+              "type": "number",
+              "format": "float",
+              "default": 4
+            }
+          },
+          {
+            "name": "bathrooms",
+            "in": "query",
+            "description": "The number of bathrooms in the property. Supports fractions to indicate partial bathrooms",
+            "schema": {
+              "type": "number",
+              "format": "float",
+              "default": 2
+            }
+          },
+          {
+            "name": "squareFootage",
+            "in": "query",
+            "description": "The total living area size of the property, in square feet",
+            "schema": {
+              "type": "number",
+              "format": "float",
+              "default": 1600
+            }
+          },
+          {
+            "name": "maxRadius",
+            "in": "query",
+            "description": "The maximum distance between comparable listings and the subject property, in miles",
+            "schema": {
+              "type": "number",
+              "format": "float"
+            }
+          },
+          {
+            "name": "daysOld",
+            "in": "query",
+            "description": "The maximum number of days since comparable listings were last seen on the market, with a minimum of 1",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "compCount",
+            "in": "query",
+            "description": "The number of comparable listings to use when calculating the rent estimate, between 5 and 25. Defaults to 15 if not provided",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 5
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "200",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Response": {
+                    "value": "{\"rent\":1800,\"rentRangeLow\":1740,\"rentRangeHigh\":1860,\"latitude\":29.475962,\"longitude\":-98.351442,\"comparables\":[{\"id\":\"7410-Adaja-Riv,-San-Antonio,-TX-78244\",\"formattedAddress\":\"7410 Adaja Riv, San Antonio, TX 78244\",\"addressLine1\":\"7410 Adaja Riv\",\"addressLine2\":null,\"city\":\"San Antonio\",\"state\":\"TX\",\"zipCode\":\"78244\",\"county\":\"Bexar\",\"latitude\":29.481005,\"longitude\":-98.344856,\"propertyType\":\"Single Family\",\"bedrooms\":4,\"bathrooms\":2,\"squareFootage\":1627,\"lotSize\":8224,\"yearBuilt\":1972,\"price\":1850,\"listedDate\":\"2023-01-22T00:00:00.000Z\",\"lastSeenDate\":\"2023-02-17T00:00:00.000Z\",\"daysOld\":11,\"distance\":0.5282,\"correlation\":0.988},{\"id\":\"7303-Avila-Vis,-San-Antonio,-TX-78244\",\"formattedAddress\":\"7303 Avila Vis, San Antonio, TX 78244\",\"addressLine1\":\"7303 Avila Vis\",\"addressLine2\":null,\"city\":\"San Antonio\",\"state\":\"TX\",\"zipCode\":\"78244\",\"county\":\"Bexar\",\"latitude\":29.483196,\"longitude\":-98.34565,\"propertyType\":\"Single Family\",\"bedrooms\":4,\"bathrooms\":2,\"squareFootage\":1627,\"lotSize\":6455,\"yearBuilt\":2020,\"price\":1850,\"listedDate\":\"2023-02-03T00:00:00.000Z\",\"lastSeenDate\":\"2023-02-17T00:00:00.000Z\",\"daysOld\":11,\"distance\":0.6099,\"correlation\":0.9867},{\"id\":\"7331-Avila-Vis,-San-Antonio,-TX-78244\",\"formattedAddress\":\"7331 Avila Vis, San Antonio, TX 78244\",\"addressLine1\":\"7331 Avila Vis\",\"addressLine2\":null,\"city\":\"San Antonio\",\"state\":\"TX\",\"zipCode\":\"78244\",\"county\":\"Bexar\",\"latitude\":29.482922,\"longitude\":-98.34481,\"propertyType\":\"Single Family\",\"bedrooms\":4,\"bathrooms\":2,\"squareFootage\":1627,\"lotSize\":4647,\"yearBuilt\":2021,\"price\":1810,\"listedDate\":\"2023-02-21T00:00:00.000Z\",\"lastSeenDate\":\"2023-02-27T00:00:00.000Z\",\"daysOld\":1,\"distance\":0.6255,\"correlation\":0.9865},{\"id\":\"7411-Avila-Vis,-San-Antonio,-TX-78244\",\"formattedAddress\":\"7411 Avila Vis, San Antonio, TX 78244\",\"addressLine1\":\"7411 Avila Vis\",\"addressLine2\":null,\"city\":\"San Antonio\",\"state\":\"TX\",\"zipCode\":\"78244\",\"county\":\"Bexar\",\"latitude\":29.482676,\"longitude\":-98.344398,\"propertyType\":\"Single Family\",\"bedrooms\":4,\"bathrooms\":2,\"squareFootage\":1627,\"lotSize\":4469,\"yearBuilt\":2021,\"price\":1815,\"listedDate\":\"2023-01-16T00:00:00.000Z\",\"lastSeenDate\":\"2023-02-10T00:00:00.000Z\",\"daysOld\":18,\"distance\":0.629,\"correlation\":0.9864},{\"id\":\"7327-Plata-Cir,-San-Antonio,-TX-78244\",\"formattedAddress\":\"7327 Plata Cir, San Antonio, TX 78244\",\"addressLine1\":\"7327 Plata Cir\",\"addressLine2\":null,\"city\":\"San Antonio\",\"state\":\"TX\",\"zipCode\":\"78244\",\"county\":\"Bexar\",\"latitude\":29.480621,\"longitude\":-98.344406,\"propertyType\":\"Single Family\",\"bedrooms\":4,\"bathrooms\":2,\"squareFootage\":1492,\"lotSize\":4024,\"yearBuilt\":2021,\"price\":1680,\"listedDate\":\"2023-01-12T00:00:00.000Z\",\"lastSeenDate\":\"2023-02-08T00:00:00.000Z\",\"daysOld\":20,\"distance\":0.5323,\"correlation\":0.9758}]}"
+                  }
+                },
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "rent": {
+                      "type": "integer",
+                      "example": 1800,
+                      "default": 0
+                    },
+                    "rentRangeLow": {
+                      "type": "integer",
+                      "example": 1740,
+                      "default": 0
+                    },
+                    "rentRangeHigh": {
+                      "type": "integer",
+                      "example": 1860,
+                      "default": 0
+                    },
+                    "latitude": {
+                      "type": "number",
+                      "example": 29.475962,
+                      "default": 0
+                    },
+                    "longitude": {
+                      "type": "number",
+                      "example": -98.351442,
+                      "default": 0
+                    },
+                    "comparables": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string",
+                            "example": "7410-Adaja-Riv,-San-Antonio,-TX-78244"
+                          },
+                          "formattedAddress": {
+                            "type": "string",
+                            "example": "7410 Adaja Riv, San Antonio, TX 78244"
+                          },
+                          "addressLine1": {
+                            "type": "string",
+                            "example": "7410 Adaja Riv"
+                          },
+                          "addressLine2": {},
+                          "city": {
+                            "type": "string",
+                            "example": "San Antonio"
+                          },
+                          "state": {
+                            "type": "string",
+                            "example": "TX"
+                          },
+                          "zipCode": {
+                            "type": "string",
+                            "example": "78244"
+                          },
+                          "county": {
+                            "type": "string",
+                            "example": "Bexar"
+                          },
+                          "latitude": {
+                            "type": "number",
+                            "example": 29.481005,
+                            "default": 0
+                          },
+                          "longitude": {
+                            "type": "number",
+                            "example": -98.344856,
+                            "default": 0
+                          },
+                          "propertyType": {
+                            "type": "string",
+                            "example": "Single Family"
+                          },
+                          "bedrooms": {
+                            "type": "integer",
+                            "example": 4,
+                            "default": 0
+                          },
+                          "bathrooms": {
+                            "type": "integer",
+                            "example": 2,
+                            "default": 0
+                          },
+                          "squareFootage": {
+                            "type": "integer",
+                            "example": 1627,
+                            "default": 0
+                          },
+                          "lotSize": {
+                            "type": "integer",
+                            "example": 8224,
+                            "default": 0
+                          },
+                          "yearBuilt": {
+                            "type": "integer",
+                            "example": 1972,
+                            "default": 0
+                          },
+                          "price": {
+                            "type": "integer",
+                            "example": 1850,
+                            "default": 0
+                          },
+                          "listedDate": {
+                            "type": "string",
+                            "example": "2023-01-22T00:00:00.000Z"
+                          },
+                          "lastSeenDate": {
+                            "type": "string",
+                            "example": "2023-02-17T00:00:00.000Z"
+                          },
+                          "daysOld": {
+                            "type": "integer",
+                            "example": 11,
+                            "default": 0
+                          },
+                          "distance": {
+                            "type": "number",
+                            "example": 0.5282,
+                            "default": 0
+                          },
+                          "correlation": {
+                            "type": "number",
+                            "example": 0.988,
+                            "default": 0
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/listings/rental/long-term": {
+      "get": {
+        "summary": "Rental Listings",
+        "description": "Search for rental listings in a geographical area, or by a specific address.",
+        "operationId": "rental-listings-long-term",
+        "parameters": [
+          {
+            "name": "address",
+            "in": "query",
+            "description": "The **full address** of the property, in the format of `Street, City, State, Zip`. Used to retrieve data for a specific property, or together with the `radius` parameter to search for listings in a specific area",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "city",
+            "in": "query",
+            "description": "The name of the city, used to search for listings in a specific city. This parameter is case-sensitive",
+            "schema": {
+              "type": "string",
+              "default": "Austin"
+            }
+          },
+          {
+            "name": "state",
+            "in": "query",
+            "description": "The 2-character state abbreviation, used to search for listings in a specific state. This parameter is case-sensitive",
+            "schema": {
+              "type": "string",
+              "default": "TX"
+            }
+          },
+          {
+            "name": "zipCode",
+            "in": "query",
+            "description": "The 5-digit zip code, used to search for listings in a specific zip code",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "latitude",
+            "in": "query",
+            "description": "The latitude of the search area. Use the `latitude`/`longitude` and `radius` parameters to search for listings in a specific area",
+            "schema": {
+              "type": "number",
+              "format": "float"
+            }
+          },
+          {
+            "name": "longitude",
+            "in": "query",
+            "description": "The longitude of the search area. Use the `latitude`/`longitude` and `radius` parameters to search for listings in a specific area",
+            "schema": {
+              "type": "number",
+              "format": "float"
+            }
+          },
+          {
+            "name": "radius",
+            "in": "query",
+            "description": "The radius of the search area in miles, with a maximum of 100. Use in combination with the `latitude`/`longitude` or `address` parameters to search for listings in a specific area",
+            "schema": {
+              "type": "number",
+              "format": "float"
+            }
+          },
+          {
+            "name": "propertyType",
+            "in": "query",
+            "description": "The type of the property, used to search for listings matching this criteria. See [explanation of property types](https://developers.rentcast.io/reference/property-types)",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "Single Family",
+                "Condo",
+                "Townhouse",
+                "Manufactured",
+                "Multi-Family",
+                "Apartment"
+              ]
+            }
+          },
+          {
+            "name": "bedrooms",
+            "in": "query",
+            "description": "The number of bedrooms, used to search for listings matching this criteria. Use `0` to indicate a studio layout",
+            "schema": {
+              "type": "number",
+              "format": "float"
+            }
+          },
+          {
+            "name": "bathrooms",
+            "in": "query",
+            "description": "The number of bathrooms, used to search for listings matching this criteria. Supports fractions to indicate partial bathrooms",
+            "schema": {
+              "type": "number",
+              "format": "float"
+            }
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "description": "The current listing status, used to search for listings matching this criteria",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "Active",
+                "Inactive"
+              ],
+              "default": "Active"
+            }
+          },
+          {
+            "name": "daysOld",
+            "in": "query",
+            "description": "The maximum number of days since a property was listed on the market, with a minimum of 1",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "The maximum number of listings to return, between 1 and 500. Defaults to 50 if not provided. [Learn more](https://developers.rentcast.io/reference/pagination) about pagination",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 5
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "The index of the first listing to return, used to paginate through large lists of results. Defaults to 0 if not provided. [Learn more](https://developers.rentcast.io/reference/pagination) about pagination",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "200",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Response": {
+                    "value": "[{\"id\":\"1000-W-26th-St,-Apt-216,-Austin,-TX-78705\",\"formattedAddress\":\"1000 W 26th St, Apt 216, Austin, TX 78705\",\"addressLine1\":\"1000 W 26th St\",\"addressLine2\":\"Apt 216\",\"city\":\"Austin\",\"state\":\"TX\",\"zipCode\":\"78705\",\"county\":\"Travis\",\"latitude\":30.291138,\"longitude\":-97.747833,\"propertyType\":\"Condo\",\"bedrooms\":1,\"bathrooms\":1,\"squareFootage\":445,\"lotSize\":653,\"yearBuilt\":1973,\"status\":\"Active\",\"price\":1275,\"listedDate\":\"2022-11-21T00:00:00.000Z\",\"removedDate\":null,\"createdDate\":\"2019-11-07T15:13:54.790Z\",\"lastSeenDate\":\"2023-02-25T00:00:00.000Z\",\"daysOnMarket\":96},{\"id\":\"10015-Lake-Creek-Pkwy,-Austin,-TX-78729\",\"formattedAddress\":\"10015 Lake Creek Pkwy, Austin, TX 78729\",\"addressLine1\":\"10015 Lake Creek Pkwy\",\"addressLine2\":null,\"city\":\"Austin\",\"state\":\"TX\",\"zipCode\":\"78729\",\"county\":\"Williamson\",\"latitude\":30.466927,\"longitude\":-97.786581,\"propertyType\":\"Apartment\",\"bedrooms\":1,\"bathrooms\":1,\"squareFootage\":901,\"yearBuilt\":2001,\"status\":\"Active\",\"price\":1885,\"listedDate\":\"2023-01-13T00:00:00.000Z\",\"removedDate\":null,\"createdDate\":\"2019-11-07T15:23:43.984Z\",\"lastSeenDate\":\"2023-02-25T00:00:00.000Z\",\"daysOnMarket\":43},{\"id\":\"10000-N-Lamar-Blvd,-Austin,-TX-78753\",\"formattedAddress\":\"10000 N Lamar Blvd, Austin, TX 78753\",\"addressLine1\":\"10000 N Lamar Blvd\",\"addressLine2\":null,\"city\":\"Austin\",\"state\":\"TX\",\"zipCode\":\"78753\",\"county\":\"Travis\",\"latitude\":30.369334,\"longitude\":-97.695373,\"propertyType\":\"Apartment\",\"bedrooms\":2,\"bathrooms\":1,\"status\":\"Active\",\"price\":1294,\"listedDate\":\"2022-12-22T00:00:00.000Z\",\"removedDate\":null,\"createdDate\":\"2019-11-05T20:07:02.749Z\",\"lastSeenDate\":\"2023-02-25T00:00:00.000Z\",\"daysOnMarket\":65},{\"id\":\"1001-Collinwood-West-Dr,-Austin,-TX-78753\",\"formattedAddress\":\"1001 Collinwood West Dr, Austin, TX 78753\",\"addressLine1\":\"1001 Collinwood West Dr\",\"addressLine2\":null,\"city\":\"Austin\",\"state\":\"TX\",\"zipCode\":\"78753\",\"county\":\"Travis\",\"latitude\":30.37071,\"longitude\":-97.67469,\"propertyType\":\"Apartment\",\"bedrooms\":2,\"bathrooms\":1,\"yearBuilt\":2001,\"status\":\"Active\",\"price\":925,\"listedDate\":\"2022-12-22T00:00:00.000Z\",\"removedDate\":null,\"createdDate\":\"2019-11-05T20:06:58.888Z\",\"lastSeenDate\":\"2023-02-25T00:00:00.000Z\",\"daysOnMarket\":65},{\"id\":\"10011-Stonelake-Blvd,-Austin,-TX-78759\",\"formattedAddress\":\"10011 Stonelake Blvd, Austin, TX 78759\",\"addressLine1\":\"10011 Stonelake Blvd\",\"addressLine2\":null,\"city\":\"Austin\",\"state\":\"TX\",\"zipCode\":\"78759\",\"county\":\"Travis\",\"latitude\":30.392466,\"longitude\":-97.738149,\"propertyType\":\"Apartment\",\"bedrooms\":1,\"bathrooms\":1,\"squareFootage\":924,\"yearBuilt\":2014,\"status\":\"Active\",\"price\":1581,\"listedDate\":\"2022-12-22T00:00:00.000Z\",\"removedDate\":null,\"createdDate\":\"2019-11-07T14:53:38.218Z\",\"lastSeenDate\":\"2023-02-25T00:00:00.000Z\",\"daysOnMarket\":65}]"
+                  }
+                },
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string",
+                        "example": "1000-W-26th-St,-Apt-216,-Austin,-TX-78705"
+                      },
+                      "formattedAddress": {
+                        "type": "string",
+                        "example": "1000 W 26th St, Apt 216, Austin, TX 78705"
+                      },
+                      "addressLine1": {
+                        "type": "string",
+                        "example": "1000 W 26th St"
+                      },
+                      "addressLine2": {
+                        "type": "string",
+                        "example": "Apt 216"
+                      },
+                      "city": {
+                        "type": "string",
+                        "example": "Austin"
+                      },
+                      "state": {
+                        "type": "string",
+                        "example": "TX"
+                      },
+                      "zipCode": {
+                        "type": "string",
+                        "example": "78705"
+                      },
+                      "county": {
+                        "type": "string",
+                        "example": "Travis"
+                      },
+                      "latitude": {
+                        "type": "number",
+                        "example": 30.291138,
+                        "default": 0
+                      },
+                      "longitude": {
+                        "type": "number",
+                        "example": -97.747833,
+                        "default": 0
+                      },
+                      "propertyType": {
+                        "type": "string",
+                        "example": "Condo"
+                      },
+                      "bedrooms": {
+                        "type": "integer",
+                        "example": 1,
+                        "default": 0
+                      },
+                      "bathrooms": {
+                        "type": "integer",
+                        "example": 1,
+                        "default": 0
+                      },
+                      "squareFootage": {
+                        "type": "integer",
+                        "example": 445,
+                        "default": 0
+                      },
+                      "lotSize": {
+                        "type": "integer",
+                        "example": 653,
+                        "default": 0
+                      },
+                      "yearBuilt": {
+                        "type": "integer",
+                        "example": 1973,
+                        "default": 0
+                      },
+                      "status": {
+                        "type": "string",
+                        "example": "Active"
+                      },
+                      "price": {
+                        "type": "integer",
+                        "example": 1275,
+                        "default": 0
+                      },
+                      "listedDate": {
+                        "type": "string",
+                        "example": "2022-11-21T00:00:00.000Z"
+                      },
+                      "removedDate": {},
+                      "createdDate": {
+                        "type": "string",
+                        "example": "2019-11-07T15:13:54.790Z"
+                      },
+                      "lastSeenDate": {
+                        "type": "string",
+                        "example": "2023-02-25T00:00:00.000Z"
+                      },
+                      "daysOnMarket": {
+                        "type": "integer",
+                        "example": 96,
+                        "default": 0
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/listings/sale/{id}": {
+      "get": {
+        "summary": "Sale Listing by Id",
+        "description": "Returns a single sale listing matching the specified id.",
+        "operationId": "sale-listing-by-id",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The id of the property listing to return",
+            "schema": {
+              "type": "string",
+              "default": "1702-Cherry-Orchard-Dr,-Austin,-TX-78745"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "200",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Response": {
+                    "value": "{\"id\":\"1702-Cherry-Orchard-Dr,-Austin,-TX-78745\",\"formattedAddress\":\"1702 Cherry Orchard Dr, Austin, TX 78745\",\"addressLine1\":\"1702 Cherry Orchard Dr\",\"addressLine2\":null,\"city\":\"Austin\",\"state\":\"TX\",\"zipCode\":\"78745\",\"county\":\"Travis\",\"latitude\":30.201436,\"longitude\":-97.802849,\"propertyType\":\"Single Family\",\"bedrooms\":3,\"bathrooms\":1,\"squareFootage\":910,\"lotSize\":8233,\"yearBuilt\":1972,\"status\":\"Active\",\"price\":385000,\"listedDate\":\"2023-02-02T00:00:00.000Z\",\"removedDate\":null,\"createdDate\":\"2020-09-20T00:00:00.000Z\",\"lastSeenDate\":\"2023-02-25T00:00:00.000Z\",\"daysOnMarket\":23}"
+                  }
+                },
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "example": "1702-Cherry-Orchard-Dr,-Austin,-TX-78745"
+                    },
+                    "formattedAddress": {
+                      "type": "string",
+                      "example": "1702 Cherry Orchard Dr, Austin, TX 78745"
+                    },
+                    "addressLine1": {
+                      "type": "string",
+                      "example": "1702 Cherry Orchard Dr"
+                    },
+                    "addressLine2": {},
+                    "city": {
+                      "type": "string",
+                      "example": "Austin"
+                    },
+                    "state": {
+                      "type": "string",
+                      "example": "TX"
+                    },
+                    "zipCode": {
+                      "type": "string",
+                      "example": "78745"
+                    },
+                    "county": {
+                      "type": "string",
+                      "example": "Travis"
+                    },
+                    "latitude": {
+                      "type": "number",
+                      "example": 30.201436,
+                      "default": 0
+                    },
+                    "longitude": {
+                      "type": "number",
+                      "example": -97.802849,
+                      "default": 0
+                    },
+                    "propertyType": {
+                      "type": "string",
+                      "example": "Single Family"
+                    },
+                    "bedrooms": {
+                      "type": "integer",
+                      "example": 3,
+                      "default": 0
+                    },
+                    "bathrooms": {
+                      "type": "integer",
+                      "example": 1,
+                      "default": 0
+                    },
+                    "squareFootage": {
+                      "type": "integer",
+                      "example": 910,
+                      "default": 0
+                    },
+                    "lotSize": {
+                      "type": "integer",
+                      "example": 8233,
+                      "default": 0
+                    },
+                    "yearBuilt": {
+                      "type": "integer",
+                      "example": 1972,
+                      "default": 0
+                    },
+                    "status": {
+                      "type": "string",
+                      "example": "Active"
+                    },
+                    "price": {
+                      "type": "integer",
+                      "example": 385000,
+                      "default": 0
+                    },
+                    "listedDate": {
+                      "type": "string",
+                      "example": "2023-02-02T00:00:00.000Z"
+                    },
+                    "removedDate": {},
+                    "createdDate": {
+                      "type": "string",
+                      "example": "2020-09-20T00:00:00.000Z"
+                    },
+                    "lastSeenDate": {
+                      "type": "string",
+                      "example": "2023-02-25T00:00:00.000Z"
+                    },
+                    "daysOnMarket": {
+                      "type": "integer",
+                      "example": 23,
+                      "default": 0
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/listings/rental/long-term/{id}": {
+      "get": {
+        "summary": "Rental Listing by Id",
+        "description": "Returns a single rental listing matching the specified id.",
+        "operationId": "rental-listing-long-term-by-id",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The id of the property listing to return",
+            "schema": {
+              "type": "string",
+              "default": "1702-Cherry-Orchard-Dr,-Austin,-TX-78745"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "200",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Response": {
+                    "value": "{\"id\":\"1702-Cherry-Orchard-Dr,-Austin,-TX-78745\",\"formattedAddress\":\"1702 Cherry Orchard Dr, Austin, TX 78745\",\"addressLine1\":\"1702 Cherry Orchard Dr\",\"addressLine2\":null,\"city\":\"Austin\",\"state\":\"TX\",\"zipCode\":\"78745\",\"county\":\"Travis\",\"latitude\":30.201391,\"longitude\":-97.802872,\"propertyType\":\"Single Family\",\"bedrooms\":3,\"bathrooms\":1,\"squareFootage\":910,\"lotSize\":8233,\"yearBuilt\":1972,\"status\":\"Active\",\"price\":2025,\"listedDate\":\"2022-10-18T00:00:00.000Z\",\"removedDate\":null,\"createdDate\":\"2022-10-18T00:00:00.000Z\",\"lastSeenDate\":\"2022-12-02T00:00:00.000Z\",\"daysOnMarket\":45}"
+                  }
+                },
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "example": "1702-Cherry-Orchard-Dr,-Austin,-TX-78745"
+                    },
+                    "formattedAddress": {
+                      "type": "string",
+                      "example": "1702 Cherry Orchard Dr, Austin, TX 78745"
+                    },
+                    "addressLine1": {
+                      "type": "string",
+                      "example": "1702 Cherry Orchard Dr"
+                    },
+                    "addressLine2": {},
+                    "city": {
+                      "type": "string",
+                      "example": "Austin"
+                    },
+                    "state": {
+                      "type": "string",
+                      "example": "TX"
+                    },
+                    "zipCode": {
+                      "type": "string",
+                      "example": "78745"
+                    },
+                    "county": {
+                      "type": "string",
+                      "example": "Travis"
+                    },
+                    "latitude": {
+                      "type": "number",
+                      "example": 30.201391,
+                      "default": 0
+                    },
+                    "longitude": {
+                      "type": "number",
+                      "example": -97.802872,
+                      "default": 0
+                    },
+                    "propertyType": {
+                      "type": "string",
+                      "example": "Single Family"
+                    },
+                    "bedrooms": {
+                      "type": "integer",
+                      "example": 3,
+                      "default": 0
+                    },
+                    "bathrooms": {
+                      "type": "integer",
+                      "example": 1,
+                      "default": 0
+                    },
+                    "squareFootage": {
+                      "type": "integer",
+                      "example": 910,
+                      "default": 0
+                    },
+                    "lotSize": {
+                      "type": "integer",
+                      "example": 8233,
+                      "default": 0
+                    },
+                    "yearBuilt": {
+                      "type": "integer",
+                      "example": 1972,
+                      "default": 0
+                    },
+                    "status": {
+                      "type": "string",
+                      "example": "Active"
+                    },
+                    "price": {
+                      "type": "integer",
+                      "example": 2025,
+                      "default": 0
+                    },
+                    "listedDate": {
+                      "type": "string",
+                      "example": "2022-10-18T00:00:00.000Z"
+                    },
+                    "removedDate": {},
+                    "createdDate": {
+                      "type": "string",
+                      "example": "2022-10-18T00:00:00.000Z"
+                    },
+                    "lastSeenDate": {
+                      "type": "string",
+                      "example": "2022-12-02T00:00:00.000Z"
+                    },
+                    "daysOnMarket": {
+                      "type": "integer",
+                      "example": 45,
+                      "default": 0
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false
+      }
+    }
+  },
+  "x-readme": {
+    "headers": [],
+    "explorer-enabled": true,
+    "proxy-enabled": true
+  },
+  "x-readme-fauxas": true
+}
