@@ -521,509 +521,512 @@
               "application/json": {
                 "examples": {
                   "Response": {
-                    "value": "{\"id\":\"5500-Grand-Lake-Dr,-San-Antonio,-TX-78244\",\"formattedAddress\":\"5500 Grand Lake Dr, San Antonio, TX 78244\",\"addressLine1\":\"5500 Grand Lake Dr\",\"addressLine2\":null,\"city\":\"San Antonio\",\"state\":\"TX\",\"zipCode\":\"78244\",\"county\":\"Bexar\",\"latitude\":29.476011,\"longitude\":-98.351454,\"propertyType\":\"Single Family\",\"bedrooms\":3,\"bathrooms\":2,\"squareFootage\":1878,\"lotSize\":8843,\"yearBuilt\":1973,\"assessorID\":\"05076-103-0500\",\"legalDescription\":\"CB 5076A BLK 3 LOT 50\",\"subdivision\":\"CONV A/S CODE\",\"zoning\":\"RH\",\"lastSaleDate\":\"2017-10-19T00:00:00.000Z\",\"lastSalePrice\":185000,\"hoa\":{\"fee\":175},\"features\":{\"architectureType\":\"Contemporary\",\"cooling\":true,\"coolingType\":\"Central\",\"exteriorType\":\"Wood\",\"fireplace\":true,\"fireplaceType\":\"Masonry\",\"floorCount\":1,\"foundationType\":\"Slab / Mat / Raft\",\"garage\":true,\"garageSpaces\":2,\"garageType\":\"Garage\",\"heating\":true,\"heatingType\":\"Forced Air\",\"pool\":true,\"poolType\":\"Concrete\",\"roofType\":\"Asphalt\",\"roomCount\":5,\"unitCount\":1,\"viewType\":\"City\"},\"taxAssessments\":{\"2019\":{\"year\":2019,\"value\":135430,\"land\":23450,\"improvements\":111980},\"2020\":{\"year\":2020,\"value\":142610,\"land\":23450,\"improvements\":119160},\"2021\":{\"year\":2021,\"value\":163440,\"land\":45050,\"improvements\":118390},\"2022\":{\"year\":2022,\"value\":197600,\"land\":49560,\"improvements\":148040},\"2023\":{\"year\":2023,\"value\":225790,\"land\":59380,\"improvements\":166410}},\"propertyTaxes\":{\"2019\":{\"year\":2019,\"total\":2984},\"2020\":{\"year\":2020,\"total\":3023},\"2021\":{\"year\":2021,\"total\":3455},\"2022\":{\"year\":2022,\"total\":4091},\"2023\":{\"year\":2023,\"total\":4201}},\"history\":{\"2004-06-16\":{\"event\":\"Sale\",\"date\":\"2004-06-16T00:00:00.000Z\",\"price\":95000},\"2017-10-19\":{\"event\":\"Sale\",\"date\":\"2017-10-19T00:00:00.000Z\",\"price\":185000}},\"owner\":{\"names\":[\"Michael Smith\"],\"type\":\"Individual\",\"mailingAddress\":{\"id\":\"149-Weaver-Blvd,---264,-Weaverville,-NC-28787\",\"formattedAddress\":\"149 Weaver Blvd, # 264, Weaverville, NC 28787\",\"addressLine1\":\"149 Weaver Blvd\",\"addressLine2\":\"# 264\",\"city\":\"Weaverville\",\"state\":\"NC\",\"zipCode\":\"28787\"}},\"ownerOccupied\":false}"
+                    "value": "[{\"id\":\"5500-Grand-Lake-Dr,-San-Antonio,-TX-78244\",\"formattedAddress\":\"5500 Grand Lake Dr, San Antonio, TX 78244\",\"addressLine1\":\"5500 Grand Lake Dr\",\"addressLine2\":null,\"city\":\"San Antonio\",\"state\":\"TX\",\"zipCode\":\"78244\",\"county\":\"Bexar\",\"latitude\":29.476011,\"longitude\":-98.351454,\"propertyType\":\"Single Family\",\"bedrooms\":3,\"bathrooms\":2,\"squareFootage\":1878,\"lotSize\":8843,\"yearBuilt\":1973,\"assessorID\":\"05076-103-0500\",\"legalDescription\":\"CB 5076A BLK 3 LOT 50\",\"subdivision\":\"CONV A/S CODE\",\"zoning\":\"RH\",\"lastSaleDate\":\"2017-10-19T00:00:00.000Z\",\"lastSalePrice\":185000,\"hoa\":{\"fee\":175},\"features\":{\"architectureType\":\"Contemporary\",\"cooling\":true,\"coolingType\":\"Central\",\"exteriorType\":\"Wood\",\"fireplace\":true,\"fireplaceType\":\"Masonry\",\"floorCount\":1,\"foundationType\":\"Slab / Mat / Raft\",\"garage\":true,\"garageSpaces\":2,\"garageType\":\"Garage\",\"heating\":true,\"heatingType\":\"Forced Air\",\"pool\":true,\"poolType\":\"Concrete\",\"roofType\":\"Asphalt\",\"roomCount\":5,\"unitCount\":1,\"viewType\":\"City\"},\"taxAssessments\":{\"2019\":{\"year\":2019,\"value\":135430,\"land\":23450,\"improvements\":111980},\"2020\":{\"year\":2020,\"value\":142610,\"land\":23450,\"improvements\":119160},\"2021\":{\"year\":2021,\"value\":163440,\"land\":45050,\"improvements\":118390},\"2022\":{\"year\":2022,\"value\":197600,\"land\":49560,\"improvements\":148040},\"2023\":{\"year\":2023,\"value\":225790,\"land\":59380,\"improvements\":166410}},\"propertyTaxes\":{\"2019\":{\"year\":2019,\"total\":2984},\"2020\":{\"year\":2020,\"total\":3023},\"2021\":{\"year\":2021,\"total\":3455},\"2022\":{\"year\":2022,\"total\":4091},\"2023\":{\"year\":2023,\"total\":4201}},\"history\":{\"2004-06-16\":{\"event\":\"Sale\",\"date\":\"2004-06-16T00:00:00.000Z\",\"price\":95000},\"2017-10-19\":{\"event\":\"Sale\",\"date\":\"2017-10-19T00:00:00.000Z\",\"price\":185000}},\"owner\":{\"names\":[\"Michael Smith\"],\"type\":\"Individual\",\"mailingAddress\":{\"id\":\"149-Weaver-Blvd,---264,-Weaverville,-NC-28787\",\"formattedAddress\":\"149 Weaver Blvd, # 264, Weaverville, NC 28787\",\"addressLine1\":\"149 Weaver Blvd\",\"addressLine2\":\"# 264\",\"city\":\"Weaverville\",\"state\":\"NC\",\"zipCode\":\"28787\"}},\"ownerOccupied\":false}]"
                   }
                 },
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "id": {
-                      "type": "string",
-                      "example": "5500-Grand-Lake-Dr,-San-Antonio,-TX-78244"
-                    },
-                    "formattedAddress": {
-                      "type": "string",
-                      "example": "5500 Grand Lake Dr, San Antonio, TX 78244"
-                    },
-                    "addressLine1": {
-                      "type": "string",
-                      "example": "5500 Grand Lake Dr"
-                    },
-                    "addressLine2": {},
-                    "city": {
-                      "type": "string",
-                      "example": "San Antonio"
-                    },
-                    "state": {
-                      "type": "string",
-                      "example": "TX"
-                    },
-                    "zipCode": {
-                      "type": "string",
-                      "example": "78244"
-                    },
-                    "county": {
-                      "type": "string",
-                      "example": "Bexar"
-                    },
-                    "latitude": {
-                      "type": "number",
-                      "example": 29.476011,
-                      "default": 0
-                    },
-                    "longitude": {
-                      "type": "number",
-                      "example": -98.351454,
-                      "default": 0
-                    },
-                    "propertyType": {
-                      "type": "string",
-                      "example": "Single Family"
-                    },
-                    "bedrooms": {
-                      "type": "integer",
-                      "example": 3,
-                      "default": 0
-                    },
-                    "bathrooms": {
-                      "type": "integer",
-                      "example": 2,
-                      "default": 0
-                    },
-                    "squareFootage": {
-                      "type": "integer",
-                      "example": 1878,
-                      "default": 0
-                    },
-                    "lotSize": {
-                      "type": "integer",
-                      "example": 8843,
-                      "default": 0
-                    },
-                    "yearBuilt": {
-                      "type": "integer",
-                      "example": 1973,
-                      "default": 0
-                    },
-                    "assessorID": {
-                      "type": "string",
-                      "example": "05076-103-0500"
-                    },
-                    "legalDescription": {
-                      "type": "string",
-                      "example": "CB 5076A BLK 3 LOT 50"
-                    },
-                    "subdivision": {
-                      "type": "string",
-                      "example": "CONV A/S CODE"
-                    },
-                    "zoning": {
-                      "type": "string",
-                      "example": "RH"
-                    },
-                    "lastSaleDate": {
-                      "type": "string",
-                      "example": "2017-10-19T00:00:00.000Z"
-                    },
-                    "lastSalePrice": {
-                      "type": "integer",
-                      "example": 185000,
-                      "default": 0
-                    },
-                    "hoa": {
-                      "type": "object",
-                      "properties": {
-                        "fee": {
-                          "type": "integer",
-                          "example": 175,
-                          "default": 0
-                        }
-                      }
-                    },
-                    "features": {
-                      "type": "object",
-                      "properties": {
-                        "architectureType": {
-                          "type": "string",
-                          "example": "Contemporary"
-                        },
-                        "cooling": {
-                          "type": "boolean",
-                          "example": true,
-                          "default": true
-                        },
-                        "coolingType": {
-                          "type": "string",
-                          "example": "Central"
-                        },
-                        "exteriorType": {
-                          "type": "string",
-                          "example": "Wood"
-                        },
-                        "fireplace": {
-                          "type": "boolean",
-                          "example": true,
-                          "default": true
-                        },
-                        "fireplaceType": {
-                          "type": "string",
-                          "example": "Masonry"
-                        },
-                        "floorCount": {
-                          "type": "integer",
-                          "example": 1,
-                          "default": 0
-                        },
-                        "foundationType": {
-                          "type": "string",
-                          "example": "Slab / Mat / Raft"
-                        },
-                        "garage": {
-                          "type": "boolean",
-                          "example": true,
-                          "default": true
-                        },
-                        "garageSpaces": {
-                          "type": "integer",
-                          "example": 2,
-                          "default": 0
-                        },
-                        "garageType": {
-                          "type": "string",
-                          "example": "Garage"
-                        },
-                        "heating": {
-                          "type": "boolean",
-                          "example": true,
-                          "default": true
-                        },
-                        "heatingType": {
-                          "type": "string",
-                          "example": "Forced Air"
-                        },
-                        "pool": {
-                          "type": "boolean",
-                          "example": true,
-                          "default": true
-                        },
-                        "poolType": {
-                          "type": "string",
-                          "example": "Concrete"
-                        },
-                        "roofType": {
-                          "type": "string",
-                          "example": "Asphalt"
-                        },
-                        "roomCount": {
-                          "type": "integer",
-                          "example": 5,
-                          "default": 0
-                        },
-                        "unitCount": {
-                          "type": "integer",
-                          "example": 1,
-                          "default": 0
-                        },
-                        "viewType": {
-                          "type": "string",
-                          "example": "City"
-                        }
-                      }
-                    },
-                    "taxAssessments": {
-                      "type": "object",
-                      "properties": {
-                        "2019": {
-                          "type": "object",
-                          "properties": {
-                            "year": {
-                              "type": "integer",
-                              "example": 2019,
-                              "default": 0
-                            },
-                            "value": {
-                              "type": "integer",
-                              "example": 135430,
-                              "default": 0
-                            },
-                            "land": {
-                              "type": "integer",
-                              "example": 23450,
-                              "default": 0
-                            },
-                            "improvements": {
-                              "type": "integer",
-                              "example": 111980,
-                              "default": 0
-                            }
-                          }
-                        },
-                        "2020": {
-                          "type": "object",
-                          "properties": {
-                            "year": {
-                              "type": "integer",
-                              "example": 2020,
-                              "default": 0
-                            },
-                            "value": {
-                              "type": "integer",
-                              "example": 142610,
-                              "default": 0
-                            },
-                            "land": {
-                              "type": "integer",
-                              "example": 23450,
-                              "default": 0
-                            },
-                            "improvements": {
-                              "type": "integer",
-                              "example": 119160,
-                              "default": 0
-                            }
-                          }
-                        },
-                        "2021": {
-                          "type": "object",
-                          "properties": {
-                            "year": {
-                              "type": "integer",
-                              "example": 2021,
-                              "default": 0
-                            },
-                            "value": {
-                              "type": "integer",
-                              "example": 163440,
-                              "default": 0
-                            },
-                            "land": {
-                              "type": "integer",
-                              "example": 45050,
-                              "default": 0
-                            },
-                            "improvements": {
-                              "type": "integer",
-                              "example": 118390,
-                              "default": 0
-                            }
-                          }
-                        },
-                        "2022": {
-                          "type": "object",
-                          "properties": {
-                            "year": {
-                              "type": "integer",
-                              "example": 2022,
-                              "default": 0
-                            },
-                            "value": {
-                              "type": "integer",
-                              "example": 197600,
-                              "default": 0
-                            },
-                            "land": {
-                              "type": "integer",
-                              "example": 49560,
-                              "default": 0
-                            },
-                            "improvements": {
-                              "type": "integer",
-                              "example": 148040,
-                              "default": 0
-                            }
-                          }
-                        },
-                        "2023": {
-                          "type": "object",
-                          "properties": {
-                            "year": {
-                              "type": "integer",
-                              "example": 2023,
-                              "default": 0
-                            },
-                            "value": {
-                              "type": "integer",
-                              "example": 225790,
-                              "default": 0
-                            },
-                            "land": {
-                              "type": "integer",
-                              "example": 59380,
-                              "default": 0
-                            },
-                            "improvements": {
-                              "type": "integer",
-                              "example": 166410,
-                              "default": 0
-                            }
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string",
+                        "example": "5500-Grand-Lake-Dr,-San-Antonio,-TX-78244"
+                      },
+                      "formattedAddress": {
+                        "type": "string",
+                        "example": "5500 Grand Lake Dr, San Antonio, TX 78244"
+                      },
+                      "addressLine1": {
+                        "type": "string",
+                        "example": "5500 Grand Lake Dr"
+                      },
+                      "addressLine2": {},
+                      "city": {
+                        "type": "string",
+                        "example": "San Antonio"
+                      },
+                      "state": {
+                        "type": "string",
+                        "example": "TX"
+                      },
+                      "zipCode": {
+                        "type": "string",
+                        "example": "78244"
+                      },
+                      "county": {
+                        "type": "string",
+                        "example": "Bexar"
+                      },
+                      "latitude": {
+                        "type": "number",
+                        "example": 29.476011,
+                        "default": 0
+                      },
+                      "longitude": {
+                        "type": "number",
+                        "example": -98.351454,
+                        "default": 0
+                      },
+                      "propertyType": {
+                        "type": "string",
+                        "example": "Single Family"
+                      },
+                      "bedrooms": {
+                        "type": "integer",
+                        "example": 3,
+                        "default": 0
+                      },
+                      "bathrooms": {
+                        "type": "integer",
+                        "example": 2,
+                        "default": 0
+                      },
+                      "squareFootage": {
+                        "type": "integer",
+                        "example": 1878,
+                        "default": 0
+                      },
+                      "lotSize": {
+                        "type": "integer",
+                        "example": 8843,
+                        "default": 0
+                      },
+                      "yearBuilt": {
+                        "type": "integer",
+                        "example": 1973,
+                        "default": 0
+                      },
+                      "assessorID": {
+                        "type": "string",
+                        "example": "05076-103-0500"
+                      },
+                      "legalDescription": {
+                        "type": "string",
+                        "example": "CB 5076A BLK 3 LOT 50"
+                      },
+                      "subdivision": {
+                        "type": "string",
+                        "example": "CONV A/S CODE"
+                      },
+                      "zoning": {
+                        "type": "string",
+                        "example": "RH"
+                      },
+                      "lastSaleDate": {
+                        "type": "string",
+                        "example": "2017-10-19T00:00:00.000Z"
+                      },
+                      "lastSalePrice": {
+                        "type": "integer",
+                        "example": 185000,
+                        "default": 0
+                      },
+                      "hoa": {
+                        "type": "object",
+                        "properties": {
+                          "fee": {
+                            "type": "integer",
+                            "example": 175,
+                            "default": 0
                           }
                         }
-                      }
-                    },
-                    "propertyTaxes": {
-                      "type": "object",
-                      "properties": {
-                        "2019": {
-                          "type": "object",
-                          "properties": {
-                            "year": {
-                              "type": "integer",
-                              "example": 2019,
-                              "default": 0
-                            },
-                            "total": {
-                              "type": "integer",
-                              "example": 2984,
-                              "default": 0
-                            }
-                          }
-                        },
-                        "2020": {
-                          "type": "object",
-                          "properties": {
-                            "year": {
-                              "type": "integer",
-                              "example": 2020,
-                              "default": 0
-                            },
-                            "total": {
-                              "type": "integer",
-                              "example": 3023,
-                              "default": 0
-                            }
-                          }
-                        },
-                        "2021": {
-                          "type": "object",
-                          "properties": {
-                            "year": {
-                              "type": "integer",
-                              "example": 2021,
-                              "default": 0
-                            },
-                            "total": {
-                              "type": "integer",
-                              "example": 3455,
-                              "default": 0
-                            }
-                          }
-                        },
-                        "2022": {
-                          "type": "object",
-                          "properties": {
-                            "year": {
-                              "type": "integer",
-                              "example": 2022,
-                              "default": 0
-                            },
-                            "total": {
-                              "type": "integer",
-                              "example": 4091,
-                              "default": 0
-                            }
-                          }
-                        },
-                        "2023": {
-                          "type": "object",
-                          "properties": {
-                            "year": {
-                              "type": "integer",
-                              "example": 2023,
-                              "default": 0
-                            },
-                            "total": {
-                              "type": "integer",
-                              "example": 4201,
-                              "default": 0
-                            }
-                          }
-                        }
-                      }
-                    },
-                    "history": {
-                      "type": "object",
-                      "properties": {
-                        "2004-06-16": {
-                          "type": "object",
-                          "properties": {
-                            "event": {
-                              "type": "string",
-                              "example": "Sale"
-                            },
-                            "date": {
-                              "type": "string",
-                              "example": "2004-06-16T00:00:00.000Z"
-                            },
-                            "price": {
-                              "type": "integer",
-                              "example": 95000,
-                              "default": 0
-                            }
-                          }
-                        },
-                        "2017-10-19": {
-                          "type": "object",
-                          "properties": {
-                            "event": {
-                              "type": "string",
-                              "example": "Sale"
-                            },
-                            "date": {
-                              "type": "string",
-                              "example": "2017-10-19T00:00:00.000Z"
-                            },
-                            "price": {
-                              "type": "integer",
-                              "example": 185000,
-                              "default": 0
-                            }
-                          }
-                        }
-                      }
-                    },
-                    "owner": {
-                      "type": "object",
-                      "properties": {
-                        "names": {
-                          "type": "array",
-                          "items": {
+                      },
+                      "features": {
+                        "type": "object",
+                        "properties": {
+                          "architectureType": {
                             "type": "string",
-                            "example": "Michael Smith"
+                            "example": "Contemporary"
+                          },
+                          "cooling": {
+                            "type": "boolean",
+                            "example": true,
+                            "default": true
+                          },
+                          "coolingType": {
+                            "type": "string",
+                            "example": "Central"
+                          },
+                          "exteriorType": {
+                            "type": "string",
+                            "example": "Wood"
+                          },
+                          "fireplace": {
+                            "type": "boolean",
+                            "example": true,
+                            "default": true
+                          },
+                          "fireplaceType": {
+                            "type": "string",
+                            "example": "Masonry"
+                          },
+                          "floorCount": {
+                            "type": "integer",
+                            "example": 1,
+                            "default": 0
+                          },
+                          "foundationType": {
+                            "type": "string",
+                            "example": "Slab / Mat / Raft"
+                          },
+                          "garage": {
+                            "type": "boolean",
+                            "example": true,
+                            "default": true
+                          },
+                          "garageSpaces": {
+                            "type": "integer",
+                            "example": 2,
+                            "default": 0
+                          },
+                          "garageType": {
+                            "type": "string",
+                            "example": "Garage"
+                          },
+                          "heating": {
+                            "type": "boolean",
+                            "example": true,
+                            "default": true
+                          },
+                          "heatingType": {
+                            "type": "string",
+                            "example": "Forced Air"
+                          },
+                          "pool": {
+                            "type": "boolean",
+                            "example": true,
+                            "default": true
+                          },
+                          "poolType": {
+                            "type": "string",
+                            "example": "Concrete"
+                          },
+                          "roofType": {
+                            "type": "string",
+                            "example": "Asphalt"
+                          },
+                          "roomCount": {
+                            "type": "integer",
+                            "example": 5,
+                            "default": 0
+                          },
+                          "unitCount": {
+                            "type": "integer",
+                            "example": 1,
+                            "default": 0
+                          },
+                          "viewType": {
+                            "type": "string",
+                            "example": "City"
                           }
-                        },
-                        "type": {
-                          "type": "string",
-                          "example": "Individual"
-                        },
-                        "mailingAddress": {
-                          "type": "object",
-                          "properties": {
-                            "id": {
-                              "type": "string",
-                              "example": "149-Weaver-Blvd,---264,-Weaverville,-NC-28787"
-                            },
-                            "formattedAddress": {
-                              "type": "string",
-                              "example": "149 Weaver Blvd, # 264, Weaverville, NC 28787"
-                            },
-                            "addressLine1": {
-                              "type": "string",
-                              "example": "149 Weaver Blvd"
-                            },
-                            "addressLine2": {
-                              "type": "string",
-                              "example": "# 264"
-                            },
-                            "city": {
-                              "type": "string",
-                              "example": "Weaverville"
-                            },
-                            "state": {
-                              "type": "string",
-                              "example": "NC"
-                            },
-                            "zipCode": {
-                              "type": "string",
-                              "example": "28787"
+                        }
+                      },
+                      "taxAssessments": {
+                        "type": "object",
+                        "properties": {
+                          "2019": {
+                            "type": "object",
+                            "properties": {
+                              "year": {
+                                "type": "integer",
+                                "example": 2019,
+                                "default": 0
+                              },
+                              "value": {
+                                "type": "integer",
+                                "example": 135430,
+                                "default": 0
+                              },
+                              "land": {
+                                "type": "integer",
+                                "example": 23450,
+                                "default": 0
+                              },
+                              "improvements": {
+                                "type": "integer",
+                                "example": 111980,
+                                "default": 0
+                              }
+                            }
+                          },
+                          "2020": {
+                            "type": "object",
+                            "properties": {
+                              "year": {
+                                "type": "integer",
+                                "example": 2020,
+                                "default": 0
+                              },
+                              "value": {
+                                "type": "integer",
+                                "example": 142610,
+                                "default": 0
+                              },
+                              "land": {
+                                "type": "integer",
+                                "example": 23450,
+                                "default": 0
+                              },
+                              "improvements": {
+                                "type": "integer",
+                                "example": 119160,
+                                "default": 0
+                              }
+                            }
+                          },
+                          "2021": {
+                            "type": "object",
+                            "properties": {
+                              "year": {
+                                "type": "integer",
+                                "example": 2021,
+                                "default": 0
+                              },
+                              "value": {
+                                "type": "integer",
+                                "example": 163440,
+                                "default": 0
+                              },
+                              "land": {
+                                "type": "integer",
+                                "example": 45050,
+                                "default": 0
+                              },
+                              "improvements": {
+                                "type": "integer",
+                                "example": 118390,
+                                "default": 0
+                              }
+                            }
+                          },
+                          "2022": {
+                            "type": "object",
+                            "properties": {
+                              "year": {
+                                "type": "integer",
+                                "example": 2022,
+                                "default": 0
+                              },
+                              "value": {
+                                "type": "integer",
+                                "example": 197600,
+                                "default": 0
+                              },
+                              "land": {
+                                "type": "integer",
+                                "example": 49560,
+                                "default": 0
+                              },
+                              "improvements": {
+                                "type": "integer",
+                                "example": 148040,
+                                "default": 0
+                              }
+                            }
+                          },
+                          "2023": {
+                            "type": "object",
+                            "properties": {
+                              "year": {
+                                "type": "integer",
+                                "example": 2023,
+                                "default": 0
+                              },
+                              "value": {
+                                "type": "integer",
+                                "example": 225790,
+                                "default": 0
+                              },
+                              "land": {
+                                "type": "integer",
+                                "example": 59380,
+                                "default": 0
+                              },
+                              "improvements": {
+                                "type": "integer",
+                                "example": 166410,
+                                "default": 0
+                              }
                             }
                           }
                         }
+                      },
+                      "propertyTaxes": {
+                        "type": "object",
+                        "properties": {
+                          "2019": {
+                            "type": "object",
+                            "properties": {
+                              "year": {
+                                "type": "integer",
+                                "example": 2019,
+                                "default": 0
+                              },
+                              "total": {
+                                "type": "integer",
+                                "example": 2984,
+                                "default": 0
+                              }
+                            }
+                          },
+                          "2020": {
+                            "type": "object",
+                            "properties": {
+                              "year": {
+                                "type": "integer",
+                                "example": 2020,
+                                "default": 0
+                              },
+                              "total": {
+                                "type": "integer",
+                                "example": 3023,
+                                "default": 0
+                              }
+                            }
+                          },
+                          "2021": {
+                            "type": "object",
+                            "properties": {
+                              "year": {
+                                "type": "integer",
+                                "example": 2021,
+                                "default": 0
+                              },
+                              "total": {
+                                "type": "integer",
+                                "example": 3455,
+                                "default": 0
+                              }
+                            }
+                          },
+                          "2022": {
+                            "type": "object",
+                            "properties": {
+                              "year": {
+                                "type": "integer",
+                                "example": 2022,
+                                "default": 0
+                              },
+                              "total": {
+                                "type": "integer",
+                                "example": 4091,
+                                "default": 0
+                              }
+                            }
+                          },
+                          "2023": {
+                            "type": "object",
+                            "properties": {
+                              "year": {
+                                "type": "integer",
+                                "example": 2023,
+                                "default": 0
+                              },
+                              "total": {
+                                "type": "integer",
+                                "example": 4201,
+                                "default": 0
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "history": {
+                        "type": "object",
+                        "properties": {
+                          "2004-06-16": {
+                            "type": "object",
+                            "properties": {
+                              "event": {
+                                "type": "string",
+                                "example": "Sale"
+                              },
+                              "date": {
+                                "type": "string",
+                                "example": "2004-06-16T00:00:00.000Z"
+                              },
+                              "price": {
+                                "type": "integer",
+                                "example": 95000,
+                                "default": 0
+                              }
+                            }
+                          },
+                          "2017-10-19": {
+                            "type": "object",
+                            "properties": {
+                              "event": {
+                                "type": "string",
+                                "example": "Sale"
+                              },
+                              "date": {
+                                "type": "string",
+                                "example": "2017-10-19T00:00:00.000Z"
+                              },
+                              "price": {
+                                "type": "integer",
+                                "example": 185000,
+                                "default": 0
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "owner": {
+                        "type": "object",
+                        "properties": {
+                          "names": {
+                            "type": "array",
+                            "items": {
+                              "type": "string",
+                              "example": "Michael Smith"
+                            }
+                          },
+                          "type": {
+                            "type": "string",
+                            "example": "Individual"
+                          },
+                          "mailingAddress": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "string",
+                                "example": "149-Weaver-Blvd,---264,-Weaverville,-NC-28787"
+                              },
+                              "formattedAddress": {
+                                "type": "string",
+                                "example": "149 Weaver Blvd, # 264, Weaverville, NC 28787"
+                              },
+                              "addressLine1": {
+                                "type": "string",
+                                "example": "149 Weaver Blvd"
+                              },
+                              "addressLine2": {
+                                "type": "string",
+                                "example": "# 264"
+                              },
+                              "city": {
+                                "type": "string",
+                                "example": "Weaverville"
+                              },
+                              "state": {
+                                "type": "string",
+                                "example": "NC"
+                              },
+                              "zipCode": {
+                                "type": "string",
+                                "example": "28787"
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "ownerOccupied": {
+                        "type": "boolean",
+                        "example": false,
+                        "default": true
                       }
-                    },
-                    "ownerOccupied": {
-                      "type": "boolean",
-                      "example": false,
-                      "default": true
                     }
                   }
                 }
